@@ -333,7 +333,7 @@ if (!ttclid) {
 }
 
 const apiVersion = '1.2';
-const postUrl = 'https://ads.tiktok.com/open_api/v' + apiVersion + '/pixel/track/';
+const postUrl = 'https://business-api.tiktok.com/open_api/v' + apiVersion + '/pixel/track/';
 let postBody = JSON.stringify(mapEvent(eventData, data));
 
 sendHttpRequest(postUrl, (statusCode, headers, body) => {
@@ -427,19 +427,19 @@ function addPropertiesData(eventData, mappedData) {
     if (eventData.query) customDataList.query = eventData.query;
 
     if (eventData.items && eventData.items[0]) {
-        customDataList.contents = {};
+        customDataList.contents = [];
 
         eventData.items.forEach((d,i) => {
             let item = {};
 
-            if (d.item_id) customDataList.content_id = d.item_id;
-            else if (d.id) customDataList.content_id = d.id;
+            if (d.item_id) item.content_id = d.item_id;
+            else if (d.id) item.content_id = d.id;
 
-            if (d.quantity) customDataList.quantity = d.quantity;
-            if (d.price) customDataList.price = d.price;
-            if (d.content_type) customDataList.content_type = d.content_type;
+            if (d.quantity) item.quantity = d.quantity;
+            if (d.price) item.price = d.price;
+            if (d.content_type) item.content_type = d.content_type;
 
-            customDataList.contents[i] = item;
+            customDataList.contents.push(item);
         });
     }
 
@@ -631,7 +631,7 @@ ___SERVER_PERMISSIONS___
             "listItem": [
               {
                 "type": 1,
-                "string": "https://ads.tiktok.com/"
+                "string": "https://business-api.tiktok.com/"
               }
             ]
           }
