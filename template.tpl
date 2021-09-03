@@ -427,19 +427,19 @@ function addPropertiesData(eventData, mappedData) {
     if (eventData.query) customDataList.query = eventData.query;
 
     if (eventData.items && eventData.items[0]) {
-        customDataList.contents = {};
+        customDataList.contents = [];
 
         eventData.items.forEach((d,i) => {
             let item = {};
 
-            if (d.item_id) customDataList.content_id = d.item_id;
-            else if (d.id) customDataList.content_id = d.id;
+            if (d.item_id) item.content_id = d.item_id;
+            else if (d.id) item.content_id = d.id;
 
-            if (d.quantity) customDataList.quantity = d.quantity;
-            if (d.price) customDataList.price = d.price;
-            if (d.content_type) customDataList.content_type = d.content_type;
+            if (d.quantity) item.quantity = d.quantity;
+            if (d.price) item.price = d.price;
+            if (d.content_type) item.content_type = d.content_type;
 
-            customDataList.contents[i] = item;
+            customDataList.contents.push(item);
         });
     }
 
