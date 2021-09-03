@@ -26,7 +26,7 @@ if (!ttclid) {
 }
 
 const apiVersion = '1.2';
-const postUrl = 'https://ads.tiktok.com/open_api/v' + apiVersion + '/pixel/track/';
+const postUrl = 'https://business-api.tiktok.com/open_api/v' + apiVersion + '/pixel/track/';
 let postBody = JSON.stringify(mapEvent(eventData, data));
 
 sendHttpRequest(postUrl, (statusCode, headers, body) => {
