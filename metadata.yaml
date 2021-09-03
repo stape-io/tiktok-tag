@@ -1,4 +1,6 @@
 homepage: "https://stape.io/"
 versions:
+  - sha: 6ed0040ae7fa9120b5da690ef11511ff0fc0e457
+    changeNotes: Updated TikTok hostname. Fixed bug with custom contents.
   - sha: 695f83276ca216a14ad862b402ca49894a7f717e
     changeNotes: Initial release.
