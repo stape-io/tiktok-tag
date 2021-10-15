@@ -74,7 +74,7 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Complete Payment"
       },
       {
-        "value": "PlaceOrder",
+        "value": "PlaceAnOrder",
         "displayValue": "Place an Order"
       },
       {
