@@ -1,7 +1,5 @@
-const encodeUriComponent = require('encodeUriComponent');
 const getAllEventData = require('getAllEventData');
 const JSON = require('JSON');
-const Math = require('Math');
 const sendHttpRequest = require('sendHttpRequest');
 const getTimestampMillis = require('getTimestampMillis');
 const setCookie = require('setCookie');
@@ -64,6 +62,10 @@ function mapEvent(eventData, data) {
 
     if (ttclid) {
         mappedData.context.ad = {"callback": ttclid};
+    }
+
+    if (data.testEventCode){
+        mappedData.test_event_code = data.testEventCode;
     }
 
     mappedData = addServerEventData(eventData, data, mappedData);
