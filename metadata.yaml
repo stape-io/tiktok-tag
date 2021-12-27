@@ -1,5 +1,7 @@
 homepage: "https://stape.io/"
 versions:
+  - sha: 338fb0a70e8fdaf120db57aececceedc2f59d0d1
+    changeNotes: Add Test Event Code.
   - sha: ba41579e690bc039f84264837aa6b8392e3bf5c7
     changeNotes: Fix PlaceAnOrder event name.
   - sha: 6ed0040ae7fa9120b5da690ef11511ff0fc0e457
