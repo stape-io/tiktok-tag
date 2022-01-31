@@ -13,7 +13,7 @@ const containerVersion = getContainerVersion();
 const isDebug = containerVersion.debugMode;
 const eventData = getAllEventData();
 
-let ttclid = getCookieValues('_ttclid')[0];
+let ttclid = getCookieValues('ttclid')[0];
 if (!ttclid) ttclid = eventData._ttclid;
 if (!ttclid) {
     let url = eventData.page_location;
