@@ -1,5 +1,7 @@
 homepage: "https://stape.io/"
 versions:
+  - sha: d2095a5436fea26dc5071655ccd1b26014acd104
+    changeNotes: Fix issue with the ttclid cookie. Add proper logging.
   - sha: 338fb0a70e8fdaf120db57aececceedc2f59d0d1
     changeNotes: Add Test Event Code.
   - sha: ba41579e690bc039f84264837aa6b8392e3bf5c7
