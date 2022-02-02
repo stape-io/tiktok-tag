@@ -306,6 +306,34 @@ ___TEMPLATE_PARAMETERS___
       }
     ],
     "help": "See \u003ca href\u003d\"https://ads.tiktok.com/marketing_api/docs?rid\u003d959icq5stjr\u0026id\u003d1701890979375106\" target\u003d\"_blank\"\u003ethis documentation\u003c/a\u003e for more details on what properties you can add to the event."
+  },
+  {
+    "type": "GROUP",
+    "name": "logsGroup",
+    "displayName": "Logs Settings",
+    "groupStyle": "ZIPPY_CLOSED",
+    "subParams": [
+      {
+        "type": "RADIO",
+        "name": "logType",
+        "displayName": "debug",
+        "radioItems": [
+          {
+            "value": "no",
+            "displayValue": "Do not log"
+          },
+          {
+            "value": "debug",
+            "displayValue": "Log to console during debug and preview"
+          },
+          {
+            "value": "always",
+            "displayValue": "Always log to console"
+          }
+        ],
+        "simpleValueType": true
+      }
+    ]
   }
 ]
 
@@ -322,13 +350,17 @@ const getContainerVersion = require('getContainerVersion');
 const logToConsole = require('logToConsole');
 const sha256Sync = require('sha256Sync');
 const makeString = require('makeString');
+const getRequestHeader = require('getRequestHeader');
 
 const containerVersion = getContainerVersion();
 const isDebug = containerVersion.debugMode;
+const isLoggingEnabled = determinateIsLoggingEnabled();
+const traceId = getRequestHeader('trace-id');
+
 const eventData = getAllEventData();
 
-let ttclid = getCookieValues('_ttclid')[0];
-if (!ttclid) ttclid = eventData._ttclid;
+let ttclid = getCookieValues('ttclid')[0];
+if (!ttclid) ttclid = eventData.ttclid;
 if (!ttclid) {
     let url = eventData.page_location;
 
@@ -339,12 +371,36 @@ if (!ttclid) {
 
 const apiVersion = '1.2';
 const postUrl = 'https://business-api.tiktok.com/open_api/v' + apiVersion + '/pixel/track/';
-let postBody = JSON.stringify(mapEvent(eventData, data));
+let postBody = mapEvent(eventData, data);
+
+if (isLoggingEnabled) {
+    logToConsole(JSON.stringify({
+        'Name': 'TikTok',
+        'Type': 'Request',
+        'TraceId': traceId,
+        'EventName': postBody.event,
+        'RequestMethod': 'POST',
+        'RequestUrl': postUrl,
+        'RequestBody': postBody,
+    }));
+}
 
 sendHttpRequest(postUrl, (statusCode, headers, body) => {
+    if (isLoggingEnabled) {
+        logToConsole(JSON.stringify({
+            'Name': 'TikTok',
+            'Type': 'Response',
+            'TraceId': traceId,
+            'EventName': postBody.event,
+            'ResponseStatusCode': statusCode,
+            'ResponseHeaders': headers,
+            'ResponseBody': body,
+        }));
+    }
+
     if (statusCode >= 200 && statusCode < 400) {
         if (ttclid) {
-            setCookie('_ttclid', ttclid, {
+            setCookie('ttclid', ttclid, {
                 domain: 'auto',
                 path: '/',
                 samesite: 'Lax',
@@ -358,7 +414,7 @@ sendHttpRequest(postUrl, (statusCode, headers, body) => {
     } else {
         data.gtmOnFailure();
     }
-}, {headers: {'Content-Type': 'application/json', 'Access-Token': data.accessToken}, method: 'POST', timeout: 3500}, postBody);
+}, {headers: {'Content-Type': 'application/json', 'Access-Token': data.accessToken}, method: 'POST', timeout: 3500}, JSON.stringify(postBody));
 
 function mapEvent(eventData, data) {
     let mappedData = {
@@ -386,10 +442,6 @@ function mapEvent(eventData, data) {
     mappedData = addUserData(eventData, mappedData);
     mappedData = addPropertiesData(eventData, mappedData);
     mappedData = hashDataIfNeeded(mappedData);
-
-    if (isDebug) {
-        logToConsole('TikTok mapped data: ', mappedData);
-    }
 
     return mappedData;
 }
@@ -525,6 +577,22 @@ function addServerEventData(eventData, data, mappedData) {
     return mappedData;
 }
 
+function determinateIsLoggingEnabled() {
+    if (!data.logType) {
+        return isDebug;
+    }
+
+    if (data.logType === 'no') {
+        return false;
+    }
+
+    if (data.logType === 'debug') {
+        return isDebug;
+    }
+
+    return data.logType === 'always';
+}
+
 
 ___SERVER_PERMISSIONS___
 
@@ -589,7 +657,7 @@ ___SERVER_PERMISSIONS___
                 "mapValue": [
                   {
                     "type": 1,
-                    "string": "_ttclid"
+                    "string": "ttclid"
                   },
                   {
                     "type": 1,
@@ -673,7 +741,7 @@ ___SERVER_PERMISSIONS___
             "listItem": [
               {
                 "type": 1,
-                "string": "_ttclid"
+                "string": "ttclid"
               }
             ]
           }
@@ -696,10 +764,13 @@ ___SERVER_PERMISSIONS___
           "key": "environments",
           "value": {
             "type": 1,
-            "string": "debug"
+            "string": "all"
           }
         }
       ]
+    },
+    "clientAnnotations": {
+      "isEditedByUser": true
     },
     "isRequired": true
   },
@@ -710,6 +781,71 @@ ___SERVER_PERMISSIONS___
         "versionId": "1"
       },
       "param": []
+    },
+    "isRequired": true
+  },
+  {
+    "instance": {
+      "key": {
+        "publicId": "read_request",
+        "versionId": "1"
+      },
+      "param": [
+        {
+          "key": "headerWhitelist",
+          "value": {
+            "type": 2,
+            "listItem": [
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "headerName"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "trace-id"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "key": "headersAllowed",
+          "value": {
+            "type": 8,
+            "boolean": true
+          }
+        },
+        {
+          "key": "requestAccess",
+          "value": {
+            "type": 1,
+            "string": "specific"
+          }
+        },
+        {
+          "key": "headerAccess",
+          "value": {
+            "type": 1,
+            "string": "specific"
+          }
+        },
+        {
+          "key": "queryParameterAccess",
+          "value": {
+            "type": 1,
+            "string": "any"
+          }
+        }
+      ]
+    },
+    "clientAnnotations": {
+      "isEditedByUser": true
     },
     "isRequired": true
   }

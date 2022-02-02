@@ -8,13 +8,17 @@ const getContainerVersion = require('getContainerVersion');
 const logToConsole = require('logToConsole');
 const sha256Sync = require('sha256Sync');
 const makeString = require('makeString');
+const getRequestHeader = require('getRequestHeader');
 
 const containerVersion = getContainerVersion();
 const isDebug = containerVersion.debugMode;
+const isLoggingEnabled = determinateIsLoggingEnabled();
+const traceId = getRequestHeader('trace-id');
+
 const eventData = getAllEventData();
 
-let ttclid = getCookieValues('_ttclid')[0];
-if (!ttclid) ttclid = eventData._ttclid;
+let ttclid = getCookieValues('ttclid')[0];
+if (!ttclid) ttclid = eventData.ttclid;
 if (!ttclid) {
     let url = eventData.page_location;
 
@@ -25,12 +29,36 @@ if (!ttclid) {
 
 const apiVersion = '1.2';
 const postUrl = 'https://business-api.tiktok.com/open_api/v' + apiVersion + '/pixel/track/';
-let postBody = JSON.stringify(mapEvent(eventData, data));
+let postBody = mapEvent(eventData, data);
+
+if (isLoggingEnabled) {
+    logToConsole(JSON.stringify({
+        'Name': 'TikTok',
+        'Type': 'Request',
+        'TraceId': traceId,
+        'EventName': postBody.event,
+        'RequestMethod': 'POST',
+        'RequestUrl': postUrl,
+        'RequestBody': postBody,
+    }));
+}
 
 sendHttpRequest(postUrl, (statusCode, headers, body) => {
+    if (isLoggingEnabled) {
+        logToConsole(JSON.stringify({
+            'Name': 'TikTok',
+            'Type': 'Response',
+            'TraceId': traceId,
+            'EventName': postBody.event,
+            'ResponseStatusCode': statusCode,
+            'ResponseHeaders': headers,
+            'ResponseBody': body,
+        }));
+    }
+
     if (statusCode >= 200 && statusCode < 400) {
         if (ttclid) {
-            setCookie('_ttclid', ttclid, {
+            setCookie('ttclid', ttclid, {
                 domain: 'auto',
                 path: '/',
                 samesite: 'Lax',
@@ -44,7 +72,7 @@ sendHttpRequest(postUrl, (statusCode, headers, body) => {
     } else {
         data.gtmOnFailure();
     }
-}, {headers: {'Content-Type': 'application/json', 'Access-Token': data.accessToken}, method: 'POST', timeout: 3500}, postBody);
+}, {headers: {'Content-Type': 'application/json', 'Access-Token': data.accessToken}, method: 'POST', timeout: 3500}, JSON.stringify(postBody));
 
 function mapEvent(eventData, data) {
     let mappedData = {
@@ -72,10 +100,6 @@ function mapEvent(eventData, data) {
     mappedData = addUserData(eventData, mappedData);
     mappedData = addPropertiesData(eventData, mappedData);
     mappedData = hashDataIfNeeded(mappedData);
-
-    if (isDebug) {
-        logToConsole('TikTok mapped data: ', mappedData);
-    }
 
     return mappedData;
 }
@@ -209,4 +233,20 @@ function addServerEventData(eventData, data, mappedData) {
     }
 
     return mappedData;
+}
+
+function determinateIsLoggingEnabled() {
+    if (!data.logType) {
+        return isDebug;
+    }
+
+    if (data.logType === 'no') {
+        return false;
+    }
+
+    if (data.logType === 'debug') {
+        return isDebug;
+    }
+
+    return data.logType === 'always';
 }
