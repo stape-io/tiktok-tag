@@ -557,7 +557,9 @@ function addUserData(eventData, mappedData) {
 function addServerEventData(eventData, data, mappedData) {
     let serverEventDataList = {};
 
-    if (eventData.transaction_id) serverEventDataList.event_id = eventData.transaction_id;
+    if (eventData.event_id) serverEventDataList.event_id = eventData.event_id;
+    else if (eventData.transaction_id) serverEventDataList.event_id = eventData.transaction_id;
+
     if (eventData.page_referrer) serverEventDataList.referrer = eventData.page_referrer;
 
     if (data.serverEventDataList) {
