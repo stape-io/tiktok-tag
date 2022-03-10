@@ -9,6 +9,8 @@ const logToConsole = require('logToConsole');
 const sha256Sync = require('sha256Sync');
 const makeString = require('makeString');
 const getRequestHeader = require('getRequestHeader');
+const parseUrl = require('parseUrl');
+const decodeUriComponent = require('decodeUriComponent');
 
 const containerVersion = getContainerVersion();
 const isDebug = containerVersion.debugMode;
@@ -16,14 +18,16 @@ const isLoggingEnabled = determinateIsLoggingEnabled();
 const traceId = getRequestHeader('trace-id');
 
 const eventData = getAllEventData();
+const url = eventData.page_location || getRequestHeader('referer');
 
 let ttclid = getCookieValues('ttclid')[0];
 if (!ttclid) ttclid = eventData.ttclid;
-if (!ttclid) {
-    let url = eventData.page_location;
 
-    if (url && url.indexOf('ttclid=') !== -1) {
-        ttclid = url.split('ttclid=')[1].split('&')[0];
+if (url) {
+    const urlParsed = parseUrl(url);
+
+    if (urlParsed && urlParsed.searchParams.ttclid) {
+        ttclid = decodeUriComponent(urlParsed.searchParams.ttclid);
     }
 }
 
