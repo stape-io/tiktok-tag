@@ -109,7 +109,7 @@ function mapEvent(eventData, data) {
 }
 
 function isHashed(value) {
-    return value.match('^[A-Fa-f0-9]{64}$') !== null;
+    return makeString(value).match('^[A-Fa-f0-9]{64}$') !== null;
 }
 
 
@@ -122,7 +122,7 @@ function hashData(value) {
         return value;
     }
 
-    return sha256Sync(value.trim().toLowerCase(), {outputEncoding: 'hex'});
+    return sha256Sync(makeString(value).trim().toLowerCase(), {outputEncoding: 'hex'});
 }
 
 
