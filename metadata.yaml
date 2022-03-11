@@ -1,5 +1,7 @@
 homepage: "https://stape.io/"
 versions:
+  - sha: 32be841e15aeb031a5b60e1f8ef4d432b114b71a
+    changeNotes: Fix issue with integer phone number.
   - sha: b501360026a4d4129e7a6770bc5d18fc2513d22a
     changeNotes: Add extend event_id support.
   - sha: d2095a5436fea26dc5071655ccd1b26014acd104
