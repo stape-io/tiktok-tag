@@ -37,76 +37,108 @@ ___TEMPLATE_PARAMETERS___
 
 [
   {
-    "type": "SELECT",
-    "name": "eventName",
-    "macrosInSelect": false,
-    "selectItems": [
+    "type": "RADIO",
+    "name": "eventType",
+    "displayName": "Event Name Setup Method",
+    "radioItems": [
       {
-        "value": "ViewContent",
-        "displayValue": "View Content"
+        "value": "standard",
+        "displayValue": "Standard",
+        "subParams": [
+          {
+            "type": "SELECT",
+            "name": "eventName",
+            "macrosInSelect": false,
+            "selectItems": [
+              {
+                "value": "ViewContent",
+                "displayValue": "View Content"
+              },
+              {
+                "value": "ClickButton",
+                "displayValue": "Click Button"
+              },
+              {
+                "value": "Search",
+                "displayValue": "Search"
+              },
+              {
+                "value": "AddToWishlist",
+                "displayValue": "Add to Wishlist"
+              },
+              {
+                "value": "AddToCart",
+                "displayValue": "Add to Cart"
+              },
+              {
+                "value": "InitiateCheckout",
+                "displayValue": "Initiate Checkout"
+              },
+              {
+                "value": "AddPaymentInfo",
+                "displayValue": "Add Payment Info"
+              },
+              {
+                "value": "CompletePayment",
+                "displayValue": "Complete Payment"
+              },
+              {
+                "value": "PlaceAnOrder",
+                "displayValue": "Place an Order"
+              },
+              {
+                "value": "Contact",
+                "displayValue": "Contact"
+              },
+              {
+                "value": "Download",
+                "displayValue": "Download"
+              },
+              {
+                "value": "SubmitForm",
+                "displayValue": "Submit Form"
+              },
+              {
+                "value": "CompleteRegistration",
+                "displayValue": "Complete Registration"
+              },
+              {
+                "value": "Subscribe",
+                "displayValue": "Subscribe"
+              }
+            ],
+            "simpleValueType": true,
+            "alwaysInSummary": true,
+            "valueValidators": [
+              {
+                "type": "NON_EMPTY"
+              }
+            ],
+            "displayName": "Event Name",
+            "defaultValue": "ViewContent"
+          }
+        ]
       },
       {
-        "value": "ClickButton",
-        "displayValue": "Click Button"
+        "value": "inherit",
+        "subParams": [],
+        "displayValue": "Inherit from client"
       },
       {
-        "value": "Search",
-        "displayValue": "Search"
-      },
-      {
-        "value": "AddToWishlist",
-        "displayValue": "Add to Wishlist"
-      },
-      {
-        "value": "AddToCart",
-        "displayValue": "Add to Cart"
-      },
-      {
-        "value": "InitiateCheckout",
-        "displayValue": "Initiate Checkout"
-      },
-      {
-        "value": "AddPaymentInfo",
-        "displayValue": "Add Payment Info"
-      },
-      {
-        "value": "CompletePayment",
-        "displayValue": "Complete Payment"
-      },
-      {
-        "value": "PlaceAnOrder",
-        "displayValue": "Place an Order"
-      },
-      {
-        "value": "Contact",
-        "displayValue": "Contact"
-      },
-      {
-        "value": "Download",
-        "displayValue": "Download"
-      },
-      {
-        "value": "SubmitForm",
-        "displayValue": "Submit Form"
-      },
-      {
-        "value": "CompleteRegistration",
-        "displayValue": "Complete Registration"
-      },
-      {
-        "value": "Subscribe",
-        "displayValue": "Subscribe"
+        "value": "custom",
+        "subParams": [
+          {
+            "type": "TEXT",
+            "name": "eventNameCustom",
+            "displayName": "",
+            "simpleValueType": true
+          }
+        ],
+        "displayValue": "Custom"
       }
     ],
     "simpleValueType": true,
-    "alwaysInSummary": true,
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ],
-    "displayName": "Event Name",
-    "defaultValue": "ViewContent"
+    "defaultValue": "standard"
   },
   {
     "type": "TEXT",
@@ -353,6 +385,7 @@ const makeString = require('makeString');
 const getRequestHeader = require('getRequestHeader');
 const parseUrl = require('parseUrl');
 const decodeUriComponent = require('decodeUriComponent');
+const getType = require('getType');
 
 const containerVersion = getContainerVersion();
 const isDebug = containerVersion.debugMode;
@@ -418,19 +451,19 @@ sendHttpRequest(postUrl, (statusCode, headers, body) => {
     } else {
         data.gtmOnFailure();
     }
-}, {headers: {'Content-Type': 'application/json', 'Access-Token': data.accessToken}, method: 'POST', timeout: 3500}, JSON.stringify(postBody));
+}, {headers: {'Content-Type': 'application/json', 'Access-Token': data.accessToken}, method: 'POST'}, JSON.stringify(postBody));
 
 function mapEvent(eventData, data) {
     let mappedData = {
         "pixel_code": data.pixelId,
-        "event": data.eventName,
+        "event": getEventName(eventData, data),
         "timestamp": makeString(getTimestampMillis()),
         "context": {
             "page": {
                 "url": eventData.page_location
             },
             "user_agent": eventData.user_agent,
-            "ip": eventData.ip_override
+            "ip": eventData.ip_override || eventData.ip_adress || eventData.ip,
         }
     };
 
@@ -451,13 +484,28 @@ function mapEvent(eventData, data) {
 }
 
 function isHashed(value) {
+    if (!value) {
+        return false;
+    }
+
     return makeString(value).match('^[A-Fa-f0-9]{64}$') !== null;
 }
-
 
 function hashData(value) {
     if (!value) {
         return value;
+    }
+
+    const type = getType(value);
+
+    if (type === 'undefined' || value === 'undefined') {
+        return undefined;
+    }
+
+    if (type === 'object') {
+        return value.map(val => {
+            return hashData(val);
+        });
     }
 
     if (isHashed(value)) {
@@ -500,9 +548,11 @@ function addPropertiesData(eventData, mappedData) {
             if (d.item_id) item.content_id = d.item_id;
             else if (d.id) item.content_id = d.id;
 
+            if (d.content_type) item.content_type = d.content_type;
+            else if (d.item_category) item.content_type = d.item_category;
+
             if (d.quantity) item.quantity = d.quantity;
             if (d.price) item.price = d.price;
-            if (d.content_type) item.content_type = d.content_type;
 
             customDataList.contents.push(item);
         });
@@ -581,6 +631,50 @@ function addServerEventData(eventData, data, mappedData) {
     }
 
     return mappedData;
+}
+
+
+function getEventName(eventData, data) {
+    if (data.eventType === 'inherit') {
+        let eventName = eventData.event_name;
+
+        let gaToEventName = {
+            'page_view': 'PageView',
+            "click": "ClickButton",
+            "download": "Download",
+            "file_download": "Download",
+            "complete_registration": "CompleteRegistration",
+            "gtm.dom": "PageView",
+            'add_payment_info': 'AddPaymentInfo',
+            'add_to_cart': 'AddToCart',
+            'add_to_wishlist': 'AddToWishlist',
+            'sign_up': 'CompleteRegistration',
+            'begin_checkout': 'InitiateCheckout',
+            'generate_lead': 'SubmitForm',
+            'purchase': 'PlaceAnOrder',
+            'search': 'Search',
+            'view_item': 'ViewContent',
+
+            'contact': 'Contact',
+            'find_location': 'Search',
+            'submit_application': 'Subscribe',
+            'subscribe': 'Subscribe',
+
+            'gtm4wp.addProductToCartEEC': 'AddToCart',
+            'gtm4wp.productClickEEC': 'ViewContent',
+            'gtm4wp.checkoutOptionEEC': 'InitiateCheckout',
+            'gtm4wp.checkoutStepEEC': 'AddPaymentInfo',
+            'gtm4wp.orderCompletedEEC': 'PlaceAnOrder'
+        };
+
+        if (!gaToEventName[eventName]) {
+            return eventName;
+        }
+
+        return gaToEventName[eventName];
+    }
+
+    return data.eventType === 'standard' ? data.eventName : data.eventNameCustom;
 }
 
 function determinateIsLoggingEnabled() {
