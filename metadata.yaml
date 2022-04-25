@@ -1,5 +1,7 @@
 homepage: "https://stape.io/"
 versions:
+  - sha: 004b864cb8be96cf3c2e52ed6f1abd032060abef
+    changeNotes: Update custom events determination.
   - sha: 75fd330b07f62bd00a94f5cdd381e43c0d090724
     changeNotes: Add inherit event option.
   - sha: 32be841e15aeb031a5b60e1f8ef4d432b114b71a
