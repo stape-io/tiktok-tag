@@ -674,7 +674,7 @@ function getEventName(eventData, data) {
         return gaToEventName[eventName];
     }
 
-    return data.eventType === 'standard' ? data.eventName : data.eventNameCustom;
+    return data.eventType === 'custom' ? data.eventNameCustom : data.eventName;
 }
 
 function determinateIsLoggingEnabled() {
