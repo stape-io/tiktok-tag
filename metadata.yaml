@@ -1,5 +1,7 @@
 homepage: "https://stape.io/"
 versions:
+  - sha: d37db28cd1e8d74f9e83bf01c062561b0c982cc2
+    changeNotes: Update content_type determination.
   - sha: 004b864cb8be96cf3c2e52ed6f1abd032060abef
     changeNotes: Update custom events determination.
   - sha: 75fd330b07f62bd00a94f5cdd381e43c0d090724
