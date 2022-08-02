@@ -175,7 +175,7 @@ function addPropertiesData(eventData, mappedData) {
             else if (d.id) item.content_id = d.id;
 
             if (d.content_type) item.content_type = d.content_type;
-            else if (d.item_category) item.content_type = d.item_category;
+            else item.content_type = 'product';
 
             if (d.quantity) item.quantity = d.quantity;
             if (d.price) item.price = d.price;
