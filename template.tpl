@@ -267,6 +267,10 @@ ___TEMPLATE_PARAMETERS___
               {
                 "value": "ttclid",
                 "displayValue": "ttclid"
+              },
+              {
+                "value": "ttp",
+                "displayValue": "ttp"
               }
             ]
           },
@@ -375,7 +379,6 @@ ___SANDBOXED_JS_FOR_SERVER___
 const getAllEventData = require('getAllEventData');
 const JSON = require('JSON');
 const sendHttpRequest = require('sendHttpRequest');
-const getTimestampMillis = require('getTimestampMillis');
 const setCookie = require('setCookie');
 const getCookieValues = require('getCookieValues');
 const getContainerVersion = require('getContainerVersion');
@@ -387,16 +390,17 @@ const parseUrl = require('parseUrl');
 const decodeUriComponent = require('decodeUriComponent');
 const getType = require('getType');
 
-const containerVersion = getContainerVersion();
-const isDebug = containerVersion.debugMode;
 const isLoggingEnabled = determinateIsLoggingEnabled();
-const traceId = getRequestHeader('trace-id');
+const traceId = isLoggingEnabled ? getRequestHeader('trace-id') : undefined;
 
 const eventData = getAllEventData();
 const url = eventData.page_location || getRequestHeader('referer');
 
 let ttclid = getCookieValues('ttclid')[0];
 if (!ttclid) ttclid = eventData.ttclid;
+
+let ttp = getCookieValues('_ttp')[0];
+if (!ttp) ttp = eventData['_ttp'];
 
 if (url) {
     const urlParsed = parseUrl(url);
@@ -406,7 +410,7 @@ if (url) {
     }
 }
 
-const apiVersion = '1.2';
+const apiVersion = '1.3';
 const postUrl = 'https://business-api.tiktok.com/open_api/v' + apiVersion + '/pixel/track/';
 let postBody = mapEvent(eventData, data);
 
@@ -447,6 +451,17 @@ sendHttpRequest(postUrl, (statusCode, headers, body) => {
             });
         }
 
+        if (ttp) {
+            setCookie('_ttp', ttp, {
+                domain: 'auto',
+                path: '/',
+                samesite: 'Lax',
+                secure: true,
+                'max-age': 34190000, // 13 months
+                httpOnly: false
+            });
+        }
+
         data.gtmOnSuccess();
     } else {
         data.gtmOnFailure();
@@ -457,7 +472,6 @@ function mapEvent(eventData, data) {
     let mappedData = {
         "pixel_code": data.pixelId,
         "event": getEventName(eventData, data),
-        "timestamp": makeString(getTimestampMillis()),
         "context": {
             "page": {
                 "url": eventData.page_location
@@ -602,7 +616,10 @@ function addUserData(eventData, mappedData) {
         if (userDataList.external_id) mappedData.context.user.external_id = userDataList.external_id;
         if (userDataList.phone_number) mappedData.context.user.phone_number = userDataList.phone_number;
         if (userDataList.email) mappedData.context.user.email = userDataList.email;
+        if (userDataList.ttp) ttp = userDataList.ttp;
     }
+
+    mappedData.context.user.ttp = ttp;
 
     return mappedData;
 }
@@ -678,6 +695,12 @@ function getEventName(eventData, data) {
 }
 
 function determinateIsLoggingEnabled() {
+    const containerVersion = getContainerVersion();
+    const isDebug = !!(
+        containerVersion &&
+        (containerVersion.debugMode || containerVersion.previewMode)
+    );
+
     if (!data.logType) {
         return isDebug;
     }
@@ -776,6 +799,53 @@ ___SERVER_PERMISSIONS___
                     "string": "any"
                   }
                 ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "name"
+                  },
+                  {
+                    "type": 1,
+                    "string": "domain"
+                  },
+                  {
+                    "type": 1,
+                    "string": "path"
+                  },
+                  {
+                    "type": 1,
+                    "string": "secure"
+                  },
+                  {
+                    "type": 1,
+                    "string": "session"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "_ttp"
+                  },
+                  {
+                    "type": 1,
+                    "string": "*"
+                  },
+                  {
+                    "type": 1,
+                    "string": "*"
+                  },
+                  {
+                    "type": 1,
+                    "string": "any"
+                  },
+                  {
+                    "type": 1,
+                    "string": "any"
+                  }
+                ]
               }
             ]
           }
@@ -842,6 +912,10 @@ ___SERVER_PERMISSIONS___
               {
                 "type": 1,
                 "string": "ttclid"
+              },
+              {
+                "type": 1,
+                "string": "_ttp"
               }
             ]
           }
