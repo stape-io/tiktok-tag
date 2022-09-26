@@ -1,5 +1,7 @@
 homepage: "https://stape.io/"
 versions:
+  - sha: 33063104d3302c5722fde8bd0fec6cd797674467
+    changeNotes: Update to support new API.
   - sha: d37db28cd1e8d74f9e83bf01c062561b0c982cc2
     changeNotes: Update content_type determination.
   - sha: 004b864cb8be96cf3c2e52ed6f1abd032060abef
