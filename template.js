@@ -94,6 +94,7 @@ function mapEvent(eventData, data) {
     let mappedData = {
         "pixel_code": data.pixelId,
         "event": getEventName(eventData, data),
+        "timestamp": "",
         "context": {
             "page": {
                 "url": eventData.page_location
