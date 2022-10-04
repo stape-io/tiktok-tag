@@ -1,5 +1,7 @@
 homepage: "https://stape.io/"
 versions:
+  - sha: b8b7e4ae85ae2d324efc95d46ed6e149cbeae646
+    changeNotes: Fix timestamp warning.
   - sha: 33063104d3302c5722fde8bd0fec6cd797674467
     changeNotes: Update to support new API.
   - sha: d37db28cd1e8d74f9e83bf01c062561b0c982cc2
