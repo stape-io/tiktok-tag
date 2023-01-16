@@ -617,18 +617,12 @@ function addPropertiesData(eventData, mappedData) {
 
 function addUserData(eventData, mappedData) {
   let userDataList = {};
+  const userData = eventData.user_data || {};
 
-  if (eventData.external_id) userDataList.external_id = eventData.external_id;
-  else if (eventData.user_id) userDataList.external_id = eventData.user_id;
-  else if (eventData.userId) userDataList.external_id = eventData.userId;
-
-  if (eventData.email) userDataList.email = eventData.email;
-  else if (eventData.user_data && eventData.user_data.email_address)
-    userDataList.email = eventData.user_data.email_address;
-
-  if (eventData.phone) userDataList.phone_number = eventData.phone;
-  else if (eventData.user_data && eventData.user_data.phone_number)
-    userDataList.phone_number = eventData.user_data.phone_number;
+  userDataList.external_id =
+    eventData.external_id || eventData.user_id || eventData.userId;
+  userDataList.email = eventData.email || userData.email_address;
+  userDataList.phone_number = eventData.phone || userData.phone_number;
 
   if (data.userDataList) {
     data.userDataList.forEach((d) => {
@@ -636,18 +630,16 @@ function addUserData(eventData, mappedData) {
     });
   }
 
-  if (userDataList) {
-    mappedData.context.user = {};
+  mappedData.context.user = {};
 
-    if (userDataList.external_id)
-      mappedData.context.user.external_id = userDataList.external_id;
-    if (userDataList.phone_number)
-      mappedData.context.user.phone_number = userDataList.phone_number;
-    if (userDataList.email) mappedData.context.user.email = userDataList.email;
-    if (userDataList.ttp) ttp = userDataList.ttp;
-  }
+  if (userDataList.external_id)
+    mappedData.context.user.external_id = userDataList.external_id;
+  if (userDataList.phone_number)
+    mappedData.context.user.phone_number = userDataList.phone_number;
+  if (userDataList.email) mappedData.context.user.email = userDataList.email;
+  if (userDataList.ip) mappedData.context.ip = userDataList.ip;
 
-  mappedData.context.user.ttp = ttp;
+  mappedData.context.user.ttp = userDataList.ttp || ttp;
 
   return mappedData;
 }
