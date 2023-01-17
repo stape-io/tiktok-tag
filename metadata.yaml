@@ -1,5 +1,7 @@
 homepage: "https://stape.io/"
 versions:
+  - sha: 619913e3daa3031dfd8b5f289d8c2e6e92d3290b
+    changeNotes: Fix client ip address.
   - sha: b8b7e4ae85ae2d324efc95d46ed6e149cbeae646
     changeNotes: Fix timestamp warning.
   - sha: 33063104d3302c5722fde8bd0fec6cd797674467
