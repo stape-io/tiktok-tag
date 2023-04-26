@@ -1,5 +1,7 @@
 homepage: "https://stape.io/"
 versions:
+  - sha: f8977e10e0be8c599cdadde77bb8e2af3e972946
+    changeNotes: Fix hashed data keys.
   - sha: 619913e3daa3031dfd8b5f289d8c2e6e92d3290b
     changeNotes: Fix client ip address.
   - sha: b8b7e4ae85ae2d324efc95d46ed6e149cbeae646
