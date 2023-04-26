@@ -550,11 +550,22 @@ function hashData(value) {
 
 function hashDataIfNeeded(mappedData) {
   if (mappedData.context.user) {
+    const hashedUser = {};
+    const hashedKeysMap = {
+      external_id: 'external_id',
+      phone_number: 'sha256_phone_number',
+      email: 'sha256_email',
+    };
     for (let key in mappedData.context.user) {
-      if (key === 'external_id' || key === 'phone_number' || key === 'email') {
-        mappedData.context.user[key] = hashData(mappedData.context.user[key]);
+      const hashedKey = hashedKeysMap[key];
+      const value = mappedData.context.user[key];
+      if (hashedKey) {
+        hashedUser[hashedKey] = hashData(value);
+      } else {
+        hashedUser[key] = value;
       }
     }
+    mappedData.context.user = hashedUser;
   }
 
   return mappedData;
