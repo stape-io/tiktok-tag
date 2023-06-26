@@ -51,6 +51,28 @@ if (isLoggingEnabled) {
   );
 }
 
+if (ttclid) {
+  setCookie('ttclid', ttclid, {
+    domain: 'auto',
+    path: '/',
+    samesite: 'Lax',
+    secure: true,
+    'max-age': 2592000, // 30 days
+    httpOnly: false,
+  });
+}
+
+if (ttp) {
+  setCookie('_ttp', ttp, {
+    domain: 'auto',
+    path: '/',
+    samesite: 'Lax',
+    secure: true,
+    'max-age': 34190000, // 13 months
+    httpOnly: false,
+  });
+}
+
 sendHttpRequest(
   postUrl,
   (statusCode, headers, body) => {
@@ -67,33 +89,12 @@ sendHttpRequest(
         })
       );
     }
-
-    if (statusCode >= 200 && statusCode < 400) {
-      if (ttclid) {
-        setCookie('ttclid', ttclid, {
-          domain: 'auto',
-          path: '/',
-          samesite: 'Lax',
-          secure: true,
-          'max-age': 2592000, // 30 days
-          httpOnly: false,
-        });
+    if (!data.useOptimisticScenario) {
+      if (statusCode >= 200 && statusCode < 400) {
+        data.gtmOnSuccess();
+      } else {
+        data.gtmOnFailure();
       }
-
-      if (ttp) {
-        setCookie('_ttp', ttp, {
-          domain: 'auto',
-          path: '/',
-          samesite: 'Lax',
-          secure: true,
-          'max-age': 34190000, // 13 months
-          httpOnly: false,
-        });
-      }
-
-      data.gtmOnSuccess();
-    } else {
-      data.gtmOnFailure();
     }
   },
   {

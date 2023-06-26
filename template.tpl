@@ -172,6 +172,13 @@ ___TEMPLATE_PARAMETERS___
     "help": "If you want to test event tracking, you can use this field to specify a test code. If the event is received on TikTok side, this test code will display in the Test Events tab of the Pixel in TikTok Ads Manager."
   },
   {
+    "type": "CHECKBOX",
+    "name": "useOptimisticScenario",
+    "checkboxText": "Use Optimistic Scenario",
+    "simpleValueType": true,
+    "help": "The tag will call gtmOnSuccess() without waiting for a response from the API"
+  },
+  {
     "displayName": "Server Event Data Override",
     "name": "serverEventDataListGroup",
     "groupStyle": "ZIPPY_CLOSED",
@@ -429,6 +436,28 @@ if (isLoggingEnabled) {
   );
 }
 
+if (ttclid) {
+  setCookie('ttclid', ttclid, {
+    domain: 'auto',
+    path: '/',
+    samesite: 'Lax',
+    secure: true,
+    'max-age': 2592000, // 30 days
+    httpOnly: false,
+  });
+}
+
+if (ttp) {
+  setCookie('_ttp', ttp, {
+    domain: 'auto',
+    path: '/',
+    samesite: 'Lax',
+    secure: true,
+    'max-age': 34190000, // 13 months
+    httpOnly: false,
+  });
+}
+
 sendHttpRequest(
   postUrl,
   (statusCode, headers, body) => {
@@ -445,33 +474,12 @@ sendHttpRequest(
         })
       );
     }
-
-    if (statusCode >= 200 && statusCode < 400) {
-      if (ttclid) {
-        setCookie('ttclid', ttclid, {
-          domain: 'auto',
-          path: '/',
-          samesite: 'Lax',
-          secure: true,
-          'max-age': 2592000, // 30 days
-          httpOnly: false,
-        });
+    if (!data.useOptimisticScenario) {
+      if (statusCode >= 200 && statusCode < 400) {
+        data.gtmOnSuccess();
+      } else {
+        data.gtmOnFailure();
       }
-
-      if (ttp) {
-        setCookie('_ttp', ttp, {
-          domain: 'auto',
-          path: '/',
-          samesite: 'Lax',
-          secure: true,
-          'max-age': 34190000, // 13 months
-          httpOnly: false,
-        });
-      }
-
-      data.gtmOnSuccess();
-    } else {
-      data.gtmOnFailure();
     }
   },
   {
