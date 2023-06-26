@@ -1,5 +1,7 @@
 homepage: "https://stape.io/"
 versions:
+  - sha: 91258477ef88484c631787e5df6ed200dfa9565d
+    changeNotes: Add ability to use optimistic scenario.
   - sha: d3978a54d735c8e347a7ee27160c70a0283a8e2a
     changeNotes: Revert "Fix hashed data keys."
   - sha: f8977e10e0be8c599cdadde77bb8e2af3e972946
