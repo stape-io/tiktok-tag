@@ -141,6 +141,27 @@ ___TEMPLATE_PARAMETERS___
     "defaultValue": "standard"
   },
   {
+    "type": "SELECT",
+    "name": "eventSource",
+    "displayName": "Event Source",
+    "selectItems": [
+      {
+        "value": "web",
+        "displayValue": "Web"
+      },
+      {
+        "value": "app",
+        "displayValue": "App"
+      },
+      {
+        "value": "offline",
+        "displayValue": "Offline"
+      }
+    ],
+    "simpleValueType": true,
+    "defaultValue": "web"
+  },
+  {
     "type": "TEXT",
     "name": "accessToken",
     "displayName": "Access Token",
@@ -166,6 +187,24 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "appId",
+    "displayName": "Mobile App ID",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "eventSource",
+        "paramValue": "app",
+        "type": "EQUALS"
+      }
+    ],
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
     "name": "testEventCode",
     "displayName": "Test Event Code",
     "simpleValueType": true,
@@ -179,13 +218,95 @@ ___TEMPLATE_PARAMETERS___
     "help": "The tag will call gtmOnSuccess() without waiting for a response from the API"
   },
   {
-    "displayName": "Server Event Data Override",
-    "name": "serverEventDataListGroup",
+    "displayName": "Common Event Data Override",
+    "name": "commonEventDataListGroup",
     "groupStyle": "ZIPPY_CLOSED",
     "type": "GROUP",
     "subParams": [
       {
-        "name": "serverEventDataList",
+        "type": "TEXT",
+        "name": "eventId",
+        "displayName": "Event ID",
+        "simpleValueType": true
+      },
+      {
+        "type": "TEXT",
+        "name": "eventTime",
+        "displayName": "Event Time",
+        "simpleValueType": true
+      },
+      {
+        "type": "CHECKBOX",
+        "name": "limitedDataUse",
+        "checkboxText": "Limited Data Use",
+        "simpleValueType": true,
+        "help": "To learn more about the Limited Data Use feature, refer to \u003ca href\u003d\"https://ads.tiktok.com/marketing_api/docs?id\u003d1771101204435970\" target\u003d\"_blank\"\u003eEvents API 2.0 - Limited Data Use\u003c/a\u003e.",
+        "defaultValue": false
+      }
+    ]
+  },
+  {
+    "type": "GROUP",
+    "name": "pageDataListGroup",
+    "displayName": "Page Data",
+    "groupStyle": "ZIPPY_CLOSED",
+    "subParams": [
+      {
+        "type": "TEXT",
+        "name": "pageLocation",
+        "displayName": "Page Location",
+        "simpleValueType": true
+      },
+      {
+        "type": "TEXT",
+        "name": "pageReferrer",
+        "displayName": "Page Referrer",
+        "simpleValueType": true
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "eventSource",
+        "paramValue": "web",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "GROUP",
+    "name": "appDataListGroup",
+    "displayName": "App Data",
+    "groupStyle": "ZIPPY_CLOSED",
+    "subParams": [
+      {
+        "type": "TEXT",
+        "name": "appName",
+        "displayName": "Application name",
+        "simpleValueType": true
+      },
+      {
+        "type": "TEXT",
+        "name": "appVersion",
+        "displayName": "App version number",
+        "simpleValueType": true
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "eventSource",
+        "paramValue": "app",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "displayName": "Ad Data",
+    "name": "adDataListGroup",
+    "groupStyle": "ZIPPY_CLOSED",
+    "type": "GROUP",
+    "subParams": [
+      {
+        "name": "adDataList",
         "simpleTableColumns": [
           {
             "valueValidators": [
@@ -193,27 +314,43 @@ ___TEMPLATE_PARAMETERS___
                 "type": "NON_EMPTY"
               }
             ],
-            "defaultValue": "event_id",
+            "defaultValue": "ad_id",
             "displayName": "Property Name",
             "name": "name",
             "isUnique": true,
             "type": "SELECT",
             "selectItems": [
               {
-                "value": "timestamp",
-                "displayValue": "Timestamp"
+                "value": "callback",
+                "displayValue": "Callback"
               },
               {
-                "value": "event_id",
-                "displayValue": "Event ID"
+                "value": "campaign_id",
+                "displayValue": "Campaign ID"
               },
               {
-                "value": "url",
-                "displayValue": "Url"
+                "value": "ad_id",
+                "displayValue": "Ad ID"
               },
               {
-                "value": "referrer",
-                "displayValue": "Referrer"
+                "value": "creative_id",
+                "displayValue": "Creative ID"
+              },
+              {
+                "value": "is_retargeting",
+                "displayValue": "Is Retargeting"
+              },
+              {
+                "value": "attributed",
+                "displayValue": "Attributed"
+              },
+              {
+                "value": "attribution_type",
+                "displayValue": "Attribution Type"
+              },
+              {
+                "value": "attribution_provider",
+                "displayValue": "Attribution Provider"
               }
             ]
           },
@@ -228,7 +365,13 @@ ___TEMPLATE_PARAMETERS___
         "newRowButtonText": "Add property"
       }
     ],
-    "help": "See \u003ca href\u003d\"https://ads.tiktok.com/marketing_api/docs?rid\u003d959icq5stjr\u0026id\u003d1701890979375106\" target\u003d\"_blank\"\u003ethis documentation\u003c/a\u003e for more details on what data parameters you can override."
+    "enablingConditions": [
+      {
+        "paramName": "eventSource",
+        "paramValue": "app",
+        "type": "EQUALS"
+      }
+    ]
   },
   {
     "displayName": "User Data",
@@ -256,7 +399,7 @@ ___TEMPLATE_PARAMETERS___
                 "displayValue": "Email"
               },
               {
-                "value": "phone_number",
+                "value": "phone",
                 "displayValue": "Phone"
               },
               {
@@ -278,6 +421,26 @@ ___TEMPLATE_PARAMETERS___
               {
                 "value": "ttp",
                 "displayValue": "ttp"
+              },
+              {
+                "value": "locale",
+                "displayValue": "Locale"
+              },
+              {
+                "value": "idfa",
+                "displayValue": "iOS IDFA"
+              },
+              {
+                "value": "idfv",
+                "displayValue": "iOS IDFV"
+              },
+              {
+                "value": "gaid",
+                "displayValue": "GAID (Google Advertising ID)"
+              },
+              {
+                "value": "att_status",
+                "displayValue": "ATT Status"
               }
             ]
           },
@@ -334,6 +497,18 @@ ___TEMPLATE_PARAMETERS___
               {
                 "value": "query",
                 "displayValue": "Query"
+              },
+              {
+                "value": "content_type",
+                "displayValue": "Content Type"
+              },
+              {
+                "value": "order_id",
+                "displayValue": "Order ID"
+              },
+              {
+                "value": "shop_id",
+                "displayValue": "Shop ID"
               }
             ]
           },
@@ -396,6 +571,9 @@ const getRequestHeader = require('getRequestHeader');
 const parseUrl = require('parseUrl');
 const decodeUriComponent = require('decodeUriComponent');
 const getType = require('getType');
+const getTimestampMillis = require('getTimestampMillis');
+const Math = require('Math');
+const makeInteger = require('makeInteger');
 
 const isLoggingEnabled = determinateIsLoggingEnabled();
 const traceId = isLoggingEnabled ? getRequestHeader('trace-id') : undefined;
@@ -419,7 +597,7 @@ if (url) {
 
 const apiVersion = '1.3';
 const postUrl =
-  'https://business-api.tiktok.com/open_api/v' + apiVersion + '/pixel/track/';
+  'https://business-api.tiktok.com/open_api/v' + apiVersion + '/event/track/';
 let postBody = mapEvent(eventData, data);
 
 if (isLoggingEnabled) {
@@ -493,33 +671,41 @@ sendHttpRequest(
 );
 
 function mapEvent(eventData, data) {
+  let eventSource = data.eventSource || 'web';
   let mappedData = {
-    pixel_code: data.pixelId,
     event: getEventName(eventData, data),
-    timestamp: '',
-    context: {
-      page: {
-        url: eventData.page_location,
-      },
-      user_agent: eventData.user_agent,
-      ip: eventData.ip_override || eventData.ip_adress || eventData.ip,
-    },
+    event_time: getEventTime(eventData),
   };
 
-  if (ttclid) {
-    mappedData.context.ad = { callback: ttclid };
+  mappedData = addEventId(mappedData, eventData);
+
+  if (eventSource === 'web') {
+    addPageData(mappedData, eventData);
   }
 
-  if (data.testEventCode) {
-    mappedData.test_event_code = data.testEventCode;
+  if (eventSource === 'app') {
+    addAppData(mappedData, eventData);
   }
 
-  mappedData = addServerEventData(eventData, data, mappedData);
-  mappedData = addUserData(eventData, mappedData);
+  if (eventSource === 'web' || eventSource === 'app') {
+    mappedData.limited_data_use = data.limitedDataUse || false;
+  }
+
+  mappedData = addUserData(eventData, mappedData, eventSource);
   mappedData = addPropertiesData(eventData, mappedData);
   mappedData = hashDataIfNeeded(mappedData);
 
-  return mappedData;
+  let requestData = {
+    event_source: eventSource,
+    event_source_id: data.pixelId,
+    data: [mappedData],
+  };
+
+  if (data.testEventCode) {
+    requestData.test_event_code = data.testEventCode;
+  }
+
+  return requestData;
 }
 
 function isHashed(value) {
@@ -557,10 +743,10 @@ function hashData(value) {
 }
 
 function hashDataIfNeeded(mappedData) {
-  if (mappedData.context.user) {
-    for (let key in mappedData.context.user) {
-      if (key === 'external_id' || key === 'phone_number' || key === 'email') {
-        mappedData.context.user[key] = hashData(mappedData.context.user[key]);
+  if (mappedData.user) {
+    for (let key in mappedData.user) {
+      if (key === 'external_id' || key === 'phone' || key === 'email') {
+        mappedData.user[key] = hashData(mappedData.user[key]);
       }
     }
   }
@@ -569,115 +755,114 @@ function hashDataIfNeeded(mappedData) {
 }
 
 function addPropertiesData(eventData, mappedData) {
-  let customDataList = {};
+  mappedData.properties = {};
 
-  if (eventData['x-ga-mp1-ev']) customDataList.value = eventData['x-ga-mp1-ev'];
-  else if (eventData['x-ga-mp1-tr'])
-    customDataList.value = eventData['x-ga-mp1-tr'];
-  else if (eventData.value) customDataList.value = eventData.value;
+  if (eventData.content_type) mappedData.properties.content_type = eventData.content_type;
+  else mappedData.properties.content_type = 'product';
 
-  if (eventData.currency) customDataList.currency = eventData.currency;
-  if (eventData.description) customDataList.description = eventData.description;
-  if (eventData.query) customDataList.query = eventData.query;
+  if (eventData.currency) mappedData.properties.currency = eventData.currency;
 
-  if (eventData.items && eventData.items[0]) {
-    customDataList.contents = [];
+  if (eventData.value) mappedData.properties.value = eventData.value;
+  else if (eventData['x-ga-mp1-ev']) mappedData.properties.value = eventData['x-ga-mp1-ev'];
+  else if (eventData['x-ga-mp1-tr']) mappedData.properties.value = eventData['x-ga-mp1-tr'];
+
+  if (eventData.query) mappedData.properties.query = eventData.query;
+  if (eventData.description) mappedData.properties.description = eventData.description;
+  if (eventData.order_id) mappedData.properties.order_id = eventData.order_id;
+  if (eventData.shop_id) mappedData.properties.shop_id = eventData.shop_id;
+
+  if (eventData.contents) mappedData.properties.contents = eventData.contents;
+  else if (eventData.items && eventData.items[0]) {
+    mappedData.properties.contents = [];
 
     eventData.items.forEach((d, i) => {
       let item = {};
 
+      if (d.price) item.price = d.price;
+      if (d.quantity) item.quantity = d.quantity;
+
       if (d.item_id) item.content_id = d.item_id;
       else if (d.id) item.content_id = d.id;
 
-      if (d.content_type) item.content_type = d.content_type;
-      else item.content_type = 'product';
+      if (d.content_category) item.content_category = d.content_category;
+      if (d.content_name) item.content_name = d.content_name;
+      if (d.brand) item.brand = d.brand;
 
-      if (d.quantity) item.quantity = d.quantity;
-      if (d.price) item.price = d.price;
-
-      customDataList.contents.push(item);
+      mappedData.properties.contents.push(item);
     });
   }
 
   if (data.customDataList) {
     data.customDataList.forEach((d) => {
-      customDataList[d.name] = d.value;
+      mappedData.properties[d.name] = d.value;
     });
-  }
-
-  if (customDataList) {
-    mappedData.properties = {};
-
-    if (customDataList.contents)
-      mappedData.properties.contents = customDataList.contents;
-    if (customDataList.currency)
-      mappedData.properties.currency = customDataList.currency;
-    if (customDataList.description)
-      mappedData.properties.description = customDataList.description;
-    if (customDataList.query)
-      mappedData.properties.query = customDataList.query;
-    if (customDataList.value)
-      mappedData.properties.value = customDataList.value;
   }
 
   return mappedData;
 }
 
-function addUserData(eventData, mappedData) {
-  let userDataList = {};
-  const userData = eventData.user_data || {};
+function addUserData(eventData, mappedData, eventSource) {
+  let userEventData = {};
+  mappedData.user = {};
 
-  userDataList.external_id =
-    eventData.external_id || eventData.user_id || eventData.userId;
-  userDataList.email = eventData.email || userData.email_address;
-  userDataList.phone_number = eventData.phone || userData.phone_number;
+  if (getType(eventData.user_data) === 'object') {
+    userEventData = eventData.user_data || eventData.user_properties || eventData.user;
+  }
+
+  if (eventData.email) mappedData.user.email = eventData.email;
+  else if (eventData.email_address) mappedData.user.email = eventData.email_address;
+  else if (userEventData.email) mappedData.user.email = userEventData.email;
+  else if (userEventData.email_address) mappedData.user.email = userEventData.email_address;
+
+  if (eventData.phone) mappedData.user.phone = eventData.phone;
+  else if (eventData.phone_number) mappedData.user.phone = eventData.phone_number;
+  else if (userEventData.phone) mappedData.user.phone = userEventData.phone;
+  else if (userEventData.phone_number) mappedData.user.phone = userEventData.phone_number;
+
+  if (eventSource === 'web') {
+    if (ttclid) mappedData.user.ttclid = ttclid;
+    else if (eventData.ttclid) mappedData.user.ttclid = eventData.ttclid;
+    else if (userEventData.ttclid) mappedData.user.ttclid = userEventData.ttclid;
+
+    if (ttp) mappedData.user.ttp = ttp;
+    else if (eventData.ttp) mappedData.user.ttp = eventData.ttp;
+    else if (userEventData.ttp) mappedData.user.ttp = userEventData.ttp;
+
+    if (eventData.external_id) mappedData.user.external_id = eventData.external_id;
+    else if (eventData.user_id) mappedData.user.external_id = eventData.user_id;
+    else if (eventData.userId) mappedData.user.external_id = eventData.userId;
+    else if (userEventData.external_id) mappedData.user.external_id = userEventData.external_id;
+
+    if (eventData.ip_override) mappedData.user.ip = eventData.ip_override;
+    else if (eventData.ip_address) mappedData.user.ip = eventData.ip_address;
+    else if (eventData.ip) mappedData.user.ip = eventData.ip;
+
+    if (eventData.user_agent) mappedData.user.user_agent = eventData.user_agent;
+  }
+
+  if (eventSource === 'app') {
+    if (eventData.idfa) mappedData.user.idfa = eventData.idfa;
+    else if (userEventData.idfv) mappedData.user.idfv = userEventData.idfv;
+
+    if (eventData.idfv) mappedData.user.idfv = eventData.idfv;
+    else if (userEventData.idfv) mappedData.user.idfv = userEventData.idfv;
+
+    if (eventData.gaid) mappedData.user.gaid = eventData.gaid;
+    else if (userEventData.gaid) mappedData.user.gaid = userEventData.gaid;
+
+    if (eventData.att_status) mappedData.user.att_status = eventData.att_status;
+    else if (userEventData.att_status) mappedData.user.att_status = userEventData.att_status;
+  }
+
+  if (eventSource === 'web' || eventSource === 'app') {
+    if (eventData.locale) mappedData.user.locale = eventData.locale;
+    else if (userEventData.locale) mappedData.user.locale = userEventData.locale;
+  }
 
   if (data.userDataList) {
     data.userDataList.forEach((d) => {
-      userDataList[d.name] = d.value;
+      mappedData.user[d.name] = d.value;
     });
-  }
-
-  mappedData.context.user = {};
-
-  if (userDataList.external_id)
-    mappedData.context.user.external_id = userDataList.external_id;
-  if (userDataList.phone_number)
-    mappedData.context.user.phone_number = userDataList.phone_number;
-  if (userDataList.email) mappedData.context.user.email = userDataList.email;
-  if (userDataList.ip) mappedData.context.ip = userDataList.ip;
-
-  mappedData.context.user.ttp = userDataList.ttp || ttp;
-
-  return mappedData;
-}
-
-function addServerEventData(eventData, data, mappedData) {
-  let serverEventDataList = {};
-
-  if (eventData.event_id) serverEventDataList.event_id = eventData.event_id;
-  else if (eventData.transaction_id)
-    serverEventDataList.event_id = eventData.transaction_id;
-
-  if (eventData.page_referrer)
-    serverEventDataList.referrer = eventData.page_referrer;
-
-  if (data.serverEventDataList) {
-    data.serverEventDataList.forEach((d) => {
-      serverEventDataList[d.name] = d.value;
-    });
-  }
-
-  if (serverEventDataList) {
-    if (serverEventDataList.url)
-      mappedData.context.page.url = serverEventDataList.url;
-    if (serverEventDataList.referrer)
-      mappedData.context.page.referrer = serverEventDataList.referrer;
-
-    if (serverEventDataList.timestamp)
-      mappedData.timestamp = serverEventDataList.timestamp;
-    if (serverEventDataList.event_id)
-      mappedData.event_id = serverEventDataList.event_id;
   }
 
   return mappedData;
@@ -746,6 +931,84 @@ function determinateIsLoggingEnabled() {
   }
 
   return data.logType === 'always';
+}
+
+function addEventId(mappedData, eventData) {
+  if (data.eventId) mappedData.event_id = data.eventId;
+  else if (eventData.event_id) mappedData.event_id = eventData.event_id;
+  else if (eventData.transaction_id) mappedData.event_id = eventData.transaction_id;
+
+  return mappedData;
+}
+
+function getEventTime(eventData) {
+  if (data.eventTime) return makeInteger(data.eventTime);
+  else if (eventData.event_time) return makeInteger(eventData.event_time);
+
+  return Math.round(getTimestampMillis() / 1000);
+}
+
+function addPageData(mappedData, eventData) {
+  mappedData.page = {
+    url: data.pageLocation || eventData.page_location,
+  };
+
+  if (data.pageReferrer) mappedData.page.referrer = data.pageReferrer;
+  else if (eventData.page_referrer) mappedData.page.referrer = eventData.page_referrer;
+  else if (eventData.referrer) mappedData.page.referrer = eventData.referrer;
+
+  return mappedData;
+}
+
+function addAppData(mappedData, eventData) {
+  mappedData.app = {
+    app_id: data.appId,
+  };
+
+  if (data.appName) mappedData.app.app_name = data.appName;
+  else if (eventData.app_name) mappedData.app.app_name = eventData.app_name;
+
+  if (data.appVersion) mappedData.app.app_version = data.appVersion;
+  else if (eventData.app_version) mappedData.app.app_version = eventData.app_version;
+
+  let adEventData = {};
+  mappedData.ad = {};
+
+  if (getType(eventData.ad) === 'object') {
+    adEventData = eventData.ad;
+  }
+
+  if (adEventData.callback) mappedData.ad.callback = adEventData.callback;
+  else if (eventData.callback) mappedData.ad.callback = eventData.callback;
+
+  if (adEventData.campaign_id) mappedData.ad.campaign_id = adEventData.campaign_id;
+  else if (eventData.campaign_id) mappedData.ad.campaign_id = eventData.campaign_id;
+
+  if (adEventData.ad_id) mappedData.ad.ad_id = adEventData.ad_id;
+  else if (eventData.ad_id) mappedData.ad.ad_id = eventData.ad_id;
+
+  if (adEventData.creative_id) mappedData.ad.creative_id = adEventData.creative_id;
+  else if (eventData.creative_id) mappedData.ad.creative_id = eventData.creative_id;
+
+  if (adEventData.is_retargeting) mappedData.ad.is_retargeting = adEventData.is_retargeting;
+  else if (eventData.is_retargeting) mappedData.ad.is_retargeting = eventData.is_retargeting;
+
+  if (adEventData.attributed) mappedData.ad.attributed = adEventData.attributed;
+  else if (eventData.attributed) mappedData.ad.attributed = eventData.attributed;
+
+  if (adEventData.attribution_type) mappedData.ad.attribution_type = adEventData.attribution_type;
+  else if (eventData.attribution_type) mappedData.ad.attribution_type = eventData.attribution_type;
+
+  if (adEventData.attribution_provider) mappedData.ad.attribution_provider = adEventData.attribution_provider;
+  else if (eventData.attribution_provider) mappedData.ad.attribution_provider = eventData.attribution_provider;
+
+  if (data.adDataList) {
+    data.adDataList.forEach((d) => {
+      mappedData.ad[d.name] = d.value;
+    });
+  }
+
+  return mappedData;
 }
 
 
