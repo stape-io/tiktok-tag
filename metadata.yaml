@@ -1,5 +1,7 @@
 homepage: "https://stape.io/"
 versions:
+  - sha: cf992a5bc61037372fdf07a7246721be115ae9ba
+    changeNotes: Add APP and Offline events support.
   - sha: 91258477ef88484c631787e5df6ed200dfa9565d
     changeNotes: Add ability to use optimistic scenario.
   - sha: d3978a54d735c8e347a7ee27160c70a0283a8e2a
