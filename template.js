@@ -21,6 +21,10 @@ const traceId = isLoggingEnabled ? getRequestHeader('trace-id') : undefined;
 const eventData = getAllEventData();
 const url = eventData.page_location || getRequestHeader('referer');
 
+if (url && url.lastIndexOf('https://gtm-msr.appspot.com/', 0) === 0) {
+  return data.gtmOnSuccess();
+}
+
 let ttclid = getCookieValues('ttclid')[0];
 if (!ttclid) ttclid = eventData.ttclid;
 
