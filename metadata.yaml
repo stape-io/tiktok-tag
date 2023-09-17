@@ -1,5 +1,7 @@
 homepage: "https://stape.io/"
 versions:
+  - sha: a2c51bc3260b8d359a90261ecc136aac0aee1de0
+    changeNotes: Add GTM MSR check.
   - sha: cf992a5bc61037372fdf07a7246721be115ae9ba
     changeNotes: Add APP and Offline events support.
   - sha: 91258477ef88484c631787e5df6ed200dfa9565d
