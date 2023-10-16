@@ -577,6 +577,7 @@ const makeInteger = require('makeInteger');
 
 const isLoggingEnabled = determinateIsLoggingEnabled();
 const traceId = isLoggingEnabled ? getRequestHeader('trace-id') : undefined;
+const gtmVersion = 'stape_2_0_1';
 
 const eventData = getAllEventData();
 const url = eventData.page_location || getRequestHeader('referer');
@@ -600,8 +601,7 @@ if (url) {
 }
 
 const apiVersion = '1.3';
-const postUrl =
-  'https://business-api.tiktok.com/open_api/v' + apiVersion + '/event/track/';
+const postUrl = 'https://business-api.tiktok.com/open_api/v' + apiVersion + '/event/track/';
 const eventName = getEventName(eventData, data);
 let postBody = mapEvent(eventData, data);
 
@@ -762,21 +762,17 @@ function hashDataIfNeeded(mappedData) {
 function addPropertiesData(eventData, mappedData) {
   mappedData.properties = {};
 
-  if (eventData.content_type)
-    mappedData.properties.content_type = eventData.content_type;
+  if (eventData.content_type) mappedData.properties.content_type = eventData.content_type;
   else mappedData.properties.content_type = 'product';
 
   if (eventData.currency) mappedData.properties.currency = eventData.currency;
 
   if (eventData.value) mappedData.properties.value = eventData.value;
-  else if (eventData['x-ga-mp1-ev'])
-    mappedData.properties.value = eventData['x-ga-mp1-ev'];
-  else if (eventData['x-ga-mp1-tr'])
-    mappedData.properties.value = eventData['x-ga-mp1-tr'];
+  else if (eventData['x-ga-mp1-ev']) mappedData.properties.value = eventData['x-ga-mp1-ev'];
+  else if (eventData['x-ga-mp1-tr']) mappedData.properties.value = eventData['x-ga-mp1-tr'];
 
   if (eventData.query) mappedData.properties.query = eventData.query;
-  if (eventData.description)
-    mappedData.properties.description = eventData.description;
+  if (eventData.description) mappedData.properties.description = eventData.description;
   if (eventData.order_id) mappedData.properties.order_id = eventData.order_id;
   if (eventData.shop_id) mappedData.properties.shop_id = eventData.shop_id;
 
@@ -807,6 +803,8 @@ function addPropertiesData(eventData, mappedData) {
     });
   }
 
+  mappedData.properties.gtm_version = gtmVersion;
+
   return mappedData;
 }
 
@@ -815,40 +813,32 @@ function addUserData(eventData, mappedData, eventSource) {
   mappedData.user = {};
 
   if (getType(eventData.user_data) === 'object') {
-    userEventData =
-      eventData.user_data || eventData.user_properties || eventData.user;
+    userEventData = eventData.user_data || eventData.user_properties || eventData.user;
   }
 
   if (eventData.email) mappedData.user.email = eventData.email;
-  else if (eventData.email_address)
-    mappedData.user.email = eventData.email_address;
+  else if (eventData.email_address) mappedData.user.email = eventData.email_address;
   else if (userEventData.email) mappedData.user.email = userEventData.email;
-  else if (userEventData.email_address)
-    mappedData.user.email = userEventData.email_address;
+  else if (userEventData.email_address) mappedData.user.email = userEventData.email_address;
 
   if (eventData.phone) mappedData.user.phone = eventData.phone;
-  else if (eventData.phone_number)
-    mappedData.user.phone = eventData.phone_number;
+  else if (eventData.phone_number) mappedData.user.phone = eventData.phone_number;
   else if (userEventData.phone) mappedData.user.phone = userEventData.phone;
-  else if (userEventData.phone_number)
-    mappedData.user.phone = userEventData.phone_number;
+  else if (userEventData.phone_number) mappedData.user.phone = userEventData.phone_number;
 
   if (eventSource === 'web') {
     if (ttclid) mappedData.user.ttclid = ttclid;
     else if (eventData.ttclid) mappedData.user.ttclid = eventData.ttclid;
-    else if (userEventData.ttclid)
-      mappedData.user.ttclid = userEventData.ttclid;
+    else if (userEventData.ttclid) mappedData.user.ttclid = userEventData.ttclid;
 
     if (ttp) mappedData.user.ttp = ttp;
     else if (eventData.ttp) mappedData.user.ttp = eventData.ttp;
     else if (userEventData.ttp) mappedData.user.ttp = userEventData.ttp;
 
-    if (eventData.external_id)
-      mappedData.user.external_id = eventData.external_id;
+    if (eventData.external_id) mappedData.user.external_id = eventData.external_id;
     else if (eventData.user_id) mappedData.user.external_id = eventData.user_id;
     else if (eventData.userId) mappedData.user.external_id = eventData.userId;
-    else if (userEventData.external_id)
-      mappedData.user.external_id = userEventData.external_id;
+    else if (userEventData.external_id) mappedData.user.external_id = userEventData.external_id;
 
     if (eventData.ip_override) mappedData.user.ip = eventData.ip_override;
     else if (eventData.ip_address) mappedData.user.ip = eventData.ip_address;
@@ -868,14 +858,12 @@ function addUserData(eventData, mappedData, eventSource) {
     else if (userEventData.gaid) mappedData.user.gaid = userEventData.gaid;
 
     if (eventData.att_status) mappedData.user.att_status = eventData.att_status;
-    else if (userEventData.att_status)
-      mappedData.user.att_status = userEventData.att_status;
+    else if (userEventData.att_status) mappedData.user.att_status = userEventData.att_status;
   }
 
   if (eventSource === 'web' || eventSource === 'app') {
     if (eventData.locale) mappedData.user.locale = eventData.locale;
-    else if (userEventData.locale)
-      mappedData.user.locale = userEventData.locale;
+    else if (userEventData.locale) mappedData.user.locale = userEventData.locale;
   }
 
   if (data.userDataList) {
@@ -932,10 +920,7 @@ function getEventName(eventData, data) {
 
 function determinateIsLoggingEnabled() {
   const containerVersion = getContainerVersion();
-  const isDebug = !!(
-    containerVersion &&
-    (containerVersion.debugMode || containerVersion.previewMode)
-  );
+  const isDebug = !!(containerVersion && (containerVersion.debugMode || containerVersion.previewMode));
 
   if (!data.logType) {
     return isDebug;
@@ -955,8 +940,7 @@ function determinateIsLoggingEnabled() {
 function addEventId(mappedData, eventData) {
   if (data.eventId) mappedData.event_id = data.eventId;
   else if (eventData.event_id) mappedData.event_id = eventData.event_id;
-  else if (eventData.transaction_id)
-    mappedData.event_id = eventData.transaction_id;
+  else if (eventData.transaction_id) mappedData.event_id = eventData.transaction_id;
 
   return mappedData;
 }
@@ -974,8 +958,7 @@ function addPageData(mappedData, eventData) {
   };
 
   if (data.pageReferrer) mappedData.page.referrer = data.pageReferrer;
-  else if (eventData.page_referrer)
-    mappedData.page.referrer = eventData.page_referrer;
+  else if (eventData.page_referrer) mappedData.page.referrer = eventData.page_referrer;
   else if (eventData.referrer) mappedData.page.referrer = eventData.referrer;
 
   return mappedData;
@@ -990,8 +973,7 @@ function addAppData(mappedData, eventData) {
   else if (eventData.app_name) mappedData.app.app_name = eventData.app_name;
 
   if (data.appVersion) mappedData.app.app_version = data.appVersion;
-  else if (eventData.app_version)
-    mappedData.app.app_version = eventData.app_version;
+  else if (eventData.app_version) mappedData.app.app_version = eventData.app_version;
 
   let adEventData = {};
   mappedData.ad = {};
@@ -1003,37 +985,26 @@ function addAppData(mappedData, eventData) {
   if (adEventData.callback) mappedData.ad.callback = adEventData.callback;
   else if (eventData.callback) mappedData.ad.callback = eventData.callback;
 
-  if (adEventData.campaign_id)
-    mappedData.ad.campaign_id = adEventData.campaign_id;
-  else if (eventData.campaign_id)
-    mappedData.ad.campaign_id = eventData.campaign_id;
+  if (adEventData.campaign_id) mappedData.ad.campaign_id = adEventData.campaign_id;
+  else if (eventData.campaign_id) mappedData.ad.campaign_id = eventData.campaign_id;
 
   if (adEventData.ad_id) mappedData.ad.ad_id = adEventData.ad_id;
   else if (eventData.ad_id) mappedData.ad.ad_id = eventData.ad_id;
 
-  if (adEventData.creative_id)
-    mappedData.ad.creative_id = adEventData.creative_id;
-  else if (eventData.creative_id)
-    mappedData.ad.creative_id = eventData.creative_id;
+  if (adEventData.creative_id) mappedData.ad.creative_id = adEventData.creative_id;
+  else if (eventData.creative_id) mappedData.ad.creative_id = eventData.creative_id;
 
-  if (adEventData.is_retargeting)
-    mappedData.ad.is_retargeting = adEventData.is_retargeting;
-  else if (eventData.is_retargeting)
-    mappedData.ad.is_retargeting = eventData.is_retargeting;
+  if (adEventData.is_retargeting) mappedData.ad.is_retargeting = adEventData.is_retargeting;
+  else if (eventData.is_retargeting) mappedData.ad.is_retargeting = eventData.is_retargeting;
 
   if (adEventData.attributed) mappedData.ad.attributed = adEventData.attributed;
-  else if (eventData.attributed)
-    mappedData.ad.attributed = eventData.attributed;
+  else if (eventData.attributed) mappedData.ad.attributed = eventData.attributed;
 
-  if (adEventData.attribution_type)
-    mappedData.ad.attribution_type = adEventData.attribution_type;
-  else if (eventData.attribution_type)
-    mappedData.ad.attribution_type = eventData.attribution_type;
+  if (adEventData.attribution_type) mappedData.ad.attribution_type = adEventData.attribution_type;
+  else if (eventData.attribution_type) mappedData.ad.attribution_type = eventData.attribution_type;
 
-  if (adEventData.attribution_provider)
-    mappedData.ad.attribution_provider = adEventData.attribution_provider;
-  else if (eventData.attribution_provider)
-    mappedData.ad.attribution_provider = eventData.attribution_provider;
+  if (adEventData.attribution_provider) mappedData.ad.attribution_provider = adEventData.attribution_provider;
+  else if (eventData.attribution_provider) mappedData.ad.attribution_provider = eventData.attribution_provider;
 
   if (data.adDataList) {
     data.adDataList.forEach((d) => {
