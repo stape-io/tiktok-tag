@@ -1,5 +1,7 @@
 homepage: "https://stape.io/"
 versions:
+  - sha: f635ee4f83d084cc2328b0040fc6f5ca7a4bb6a1
+    changeNotes: Added gtm_version property.
   - sha: d493f9ad8418ad6883b6a95345393ed434c18027
     changeNotes: Fix logs eventName.
   - sha: a2c51bc3260b8d359a90261ecc136aac0aee1de0

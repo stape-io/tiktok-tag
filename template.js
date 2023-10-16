@@ -17,6 +17,7 @@ const makeInteger = require('makeInteger');
 
 const isLoggingEnabled = determinateIsLoggingEnabled();
 const traceId = isLoggingEnabled ? getRequestHeader('trace-id') : undefined;
+const gtmVersion = 'stape_2_0_1';
 
 const eventData = getAllEventData();
 const url = eventData.page_location || getRequestHeader('referer');
@@ -241,6 +242,8 @@ function addPropertiesData(eventData, mappedData) {
       mappedData.properties[d.name] = d.value;
     });
   }
+
+  mappedData.properties.gtm_version = gtmVersion;
 
   return mappedData;
 }
