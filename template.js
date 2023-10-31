@@ -14,6 +14,7 @@ const getType = require('getType');
 const getTimestampMillis = require('getTimestampMillis');
 const Math = require('Math');
 const makeInteger = require('makeInteger');
+const generateRandom = require('generateRandom');
 
 const isLoggingEnabled = determinateIsLoggingEnabled();
 const traceId = isLoggingEnabled ? getRequestHeader('trace-id') : undefined;
@@ -30,7 +31,10 @@ let ttclid = getCookieValues('ttclid')[0];
 if (!ttclid) ttclid = eventData.ttclid;
 
 let ttp = getCookieValues('_ttp')[0];
-if (!ttp) ttp = eventData['_ttp'];
+if (!ttp) ttp = eventData._ttp;
+if (!ttp && data.generateTtp) {
+  ttp = generateTtp();
+}
 
 if (url) {
   const urlParsed = parseUrl(url);
@@ -453,4 +457,16 @@ function addAppData(mappedData, eventData) {
   }
 
   return mappedData;
+}
+
+function generateTtp() {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+
+  for (let i = 0; i < 27; i++) {
+    const randomIndex = generateRandom(0, characters.length - 1);
+    result += characters.charAt(randomIndex);
+  }
+
+  return result;
 }
