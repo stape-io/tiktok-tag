@@ -1,5 +1,7 @@
 homepage: "https://stape.io/"
 versions:
+  - sha: 0d86e9a4a5fc5add1109cf5b1a8b9f020a862dcf
+    changeNotes: Content type fix.
   - sha: 552235408d50a3b7228d649e1437b0b0600da428
     changeNotes: Added ability to generate _ttp cookie if not exists.
   - sha: f635ee4f83d084cc2328b0040fc6f5ca7a4bb6a1
