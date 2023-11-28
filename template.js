@@ -207,7 +207,7 @@ function addPropertiesData(eventData, mappedData) {
   mappedData.properties = {};
 
   if (eventData.content_type) mappedData.properties.content_type = eventData.content_type;
-  else mappedData.properties.content_type = 'product';
+  else if (eventData.items && eventData.items[0]) mappedData.properties.content_type = 'product';
 
   if (eventData.currency) mappedData.properties.currency = eventData.currency;
 
