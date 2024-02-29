@@ -23,6 +23,10 @@ const gtmVersion = 'stape_2_0_1';
 const eventData = getAllEventData();
 const url = eventData.page_location || getRequestHeader('referer');
 
+if (!isConsentGivenOrNotRequired()) {
+  return data.gtmOnSuccess();
+}
+
 if (url && url.lastIndexOf('https://gtm-msr.appspot.com/', 0) === 0) {
   return data.gtmOnSuccess();
 }
@@ -469,4 +473,11 @@ function generateTtp() {
   }
 
   return result;
+}
+
+function isConsentGivenOrNotRequired() {
+  if (data.adStorageConsent !== 'required') return true;
+  if (eventData.consent_state) return !!eventData.consent_state.ad_storage;
+  const xGaGcs = eventData['x-ga-gcs'] || ''; // x-ga-gcs is a string like "G110"
+  return xGaGcs[2] === '1';
 }
