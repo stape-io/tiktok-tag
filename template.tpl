@@ -838,7 +838,9 @@ function addPropertiesData(eventData, mappedData) {
 
   if (data.customDataList) {
     data.customDataList.forEach((d) => {
-      mappedData.properties[d.name] = d.value;
+      if (isValidValue(d.value)) {
+        mappedData.properties[d.name] = d.value;
+      }
     });
   }
 
@@ -907,7 +909,9 @@ function addUserData(eventData, mappedData, eventSource) {
 
   if (data.userDataList) {
     data.userDataList.forEach((d) => {
-      mappedData.user[d.name] = d.value;
+      if (isValidValue(d.value)) {
+        mappedData.user[d.name] = d.value;
+      }
     });
   }
 
@@ -1047,7 +1051,9 @@ function addAppData(mappedData, eventData) {
 
   if (data.adDataList) {
     data.adDataList.forEach((d) => {
-      mappedData.ad[d.name] = d.value;
+      if (isValidValue(d.value)) {
+        mappedData.ad[d.name] = d.value;
+      }
     });
   }
 
@@ -1071,6 +1077,11 @@ function isConsentGivenOrNotRequired() {
   if (eventData.consent_state) return !!eventData.consent_state.ad_storage;
   const xGaGcs = eventData['x-ga-gcs'] || ''; // x-ga-gcs is a string like "G110"
   return xGaGcs[2] === '1';
+}
+
+function isValidValue(value) {
+  const valueType = getType(value);
+  return valueType !== 'null' && valueType !== 'undefined' && value !== '';
 }
 
 
