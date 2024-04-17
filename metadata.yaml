@@ -1,5 +1,7 @@
 homepage: "https://stape.io/"
 versions:
+  - sha: 8349b1683ead309df1c9472d01a29a801ff3dd85
+    changeNotes: Added filter for override values.
   - sha: 7f38905d9da155cd8e125bfcf3f4d0228cbf97b2
     changeNotes: Consent settings section.
   - sha: 0d86e9a4a5fc5add1109cf5b1a8b9f020a862dcf
