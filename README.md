@@ -9,8 +9,6 @@ It can be used to track conversion events, collect custom audiences, dynamic pro
 TikTok event API tag for server GTM allows sending user data (email, phone number, user ID, user IP, and user agent), properties, objects, and event parameters.
 It automatically transforms required information lowercase and hash using SHA256.
 
-TikTok does not support event deduplication, meaning that combining browser and server tracking is currently impossible because the event will be counted twice.
-
 - More about the [TikTok Events API](https://ads.tiktok.com/marketing_api/docs?rid=959icq5stjr&id=1701890979375106).
 - Detailed description of the [TikTok event API tag for the GTM server](https://stape.io/how-to-set-up-tiktok-events-api/)
 
