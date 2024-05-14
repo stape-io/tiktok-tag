@@ -344,7 +344,7 @@ function getEventName(eventData, data) {
       sign_up: 'CompleteRegistration',
       begin_checkout: 'InitiateCheckout',
       generate_lead: 'SubmitForm',
-      purchase: 'PlaceAnOrder',
+      purchase: 'CompletePayment',
       search: 'Search',
       view_item: 'ViewContent',
 
@@ -357,7 +357,7 @@ function getEventName(eventData, data) {
       'gtm4wp.productClickEEC': 'ViewContent',
       'gtm4wp.checkoutOptionEEC': 'InitiateCheckout',
       'gtm4wp.checkoutStepEEC': 'AddPaymentInfo',
-      'gtm4wp.orderCompletedEEC': 'PlaceAnOrder',
+      'gtm4wp.orderCompletedEEC': 'CompletePayment',
     };
 
     if (!gaToEventName[eventName]) {

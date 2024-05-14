@@ -1,5 +1,7 @@
 homepage: "https://stape.io/"
 versions:
+  - sha: 08869b97a6326f7168c571d5729e820e8753ad28
+    changeNotes: Switch mapping of purchase events to CompletePayment.
   - sha: 8349b1683ead309df1c9472d01a29a801ff3dd85
     changeNotes: Added filter for override values.
   - sha: 7f38905d9da155cd8e125bfcf3f4d0228cbf97b2
