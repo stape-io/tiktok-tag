@@ -1,5 +1,7 @@
 homepage: "https://stape.io/"
 versions:
+  - sha: 1b2f1fc426f1a7265d462007563cf0861d6600e8
+    changeNotes: Fix useOptimisticScenario.
   - sha: 08869b97a6326f7168c571d5729e820e8753ad28
     changeNotes: Switch mapping of purchase events to CompletePayment.
   - sha: 8349b1683ead309df1c9472d01a29a801ff3dd85
