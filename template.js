@@ -123,6 +123,10 @@ sendHttpRequest(
   JSON.stringify(postBody)
 );
 
+if (data.useOptimisticScenario) {
+  data.gtmOnSuccess();
+}
+
 function mapEvent(eventData, data) {
   let eventSource = data.eventSource || 'web';
   let mappedData = {
