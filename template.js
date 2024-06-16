@@ -159,7 +159,7 @@ function mapEvent(eventData, data) {
   };
 
   if (data.testEventCode) {
-    requestData.test_event_code = data.testEventCode;
+    requestData.test_event_code = eventData.test_event_code || data.testEventCode;
   }
 
   return requestData;
