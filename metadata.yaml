@@ -1,5 +1,7 @@
 homepage: "https://stape.io/"
 versions:
+  - sha: b0cb2a6c643dd0b5baea1db3d382a1f7bb3bb546
+    changeNotes: Added missing userData fields.
   - sha: 1b2f1fc426f1a7265d462007563cf0861d6600e8
     changeNotes: Fix useOptimisticScenario.
   - sha: 08869b97a6326f7168c571d5729e820e8753ad28
