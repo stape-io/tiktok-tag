@@ -447,6 +447,30 @@ ___TEMPLATE_PARAMETERS___
               {
                 "value": "att_status",
                 "displayValue": "ATT Status"
+              },
+              {
+                "value": "first_name",
+                "displayValue": "First Name"
+              },
+              {
+                "value": "last_name",
+                "displayValue": "Last Name"
+              },
+              {
+                "value": "city",
+                "displayValue": "City"
+              },
+              {
+                "value": "state",
+                "displayValue": "State"
+              },
+              {
+                "value": "country",
+                "displayValue": "Country"
+              },
+              {
+                "value": "zip_code",
+                "displayValue": "Zip"
               }
             ]
           },
@@ -565,7 +589,6 @@ ___TEMPLATE_PARAMETERS___
       {
         "type": "RADIO",
         "name": "logType",
-        "displayName": "debug",
         "radioItems": [
           {
             "value": "no",
@@ -580,7 +603,8 @@ ___TEMPLATE_PARAMETERS___
             "displayValue": "Always log to console"
           }
         ],
-        "simpleValueType": true
+        "simpleValueType": true,
+        "defaultValue": "debug"
       }
     ]
   }
@@ -748,10 +772,8 @@ function mapEvent(eventData, data) {
     event_source_id: data.pixelId,
     data: [mappedData],
   };
-
-  if (data.testEventCode) {
-    requestData.test_event_code = data.testEventCode;
-  }
+  const testEventCode = eventData.test_event_code || data.testEventCode;
+  if (testEventCode) requestData.test_event_code = testEventCode;
 
   return requestData;
 }
@@ -854,11 +876,15 @@ function addPropertiesData(eventData, mappedData) {
 }
 
 function addUserData(eventData, mappedData, eventSource) {
-  let userEventData = {};
   mappedData.user = {};
-
+  let userEventData = {};
+  let address = {};
   if (getType(eventData.user_data) === 'object') {
-    userEventData = eventData.user_data || eventData.user_properties || eventData.user;
+    userEventData = eventData.user_data;
+    const addressType = getType(userEventData.address);
+    if (addressType === 'object' || addressType === 'array') {
+      address = userEventData.address[0] || userEventData.address;
+    }
   }
 
   if (eventData.email) mappedData.user.email = eventData.email;
@@ -870,6 +896,38 @@ function addUserData(eventData, mappedData, eventSource) {
   else if (eventData.phone_number) mappedData.user.phone = eventData.phone_number;
   else if (userEventData.phone) mappedData.user.phone = userEventData.phone;
   else if (userEventData.phone_number) mappedData.user.phone = userEventData.phone_number;
+
+  if (eventData.lastName) mappedData.user.last_name = eventData.lastName;
+  else if (eventData.LastName) mappedData.user.last_name = eventData.LastName;
+  else if (eventData.nameLast) mappedData.user.last_name = eventData.nameLast;
+  else if (eventData.last_name) mappedData.user.last_name = eventData.last_name;
+  else if (userEventData.last_name) mappedData.user.last_name = userEventData.last_name;
+  else if (address.last_name) mappedData.user.last_name = address.last_name;
+
+  if (eventData.firstName) mappedData.user.first_name = eventData.firstName;
+  else if (eventData.FirstName) mappedData.user.first_name = eventData.FirstName;
+  else if (eventData.nameFirst) mappedData.user.first_name = eventData.nameFirst;
+  else if (eventData.first_name) mappedData.user.first_name = eventData.first_name;
+  else if (userEventData.first_name) mappedData.user.first_name = userEventData.first_name;
+  else if (address.first_name) mappedData.user.first_name = address.first_name;
+
+  if (eventData.city) mappedData.user.city = eventData.city;
+  else if (address.city) mappedData.user.city = address.city;
+
+  if (eventData.state) mappedData.user.state = eventData.state;
+  else if (eventData.region) mappedData.user.state = eventData.region;
+  else if (userEventData.region) mappedData.user.state = userEventData.region;
+  else if (address.region) mappedData.user.state = address.region;
+
+  if (eventData.zip) mappedData.user.zip_code = eventData.zip;
+  else if (eventData.postal_code) mappedData.user.zip_code = eventData.postal_code;
+  else if (userEventData.postal_code) mappedData.user.zip_code = userEventData.postal_code;
+  else if (address.postal_code) mappedData.user.zip_code = address.postal_code;
+
+  if (eventData.countryCode) mappedData.user.country = eventData.countryCode;
+  else if (eventData.country) mappedData.user.country = eventData.country;
+  else if (userEventData.country) mappedData.user.country = userEventData.country;
+  else if (address.country) mappedData.user.country = address.country;
 
   if (eventSource === 'web') {
     if (ttclid) mappedData.user.ttclid = ttclid;
