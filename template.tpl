@@ -646,10 +646,12 @@ if (url && url.lastIndexOf('https://gtm-msr.appspot.com/', 0) === 0) {
   return data.gtmOnSuccess();
 }
 
-let ttclid = getCookieValues('ttclid')[0];
+const commonCookie = eventData.common_cookie || {};
+
+let ttclid = getCookieValues('ttclid')[0] || commonCookie.ttclid;
 if (!ttclid) ttclid = eventData.ttclid;
 
-let ttp = getCookieValues('_ttp')[0];
+let ttp = getCookieValues('_ttp')[0] || commonCookie._ttp;
 if (!ttp) ttp = eventData._ttp;
 if (!ttp && data.generateTtp) {
   ttp = generateTtp();
