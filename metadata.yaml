@@ -1,5 +1,7 @@
 homepage: "https://stape.io/"
 versions:
+  - sha: 6f6d47d9011bc247df34b08c0bafcd45d11fe3de
+    changeNotes: Fix user data hashing.
   - sha: 3639d997b1a2d25404a82ddaa428e6af05aba1c0
     changeNotes: Added common cookie support.
   - sha: b0cb2a6c643dd0b5baea1db3d382a1f7bb3bb546

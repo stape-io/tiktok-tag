@@ -816,8 +816,9 @@ function hashData(value) {
 
 function hashDataIfNeeded(mappedData) {
   if (mappedData.user) {
+    const userDataKeysToHash = ['external_id', 'phone', 'email', 'first_name', 'last_name', 'zip_code'];
     for (let key in mappedData.user) {
-      if (key === 'external_id' || key === 'phone' || key === 'email') {
+      if (userDataKeysToHash.indexOf(key) !== -1) {
         mappedData.user[key] = hashData(mappedData.user[key]);
       }
     }
