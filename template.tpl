@@ -119,7 +119,7 @@ ___TEMPLATE_PARAMETERS___
               }
             ],
             "displayName": "Event Name",
-            "defaultValue": "ViewContent"
+            "defaultValue": "Pageview"
           }
         ]
       },
