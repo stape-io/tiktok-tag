@@ -1,6 +1,6 @@
 homepage: "https://stape.io/"
 versions:
-  - sha: 6360ba32f222d1d7894632e1855d72698e4f067b
+  - sha: 3f0a634ab1082886bdf8667a37d99bc4a008548e
     changeNotes: Added Page View event
   - sha: 6f6d47d9011bc247df34b08c0bafcd45d11fe3de
     changeNotes: Fix user data hashing.
