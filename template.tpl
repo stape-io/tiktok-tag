@@ -105,6 +105,10 @@ ___TEMPLATE_PARAMETERS___
               {
                 "value": "Subscribe",
                 "displayValue": "Subscribe"
+              },
+              {
+                "value": "Pageview",
+                "displayValue": "Page View"
               }
             ],
             "simpleValueType": true,
