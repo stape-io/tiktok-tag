@@ -105,6 +105,10 @@ ___TEMPLATE_PARAMETERS___
               {
                 "value": "Subscribe",
                 "displayValue": "Subscribe"
+              },
+              {
+                "value": "Pageview",
+                "displayValue": "Page View"
               }
             ],
             "simpleValueType": true,
@@ -115,7 +119,7 @@ ___TEMPLATE_PARAMETERS___
               }
             ],
             "displayName": "Event Name",
-            "defaultValue": "ViewContent"
+            "defaultValue": "Pageview"
           }
         ]
       },
@@ -988,12 +992,12 @@ function getEventName(eventData, data) {
     let eventName = eventData.event_name;
 
     let gaToEventName = {
-      page_view: 'PageView',
+      page_view: 'Pageview',
       click: 'ClickButton',
       download: 'Download',
       file_download: 'Download',
       complete_registration: 'CompleteRegistration',
-      'gtm.dom': 'PageView',
+      'gtm.dom': 'Pageview',
       add_payment_info: 'AddPaymentInfo',
       add_to_cart: 'AddToCart',
       add_to_wishlist: 'AddToWishlist',
