@@ -15,18 +15,20 @@ const getTimestampMillis = require('getTimestampMillis');
 const Math = require('Math');
 const makeInteger = require('makeInteger');
 const generateRandom = require('generateRandom');
+const BigQuery = require('BigQuery');
 
-const isLoggingEnabled = determinateIsLoggingEnabled();
-const traceId = isLoggingEnabled ? getRequestHeader('trace-id') : undefined;
+/**********************************************************************************************/
+
+const traceId = getRequestHeader('trace-id');
 const gtmVersion = 'stape_2_0_1';
 
 const eventData = getAllEventData();
-const url = eventData.page_location || getRequestHeader('referer');
 
 if (!isConsentGivenOrNotRequired()) {
   return data.gtmOnSuccess();
 }
 
+const url = eventData.page_location || getRequestHeader('referer');
 if (url && url.lastIndexOf('https://gtm-msr.appspot.com/', 0) === 0) {
   return data.gtmOnSuccess();
 }
@@ -53,21 +55,17 @@ if (url) {
 const apiVersion = '1.3';
 const postUrl = 'https://business-api.tiktok.com/open_api/v' + apiVersion + '/event/track/';
 const eventName = getEventName(eventData, data);
-let postBody = mapEvent(eventData, data);
+const postBody = mapEvent(eventData, data);
 
-if (isLoggingEnabled) {
-  logToConsole(
-    JSON.stringify({
-      Name: 'TikTok',
-      Type: 'Request',
-      TraceId: traceId,
-      EventName: eventName,
-      RequestMethod: 'POST',
-      RequestUrl: postUrl,
-      RequestBody: postBody,
-    })
-  );
-}
+log({
+  Name: 'TikTok',
+  Type: 'Request',
+  TraceId: traceId,
+  EventName: eventName,
+  RequestMethod: 'POST',
+  RequestUrl: postUrl,
+  RequestBody: postBody
+});
 
 if (ttclid) {
   setCookie('ttclid', ttclid, {
@@ -76,7 +74,7 @@ if (ttclid) {
     samesite: 'Lax',
     secure: true,
     'max-age': 2592000, // 30 days
-    httpOnly: false,
+    httpOnly: false
   });
 }
 
@@ -87,26 +85,23 @@ if (ttp) {
     samesite: 'Lax',
     secure: true,
     'max-age': 34190000, // 13 months
-    httpOnly: false,
+    httpOnly: false
   });
 }
 
 sendHttpRequest(
   postUrl,
   (statusCode, headers, body) => {
-    if (isLoggingEnabled) {
-      logToConsole(
-        JSON.stringify({
-          Name: 'TikTok',
-          Type: 'Response',
-          TraceId: traceId,
-          EventName: eventName,
-          ResponseStatusCode: statusCode,
-          ResponseHeaders: headers,
-          ResponseBody: body,
-        })
-      );
-    }
+    log({
+      Name: 'TikTok',
+      Type: 'Response',
+      TraceId: traceId,
+      EventName: eventName,
+      ResponseStatusCode: statusCode,
+      ResponseHeaders: headers,
+      ResponseBody: body
+    });
+
     if (!data.useOptimisticScenario) {
       if (statusCode >= 200 && statusCode < 400) {
         data.gtmOnSuccess();
@@ -118,9 +113,9 @@ sendHttpRequest(
   {
     headers: {
       'Content-Type': 'application/json',
-      'Access-Token': data.accessToken,
+      'Access-Token': data.accessToken
     },
-    method: 'POST',
+    method: 'POST'
   },
   JSON.stringify(postBody)
 );
@@ -129,11 +124,14 @@ if (data.useOptimisticScenario) {
   data.gtmOnSuccess();
 }
 
+/**********************************************************************************************/
+// Vendor related functions
+
 function mapEvent(eventData, data) {
-  let eventSource = data.eventSource || 'web';
+  const eventSource = data.eventSource || 'web';
   let mappedData = {
     event: eventName,
-    event_time: getEventTime(eventData),
+    event_time: getEventTime(eventData)
   };
 
   mappedData = addEventId(mappedData, eventData);
@@ -154,23 +152,15 @@ function mapEvent(eventData, data) {
   mappedData = addPropertiesData(eventData, mappedData);
   mappedData = hashDataIfNeeded(mappedData);
 
-  let requestData = {
+  const requestData = {
     event_source: eventSource,
     event_source_id: data.pixelId,
-    data: [mappedData],
+    data: [mappedData]
   };
   const testEventCode = eventData.test_event_code || data.testEventCode;
   if (testEventCode) requestData.test_event_code = testEventCode;
 
   return requestData;
-}
-
-function isHashed(value) {
-  if (!value) {
-    return false;
-  }
-
-  return makeString(value).match('^[A-Fa-f0-9]{64}$') !== null;
 }
 
 function hashData(value) {
@@ -195,7 +185,7 @@ function hashData(value) {
   }
 
   return sha256Sync(makeString(value).trim().toLowerCase(), {
-    outputEncoding: 'hex',
+    outputEncoding: 'hex'
   });
 }
 
@@ -234,7 +224,7 @@ function addPropertiesData(eventData, mappedData) {
     mappedData.properties.contents = [];
 
     eventData.items.forEach((d, i) => {
-      let item = {};
+      const item = {};
 
       if (d.price) item.price = d.price;
       if (d.quantity) item.quantity = d.quantity;
@@ -370,9 +360,9 @@ function addUserData(eventData, mappedData, eventSource) {
 
 function getEventName(eventData, data) {
   if (data.eventType === 'inherit') {
-    let eventName = eventData.event_name;
+    const eventName = eventData.event_name;
 
-    let gaToEventName = {
+    const gaToEventName = {
       page_view: 'Pageview',
       click: 'ClickButton',
       download: 'Download',
@@ -398,7 +388,7 @@ function getEventName(eventData, data) {
       'gtm4wp.productClickEEC': 'ViewContent',
       'gtm4wp.checkoutOptionEEC': 'InitiateCheckout',
       'gtm4wp.checkoutStepEEC': 'AddPaymentInfo',
-      'gtm4wp.orderCompletedEEC': 'CompletePayment',
+      'gtm4wp.orderCompletedEEC': 'CompletePayment'
     };
 
     if (!gaToEventName[eventName]) {
@@ -409,25 +399,6 @@ function getEventName(eventData, data) {
   }
 
   return data.eventType === 'custom' ? data.eventNameCustom : data.eventName;
-}
-
-function determinateIsLoggingEnabled() {
-  const containerVersion = getContainerVersion();
-  const isDebug = !!(containerVersion && (containerVersion.debugMode || containerVersion.previewMode));
-
-  if (!data.logType) {
-    return isDebug;
-  }
-
-  if (data.logType === 'no') {
-    return false;
-  }
-
-  if (data.logType === 'debug') {
-    return isDebug;
-  }
-
-  return data.logType === 'always';
 }
 
 function addEventId(mappedData, eventData) {
@@ -447,7 +418,7 @@ function getEventTime(eventData) {
 
 function addPageData(mappedData, eventData) {
   mappedData.page = {
-    url: data.pageLocation || eventData.page_location,
+    url: data.pageLocation || eventData.page_location
   };
 
   if (data.pageReferrer) mappedData.page.referrer = data.pageReferrer;
@@ -459,7 +430,7 @@ function addPageData(mappedData, eventData) {
 
 function addAppData(mappedData, eventData) {
   mappedData.app = {
-    app_id: data.appId,
+    app_id: data.appId
   };
 
   if (data.appName) mappedData.app.app_name = data.appName;
@@ -522,6 +493,19 @@ function generateTtp() {
   return result;
 }
 
+/**********************************************************************************************/
+// Helpers
+
+function isHashed(value) {
+  if (!value) return false;
+  return makeString(value).match('^[A-Fa-f0-9]{64}$') !== null;
+}
+
+function isValidValue(value) {
+  const valueType = getType(value);
+  return valueType !== 'null' && valueType !== 'undefined' && value !== '';
+}
+
 function isConsentGivenOrNotRequired() {
   if (data.adStorageConsent !== 'required') return true;
   if (eventData.consent_state) return !!eventData.consent_state.ad_storage;
@@ -529,7 +513,93 @@ function isConsentGivenOrNotRequired() {
   return xGaGcs[2] === '1';
 }
 
-function isValidValue(value) {
-  const valueType = getType(value);
-  return valueType !== 'null' && valueType !== 'undefined' && value !== '';
+function log(rawDataToLog) {
+  const logDestinationsHandlers = {};
+  if (determinateIsLoggingEnabled()) logDestinationsHandlers.console = logConsole;
+  if (determinateIsLoggingEnabledForBigQuery()) logDestinationsHandlers.bigQuery = logToBigQuery;
+
+  // Key mappings for each log destination
+  const keyMappings = {
+    // No transformation for Console is needed.
+    bigQuery: {
+      Name: 'tag_name',
+      Type: 'type',
+      TraceId: 'trace_id',
+      EventName: 'event_name',
+      RequestMethod: 'request_method',
+      RequestUrl: 'request_url',
+      RequestBody: 'request_body',
+      ResponseStatusCode: 'response_status_code',
+      ResponseHeaders: 'response_headers',
+      ResponseBody: 'response_body'
+    }
+  };
+
+  for (const logDestination in logDestinationsHandlers) {
+    const handler = logDestinationsHandlers[logDestination];
+    if (!handler) continue;
+
+    const mapping = keyMappings[logDestination];
+    const dataToLog = mapping ? {} : rawDataToLog;
+    // Map keys based on the log destination
+    if (mapping) {
+      for (const key in rawDataToLog) {
+        const mappedKey = mapping[key] || key; // Fallback to original key if no mapping exists
+        dataToLog[mappedKey] = rawDataToLog[key];
+      }
+    }
+
+    handler(dataToLog);
+  }
+}
+
+function logConsole(dataToLog) {
+  logToConsole(JSON.stringify(dataToLog));
+}
+
+function logToBigQuery(dataToLog) {
+  const connectionInfo = {
+    projectId: data.logBigQueryProjectId,
+    datasetId: data.logBigQueryDatasetId,
+    tableId: data.logBigQueryTableId
+  };
+
+  // timestamp is required.
+  dataToLog.timestamp = getTimestampMillis();
+
+  // Columns with type JSON need to be stringified.
+  ['request_body', 'response_headers', 'response_body'].forEach((p) => {
+    const value = dataToLog[p];
+    // These types don't need to be stringified.
+    if (['string', 'null', 'undefined'].indexOf(getType(value)) === -1) dataToLog[p] = JSON.stringify(value);
+  });
+
+  // assertApi doesn't work for 'BigQuery.insert()'. It's needed to convert BigQuery into a function when testing.
+  // Ref: https://gtm-gear.com/posts/gtm-templates-testing/
+  const bigquery = getType(BigQuery) === 'function' ? BigQuery() /* Only during Unit Tests */ : BigQuery;
+  bigquery.insert(connectionInfo, [dataToLog], { ignoreUnknownValues: true });
+}
+
+function determinateIsLoggingEnabled() {
+  const containerVersion = getContainerVersion();
+  const isDebug = !!(containerVersion && (containerVersion.debugMode || containerVersion.previewMode));
+
+  if (!data.logType) {
+    return isDebug;
+  }
+
+  if (data.logType === 'no') {
+    return false;
+  }
+
+  if (data.logType === 'debug') {
+    return isDebug;
+  }
+
+  return data.logType === 'always';
+}
+
+function determinateIsLoggingEnabledForBigQuery() {
+  if (data.bigQueryLogType === 'no') return false;
+  return data.bigQueryLogType === 'always';
 }
