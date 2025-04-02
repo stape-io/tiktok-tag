@@ -1255,9 +1255,9 @@ function logToBigQuery(dataToLog) {
 
   // Columns with type JSON need to be stringified.
   ['request_body', 'response_headers', 'response_body'].forEach((p) => {
-    const value = dataToLog[p];
-    // These types don't need to be stringified.
-    if (['string', 'null', 'undefined'].indexOf(getType(value)) === -1) dataToLog[p] = JSON.stringify(value);
+    // GTM Sandboxed JSON.parse returns undefined for malformed JSON but throws post-execution, causing execution failure.
+    // If fixed, could use: dataToLog[p] = JSON.stringify(JSON.parse(dataToLog[p]) || dataToLog[p]);
+    dataToLog[p] = JSON.stringify(dataToLog[p]);
   });
 
   // assertApi doesn't work for 'BigQuery.insert()'. It's needed to convert BigQuery into a function when testing.
@@ -1731,13 +1731,12 @@ scenarios:
     \ => {\n  return { \n    insert: (connectionInfo, rows, options) => { \n     \
     \ fail('BigQuery.insert should not have been called.');\n      return Promise.create((resolve,\
     \ reject) => {\n        resolve();\n      });\n    }\n  };\n});\n\nrunCode(mockData);"
-setup: |
+setup: |-
   const JSON = require('JSON');
   const Promise = require('Promise');
 
   const requiredConsoleKeys = ['Type', 'TraceId', 'Name'];
   const requiredBqKeys = ['timestamp', 'type', 'trace_id', 'tag_name'];
-
 
   const expectedValue = 'test';
   const expectedBqOptions = { ignoreUnknownValues: true };
