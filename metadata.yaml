@@ -1,5 +1,7 @@
-homepage: "https://stape.io/"
+homepage: 'https://stape.io/'
 versions:
+  - sha: 80b7d81b4658b07370c36a9700e8ccf99b26fde1
+    changeNotes: Improve contents array properties mapping.
   - sha: 4cf635cf4bf2e9d29543eb16ec2045cf1938f626
     changeNotes: Improve JSON handling for BQ logging.
   - sha: 86867d5dcc275ea314995aec8df83fc3d20ce177
