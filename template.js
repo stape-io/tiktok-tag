@@ -233,8 +233,13 @@ function addPropertiesData(eventData, mappedData) {
       else if (d.id) item.content_id = d.id;
 
       if (d.content_category) item.content_category = d.content_category;
+      else if (d.item_category) item.content_category = d.item_category;
+
       if (d.content_name) item.content_name = d.content_name;
+      else if (d.item_name) item.content_name = d.item_name;
+
       if (d.brand) item.brand = d.brand;
+      else if (d.item_brand) item.brand = d.item_brand;
 
       mappedData.properties.contents.push(item);
     });

@@ -180,14 +180,14 @@ ___TEMPLATE_PARAMETERS___
   {
     "type": "TEXT",
     "name": "pixelId",
-    "displayName": "TikTok Pixel ID",
+    "displayName": "TikTok Pixel ID / Offline Event Set ID / TikTok App ID",
     "simpleValueType": true,
     "valueValidators": [
       {
         "type": "NON_EMPTY"
       }
     ],
-    "help": "Set to a valid TikTok Pixel ID. You can only add a single Pixel ID per tag."
+    "help": "For \u003cb\u003eWeb events\u003c/b\u003e, enter a valid \u003cb\u003eTikTok Pixel ID\u003c/b\u003e. Only one TikTok Pixel ID can be used per tag.\n\u003cbr\u003e\nFor \u003cb\u003eOffline events\u003c/b\u003e, provide the \u003cb\u003eOffline Event Set ID\u003c/b\u003e. Only one Offline Event Set ID can be used per tag.\n\u003cbr\u003e\nFor \u003cb\u003eApp events\u003c/b\u003e, enter the \u003cb\u003eTikTok App ID\u003c/b\u003e. Only one Offline TikTok App ID can be used per tag."
   },
   {
     "type": "TEXT",
@@ -919,8 +919,13 @@ function addPropertiesData(eventData, mappedData) {
       else if (d.id) item.content_id = d.id;
 
       if (d.content_category) item.content_category = d.content_category;
+      else if (d.item_category) item.content_category = d.item_category;
+
       if (d.content_name) item.content_name = d.content_name;
+      else if (d.item_name) item.content_name = d.item_name;
+
       if (d.brand) item.brand = d.brand;
+      else if (d.item_brand) item.brand = d.item_brand;
 
       mappedData.properties.contents.push(item);
     });
