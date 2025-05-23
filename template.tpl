@@ -51,64 +51,96 @@ ___TEMPLATE_PARAMETERS___
             "macrosInSelect": false,
             "selectItems": [
               {
-                "value": "ViewContent",
-                "displayValue": "View Content"
-              },
-              {
-                "value": "ClickButton",
-                "displayValue": "Click Button"
-              },
-              {
-                "value": "Search",
-                "displayValue": "Search"
-              },
-              {
-                "value": "AddToWishlist",
-                "displayValue": "Add to Wishlist"
+                "value": "AddPaymentInfo",
+                "displayValue": "Add Payment Info"
               },
               {
                 "value": "AddToCart",
                 "displayValue": "Add to Cart"
               },
               {
-                "value": "InitiateCheckout",
-                "displayValue": "Initiate Checkout"
+                "value": "AddToWishlist",
+                "displayValue": "Add to Wishlist"
               },
               {
-                "value": "AddPaymentInfo",
-                "displayValue": "Add Payment Info"
-              },
-              {
-                "value": "CompletePayment",
-                "displayValue": "Complete Payment"
-              },
-              {
-                "value": "PlaceAnOrder",
-                "displayValue": "Place an Order"
-              },
-              {
-                "value": "Contact",
-                "displayValue": "Contact"
-              },
-              {
-                "value": "Download",
-                "displayValue": "Download"
-              },
-              {
-                "value": "SubmitForm",
-                "displayValue": "Submit Form"
+                "value": "ApplicationApproval",
+                "displayValue": "Application Approval"
               },
               {
                 "value": "CompleteRegistration",
                 "displayValue": "Complete Registration"
               },
               {
-                "value": "Subscribe",
-                "displayValue": "Subscribe"
+                "value": "Contact",
+                "displayValue": "Contact"
+              },
+              {
+                "value": "CustomizeProduct",
+                "displayValue": "Customize Product"
+              },
+              {
+                "value": "Download",
+                "displayValue": "Download"
+              },
+              {
+                "value": "FindLocation",
+                "displayValue": "Find Location"
+              },
+              {
+                "value": "InitiateCheckout",
+                "displayValue": "Initiate Checkout"
+              },
+              {
+                "value": "Lead",
+                "displayValue": "Lead"
               },
               {
                 "value": "Pageview",
                 "displayValue": "Page View"
+              },
+              {
+                "value": "Purchase",
+                "displayValue": "Purchase"
+              },
+              {
+                "value": "Schedule",
+                "displayValue": "Schedule"
+              },
+              {
+                "value": "Search",
+                "displayValue": "Search"
+              },
+              {
+                "value": "StartTrial",
+                "displayValue": "Start Trial"
+              },
+              {
+                "value": "SubmitApplication",
+                "displayValue": "Submit Application"
+              },
+              {
+                "value": "Subscribe",
+                "displayValue": "Subscribe"
+              },
+              {
+                "value": "ViewContent",
+                "displayValue": "View Content"
+              },
+              {
+                "value": "CompletePayment",
+                "displayValue": "Complete Payment (legacy - Use Purchase instead)"
+              },
+              {
+                "value": "SubmitForm",
+                "displayValue": "Submit Form (legacy - Use Lead instead)"
+              },
+              {
+                "value": "ClickButton",
+                "displayValue": "Click Button (deprecated)"
+              },
+              {
+                "value": "PlaceAnOrder",
+                "displayValue": "Place an Order (deprecated)"
               }
             ],
             "simpleValueType": true,
@@ -721,21 +753,40 @@ if (url && url.lastIndexOf('https://gtm-msr.appspot.com/', 0) === 0) {
 
 const commonCookie = eventData.common_cookie || {};
 
-let ttclid = getCookieValues('ttclid')[0] || commonCookie.ttclid;
-if (!ttclid) ttclid = eventData.ttclid;
+let ttclid = getCookieValues('ttclid')[0] || commonCookie.ttclid || eventData.ttclid;
 
-let ttp = getCookieValues('_ttp')[0] || commonCookie._ttp;
-if (!ttp) ttp = eventData._ttp;
+let ttp = getCookieValues('_ttp')[0] || commonCookie._ttp || eventData._ttp;
 if (!ttp && data.generateTtp) {
   ttp = generateTtp();
 }
 
 if (url) {
   const urlParsed = parseUrl(url);
-
   if (urlParsed && urlParsed.searchParams.ttclid) {
     ttclid = decodeUriComponent(urlParsed.searchParams.ttclid);
   }
+}
+
+if (ttp) {
+  setCookie('_ttp', ttp, {
+    domain: 'auto',
+    path: '/',
+    samesite: 'Lax',
+    secure: true,
+    'max-age': 34190000, // 13 months
+    httpOnly: false
+  });
+}
+
+if (ttclid) {
+  setCookie('ttclid', ttclid, {
+    domain: 'auto',
+    path: '/',
+    samesite: 'Lax',
+    secure: true,
+    'max-age': 2592000, // 30 days
+    httpOnly: false
+  });
 }
 
 const apiVersion = '1.3';
@@ -752,28 +803,6 @@ log({
   RequestUrl: postUrl,
   RequestBody: postBody
 });
-
-if (ttclid) {
-  setCookie('ttclid', ttclid, {
-    domain: 'auto',
-    path: '/',
-    samesite: 'Lax',
-    secure: true,
-    'max-age': 2592000, // 30 days
-    httpOnly: false
-  });
-}
-
-if (ttp) {
-  setCookie('_ttp', ttp, {
-    domain: 'auto',
-    path: '/',
-    samesite: 'Lax',
-    secure: true,
-    'max-age': 34190000, // 13 months
-    httpOnly: false
-  });
-}
 
 sendHttpRequest(
   postUrl,
@@ -1065,8 +1094,8 @@ function getEventName(eventData, data) {
       add_to_wishlist: 'AddToWishlist',
       sign_up: 'CompleteRegistration',
       begin_checkout: 'InitiateCheckout',
-      generate_lead: 'SubmitForm',
-      purchase: 'CompletePayment',
+      generate_lead: 'Lead',
+      purchase: 'Purchase',
       search: 'Search',
       view_item: 'ViewContent',
 
@@ -1079,7 +1108,7 @@ function getEventName(eventData, data) {
       'gtm4wp.productClickEEC': 'ViewContent',
       'gtm4wp.checkoutOptionEEC': 'InitiateCheckout',
       'gtm4wp.checkoutStepEEC': 'AddPaymentInfo',
-      'gtm4wp.orderCompletedEEC': 'CompletePayment'
+      'gtm4wp.orderCompletedEEC': 'Purchase'
     };
 
     if (!gaToEventName[eventName]) {
@@ -1209,7 +1238,6 @@ function log(rawDataToLog) {
   if (determinateIsLoggingEnabled()) logDestinationsHandlers.console = logConsole;
   if (determinateIsLoggingEnabledForBigQuery()) logDestinationsHandlers.bigQuery = logToBigQuery;
 
-  // Key mappings for each log destination
   const keyMappings = {
     // No transformation for Console is needed.
     bigQuery: {
@@ -1232,10 +1260,10 @@ function log(rawDataToLog) {
 
     const mapping = keyMappings[logDestination];
     const dataToLog = mapping ? {} : rawDataToLog;
-    // Map keys based on the log destination
+
     if (mapping) {
       for (const key in rawDataToLog) {
-        const mappedKey = mapping[key] || key; // Fallback to original key if no mapping exists
+        const mappedKey = mapping[key] || key;
         dataToLog[mappedKey] = rawDataToLog[key];
       }
     }
@@ -1255,18 +1283,12 @@ function logToBigQuery(dataToLog) {
     tableId: data.logBigQueryTableId
   };
 
-  // timestamp is required.
   dataToLog.timestamp = getTimestampMillis();
 
-  // Columns with type JSON need to be stringified.
   ['request_body', 'response_headers', 'response_body'].forEach((p) => {
-    // GTM Sandboxed JSON.parse returns undefined for malformed JSON but throws post-execution, causing execution failure.
-    // If fixed, could use: dataToLog[p] = JSON.stringify(JSON.parse(dataToLog[p]) || dataToLog[p]);
     dataToLog[p] = JSON.stringify(dataToLog[p]);
   });
 
-  // assertApi doesn't work for 'BigQuery.insert()'. It's needed to convert BigQuery into a function when testing.
-  // Ref: https://gtm-gear.com/posts/gtm-templates-testing/
   const bigquery = getType(BigQuery) === 'function' ? BigQuery() /* Only during Unit Tests */ : BigQuery;
   bigquery.insert(connectionInfo, [dataToLog], { ignoreUnknownValues: true });
 }
@@ -1688,11 +1710,13 @@ scenarios:
   code: "mockData.logType = 'always';\n\nconst expectedDebugMode = true;\nmock('getContainerVersion',\
     \ () => {\n  return {\n    debugMode: expectedDebugMode\n  };\n}); \n\nmock('logToConsole',\
     \ (logData) => {\n  const parsedLogData = JSON.parse(logData);\n  requiredConsoleKeys.forEach(p\
-    \ => assertThat(parsedLogData[p]).isDefined());\n});\n\nrunCode(mockData);\n\n\
-    assertApi('logToConsole').wasCalled();\n"
+    \ => assertThat(parsedLogData[p]).isDefined());\n});\n\nmock('sendHttpRequest',\
+    \ (requestUrl, callback, requestOptions) => {\n  callback(200);\n});\n\nrunCode(mockData);\n\
+    \nassertApi('logToConsole').wasCalled();\nassertApi('gtmOnSuccess').wasCalled();\n\
+    assertApi('gtmOnFailure').wasNotCalled();\n"
 - name: Should log to console, if the 'Log during debug and preview' option is selected
     AND is on preview mode
-  code: |
+  code: |-
     mockData.logType = 'debug';
 
     const expectedDebugMode = true;
@@ -1707,21 +1731,49 @@ scenarios:
       requiredConsoleKeys.forEach(p => assertThat(parsedLogData[p]).isDefined());
     });
 
+    mock('sendHttpRequest', (requestUrl, callback, requestOptions) => {
+      callback(200);
+    });
+
     runCode(mockData);
 
     assertApi('logToConsole').wasCalled();
+    assertApi('gtmOnSuccess').wasCalled();
+    assertApi('gtmOnFailure').wasNotCalled();
 - name: Should NOT log to console, if the 'Log during debug and preview' option is
     selected AND is NOT on preview mode
-  code: "mockData.logType = 'debug';\n\nconst expectedDebugMode = false;\nmock('getContainerVersion',\
-    \ () => {\n  return {\n    debugMode: expectedDebugMode\n  };\n}); \n\nrunCode(mockData);\n\
-    \nassertApi('logToConsole').wasNotCalled();\n"
-- name: Should NOT log to console, if the 'Do not log' option is selected
-  code: |
-    mockData.logType = 'no';
+  code: |-
+    mockData.logType = 'debug';
+
+    const expectedDebugMode = false;
+    mock('getContainerVersion', () => {
+      return {
+        debugMode: expectedDebugMode
+      };
+    });
+
+    mock('sendHttpRequest', (requestUrl, callback, requestOptions) => {
+      callback(200);
+    });
 
     runCode(mockData);
 
     assertApi('logToConsole').wasNotCalled();
+    assertApi('gtmOnSuccess').wasCalled();
+    assertApi('gtmOnFailure').wasNotCalled();
+- name: Should NOT log to console, if the 'Do not log' option is selected
+  code: |-
+    mockData.logType = 'no';
+
+    mock('sendHttpRequest', (requestUrl, callback, requestOptions) => {
+      callback(200);
+    });
+
+    runCode(mockData);
+
+    assertApi('logToConsole').wasNotCalled();
+    assertApi('gtmOnSuccess').wasCalled();
+    assertApi('gtmOnFailure').wasNotCalled();
 - name: Should log to BQ, if the 'Log to BigQuery' option is selected
   code: "mockData.bigQueryLogType = 'always';\n\n// assertApi doesn't work for 'BigQuery.insert()'.\n\
     // Ref: https://gtm-gear.com/posts/gtm-templates-testing/\nmock('BigQuery', ()\
@@ -1729,33 +1781,48 @@ scenarios:
     \ assertThat(connectionInfo).isDefined();\n      assertThat(rows).isArray();\n\
     \      assertThat(rows).hasLength(1);\n      requiredBqKeys.forEach(p => assertThat(rows[0][p]).isDefined());\n\
     \      assertThat(options).isEqualTo(expectedBqOptions);\n      return Promise.create((resolve,\
-    \ reject) => {\n        resolve();\n      });\n    }\n  };\n});\n\nrunCode(mockData);"
+    \ reject) => {\n        resolve();\n      });\n    }\n  };\n});\n\nmock('sendHttpRequest',\
+    \ (requestUrl, callback, requestOptions) => {\n  callback(200);\n});\n\nrunCode(mockData);\n\
+    \nassertApi('gtmOnSuccess').wasCalled();\nassertApi('gtmOnFailure').wasNotCalled();"
 - name: Should NOT log to BQ, if the 'Do not log to BigQuery' option is selected
   code: "mockData.bigQueryLogType = 'no';\n\n// assertApi doesn't work for 'BigQuery.insert()'.\n\
     // Ref: https://gtm-gear.com/posts/gtm-templates-testing/\nmock('BigQuery', ()\
     \ => {\n  return { \n    insert: (connectionInfo, rows, options) => { \n     \
     \ fail('BigQuery.insert should not have been called.');\n      return Promise.create((resolve,\
-    \ reject) => {\n        resolve();\n      });\n    }\n  };\n});\n\nrunCode(mockData);"
+    \ reject) => {\n        resolve();\n      });\n    }\n  };\n});\n\nmock('sendHttpRequest',\
+    \ (requestUrl, callback, requestOptions) => {\n  callback(200);\n});\n\nrunCode(mockData);\n\
+    \n// Workaround because assertApi('gtmOn*').wasCalled() doesn't work for some\
+    \ reason.\nmock('gtmOnSuccess', () => assertThat(true).isTrue());\nmock('gtmOnFailure',\
+    \ () => fail('gtmOnFailure should not have been called'));"
 setup: |-
   const JSON = require('JSON');
   const Promise = require('Promise');
 
+  const expectedBigQuerySettings = {
+    logBigQueryProjectId: 'logBigQueryProjectId',
+    logBigQueryDatasetId: 'logBigQueryDatasetId',
+    logBigQueryTableId: 'logBigQueryTableId'
+  };
   const requiredConsoleKeys = ['Type', 'TraceId', 'Name'];
   const requiredBqKeys = ['timestamp', 'type', 'trace_id', 'tag_name'];
+  const expectedBqOptions = { ignoreUnknownValues: true };
 
   const expectedValue = 'test';
-  const expectedBqOptions = { ignoreUnknownValues: true };
   const expectedPixelId = '1111111111111';
 
   const mockData = {
-    logBigQueryProjectId: expectedValue,
-    logBigQueryDatasetId: expectedValue,
-    logBigQueryTableId: expectedValue,
+    logBigQueryProjectId: expectedBigQuerySettings.logBigQueryProjectId,
+    logBigQueryDatasetId: expectedBigQuerySettings.logBigQueryDatasetId,
+    logBigQueryTableId: expectedBigQuerySettings.logBigQueryTableId,
     eventType: 'custom',
     accessToken: expectedValue,
     pixelId: expectedPixelId,
     eventName: expectedValue
   };
+
+  mock('getRequestHeader', (header) => {
+    if (header === 'trace-id') return 'expectedTraceId';
+  });
 
 
 ___NOTES___
