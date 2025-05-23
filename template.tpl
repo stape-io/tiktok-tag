@@ -754,12 +754,6 @@ if (url && url.lastIndexOf('https://gtm-msr.appspot.com/', 0) === 0) {
 const commonCookie = eventData.common_cookie || {};
 
 let ttclid = getCookieValues('ttclid')[0] || commonCookie.ttclid || eventData.ttclid;
-
-let ttp = getCookieValues('_ttp')[0] || commonCookie._ttp || eventData._ttp;
-if (!ttp && data.generateTtp) {
-  ttp = generateTtp();
-}
-
 if (url) {
   const urlParsed = parseUrl(url);
   if (urlParsed && urlParsed.searchParams.ttclid) {
@@ -767,15 +761,9 @@ if (url) {
   }
 }
 
-if (ttp) {
-  setCookie('_ttp', ttp, {
-    domain: 'auto',
-    path: '/',
-    samesite: 'Lax',
-    secure: true,
-    'max-age': 34190000, // 13 months
-    httpOnly: false
-  });
+let ttp = getCookieValues('_ttp')[0] || commonCookie._ttp || eventData._ttp;
+if (!ttp && data.generateTtp) {
+  ttp = generateTtp();
 }
 
 if (ttclid) {
@@ -785,6 +773,17 @@ if (ttclid) {
     samesite: 'Lax',
     secure: true,
     'max-age': 2592000, // 30 days
+    httpOnly: false
+  });
+}
+
+if (ttp) {
+  setCookie('_ttp', ttp, {
+    domain: 'auto',
+    path: '/',
+    samesite: 'Lax',
+    secure: true,
+    'max-age': 34190000, // 13 months
     httpOnly: false
   });
 }
