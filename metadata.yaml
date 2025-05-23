@@ -1,5 +1,7 @@
 homepage: 'https://stape.io/'
 versions:
+  - sha: d33c14c40f5cb1f78abe182d1039eed07392b597
+    changeNotes: Add new events, mark deprecated events and legacy events, remove comments and organize code.
   - sha: 80b7d81b4658b07370c36a9700e8ccf99b26fde1
     changeNotes: Improve contents array properties mapping.
   - sha: 4cf635cf4bf2e9d29543eb16ec2045cf1938f626
