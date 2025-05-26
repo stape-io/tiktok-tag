@@ -35,37 +35,18 @@ if (url && url.lastIndexOf('https://gtm-msr.appspot.com/', 0) === 0) {
 
 const commonCookie = eventData.common_cookie || {};
 
-let ttclid = getCookieValues('ttclid')[0] || commonCookie.ttclid;
-if (!ttclid) ttclid = eventData.ttclid;
-
-let ttp = getCookieValues('_ttp')[0] || commonCookie._ttp;
-if (!ttp) ttp = eventData._ttp;
-if (!ttp && data.generateTtp) {
-  ttp = generateTtp();
-}
-
+let ttclid = getCookieValues('ttclid')[0] || commonCookie.ttclid || eventData.ttclid;
 if (url) {
   const urlParsed = parseUrl(url);
-
   if (urlParsed && urlParsed.searchParams.ttclid) {
     ttclid = decodeUriComponent(urlParsed.searchParams.ttclid);
   }
 }
 
-const apiVersion = '1.3';
-const postUrl = 'https://business-api.tiktok.com/open_api/v' + apiVersion + '/event/track/';
-const eventName = getEventName(eventData, data);
-const postBody = mapEvent(eventData, data);
-
-log({
-  Name: 'TikTok',
-  Type: 'Request',
-  TraceId: traceId,
-  EventName: eventName,
-  RequestMethod: 'POST',
-  RequestUrl: postUrl,
-  RequestBody: postBody
-});
+let ttp = getCookieValues('_ttp')[0] || commonCookie._ttp || eventData._ttp;
+if (!ttp && data.generateTtp) {
+  ttp = generateTtp();
+}
 
 if (ttclid) {
   setCookie('ttclid', ttclid, {
@@ -88,6 +69,21 @@ if (ttp) {
     httpOnly: false
   });
 }
+
+const apiVersion = '1.3';
+const postUrl = 'https://business-api.tiktok.com/open_api/v' + apiVersion + '/event/track/';
+const eventName = getEventName(eventData, data);
+const postBody = mapEvent(eventData, data);
+
+log({
+  Name: 'TikTok',
+  Type: 'Request',
+  TraceId: traceId,
+  EventName: eventName,
+  RequestMethod: 'POST',
+  RequestUrl: postUrl,
+  RequestBody: postBody
+});
 
 sendHttpRequest(
   postUrl,
@@ -379,8 +375,8 @@ function getEventName(eventData, data) {
       add_to_wishlist: 'AddToWishlist',
       sign_up: 'CompleteRegistration',
       begin_checkout: 'InitiateCheckout',
-      generate_lead: 'SubmitForm',
-      purchase: 'CompletePayment',
+      generate_lead: 'Lead',
+      purchase: 'Purchase',
       search: 'Search',
       view_item: 'ViewContent',
 
@@ -393,7 +389,7 @@ function getEventName(eventData, data) {
       'gtm4wp.productClickEEC': 'ViewContent',
       'gtm4wp.checkoutOptionEEC': 'InitiateCheckout',
       'gtm4wp.checkoutStepEEC': 'AddPaymentInfo',
-      'gtm4wp.orderCompletedEEC': 'CompletePayment'
+      'gtm4wp.orderCompletedEEC': 'Purchase'
     };
 
     if (!gaToEventName[eventName]) {
@@ -523,7 +519,6 @@ function log(rawDataToLog) {
   if (determinateIsLoggingEnabled()) logDestinationsHandlers.console = logConsole;
   if (determinateIsLoggingEnabledForBigQuery()) logDestinationsHandlers.bigQuery = logToBigQuery;
 
-  // Key mappings for each log destination
   const keyMappings = {
     // No transformation for Console is needed.
     bigQuery: {
@@ -546,10 +541,10 @@ function log(rawDataToLog) {
 
     const mapping = keyMappings[logDestination];
     const dataToLog = mapping ? {} : rawDataToLog;
-    // Map keys based on the log destination
+
     if (mapping) {
       for (const key in rawDataToLog) {
-        const mappedKey = mapping[key] || key; // Fallback to original key if no mapping exists
+        const mappedKey = mapping[key] || key;
         dataToLog[mappedKey] = rawDataToLog[key];
       }
     }
@@ -569,18 +564,12 @@ function logToBigQuery(dataToLog) {
     tableId: data.logBigQueryTableId
   };
 
-  // timestamp is required.
   dataToLog.timestamp = getTimestampMillis();
 
-  // Columns with type JSON need to be stringified.
   ['request_body', 'response_headers', 'response_body'].forEach((p) => {
-    // GTM Sandboxed JSON.parse returns undefined for malformed JSON but throws post-execution, causing execution failure.
-    // If fixed, could use: dataToLog[p] = JSON.stringify(JSON.parse(dataToLog[p]) || dataToLog[p]);
     dataToLog[p] = JSON.stringify(dataToLog[p]);
   });
 
-  // assertApi doesn't work for 'BigQuery.insert()'. It's needed to convert BigQuery into a function when testing.
-  // Ref: https://gtm-gear.com/posts/gtm-templates-testing/
   const bigquery = getType(BigQuery) === 'function' ? BigQuery() /* Only during Unit Tests */ : BigQuery;
   bigquery.insert(connectionInfo, [dataToLog], { ignoreUnknownValues: true });
 }

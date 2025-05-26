@@ -22,21 +22,29 @@ More detailed description of setting up the [TikTok events API tag in the sGTM](
 
 ### Supported events
 
-- ViewContent
-- ClickButton
-- Search
-- AddToWishlist
-- AddToCart
-- InitiateCheckout
 - AddPaymentInfo
-- CompletePayment
-- PlaceAnOrder
-- Contact
-- Download
-- SubmitForm
+- AddToCart
+- AddToWishlist
+- ApplicationApproval
 - CompleteRegistration
+- Contact
+- CustomizeProduct
+- Download
+- FindLocation
+- InitiateCheckout
+- Lead
+- Pageview
+- Purchase
+- Schedule
+- Search
+- StartTrial
+- SubmitApplication
 - Subscribe
-- PageView
+- ViewContent
+- CompletePayment (legacy - Use Purchase instead)
+- SubmitForm (legacy - Use Lead instead)
+- ClickButton (deprecated)
+- PlaceAnOrder (deprecated)
 
 ## Open Source
 
