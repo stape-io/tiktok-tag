@@ -1,5 +1,7 @@
 homepage: 'https://stape.io/'
 versions:
+  - sha: d80eb41f2f2ff40b042a0e4543221fe9c470047c
+    changeNotes: Cast content_id when read from eventData.items into string.
   - sha: 899f2c68dc163e2314551a28d1dbcd12b8289ca0
     changeNotes: Add new events, mark deprecated events and legacy events, remove comments and organize code.
   - sha: 80b7d81b4658b07370c36a9700e8ccf99b26fde1

@@ -937,14 +937,14 @@ function addPropertiesData(eventData, mappedData) {
   else if (eventData.items && eventData.items[0]) {
     mappedData.properties.contents = [];
 
-    eventData.items.forEach((d, i) => {
+    eventData.items.forEach((d) => {
       const item = {};
 
       if (d.price) item.price = d.price;
       if (d.quantity) item.quantity = d.quantity;
 
-      if (d.item_id) item.content_id = d.item_id;
-      else if (d.id) item.content_id = d.id;
+      if (d.item_id) item.content_id = makeString(d.item_id);
+      else if (d.id) item.content_id = makeString(d.id);
 
       if (d.content_category) item.content_category = d.content_category;
       else if (d.item_category) item.content_category = d.item_category;
