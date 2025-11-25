@@ -1,34 +1,38 @@
+const BigQuery = require('BigQuery');
+const computeEffectiveTldPlusOne = require('computeEffectiveTldPlusOne');
+const decodeUriComponent = require('decodeUriComponent');
+const fromBase64 = require('fromBase64');
+const generateRandom = require('generateRandom');
 const getAllEventData = require('getAllEventData');
+const getContainerVersion = require('getContainerVersion');
+const getCookieValues = require('getCookieValues');
+const getEventData = require('getEventData');
+const getRequestHeader = require('getRequestHeader');
+const getTimestampMillis = require('getTimestampMillis');
+const getType = require('getType');
 const JSON = require('JSON');
+const logToConsole = require('logToConsole');
+const makeInteger = require('makeInteger');
+const makeString = require('makeString');
+const Math = require('Math');
+const parseUrl = require('parseUrl');
 const sendHttpRequest = require('sendHttpRequest');
 const setCookie = require('setCookie');
-const getCookieValues = require('getCookieValues');
-const getContainerVersion = require('getContainerVersion');
-const logToConsole = require('logToConsole');
 const sha256Sync = require('sha256Sync');
-const makeString = require('makeString');
-const getRequestHeader = require('getRequestHeader');
-const parseUrl = require('parseUrl');
-const decodeUriComponent = require('decodeUriComponent');
-const getType = require('getType');
-const getTimestampMillis = require('getTimestampMillis');
-const Math = require('Math');
-const makeInteger = require('makeInteger');
-const generateRandom = require('generateRandom');
-const BigQuery = require('BigQuery');
+const toBase64 = require('toBase64');
 
-/**********************************************************************************************/
+/*==============================================================================
+==============================================================================*/
 
-const traceId = getRequestHeader('trace-id');
-const gtmVersion = 'stape_2_0_1';
+const gtmVersion = 'stape_2_1_1' + (data.enableEventEnhancement ? '-ee' : '');
 
 const eventData = getAllEventData();
 
-if (!isConsentGivenOrNotRequired()) {
+if (!isConsentGivenOrNotRequired(data, eventData)) {
   return data.gtmOnSuccess();
 }
 
-const url = eventData.page_location || getRequestHeader('referer');
+const url = getUrl(eventData);
 if (url && url.lastIndexOf('https://gtm-msr.appspot.com/', 0) === 0) {
   return data.gtmOnSuccess();
 }
@@ -50,9 +54,9 @@ if (!ttp && data.generateTtp) {
 
 if (ttclid) {
   setCookie('ttclid', ttclid, {
-    domain: 'auto',
+    domain: data.cookieDomain || getCookieAutoDomain(),
     path: '/',
-    samesite: 'Lax',
+    samesite: data.cookieSameSite || 'Lax',
     secure: true,
     'max-age': 2592000, // 30 days
     httpOnly: false
@@ -61,9 +65,9 @@ if (ttclid) {
 
 if (ttp) {
   setCookie('_ttp', ttp, {
-    domain: 'auto',
+    domain: data.cookieDomain || getCookieAutoDomain(),
     path: '/',
-    samesite: 'Lax',
+    samesite: data.cookieSameSite || 'Lax',
     secure: true,
     'max-age': 34190000, // 13 months
     httpOnly: false
@@ -78,7 +82,6 @@ const postBody = mapEvent(eventData, data);
 log({
   Name: 'TikTok',
   Type: 'Request',
-  TraceId: traceId,
   EventName: eventName,
   RequestMethod: 'POST',
   RequestUrl: postUrl,
@@ -91,7 +94,6 @@ sendHttpRequest(
     log({
       Name: 'TikTok',
       Type: 'Response',
-      TraceId: traceId,
       EventName: eventName,
       ResponseStatusCode: statusCode,
       ResponseHeaders: headers,
@@ -117,11 +119,12 @@ sendHttpRequest(
 );
 
 if (data.useOptimisticScenario) {
-  data.gtmOnSuccess();
+  return data.gtmOnSuccess();
 }
 
-/**********************************************************************************************/
-// Vendor related functions
+/*==============================================================================
+  Vendor related functions
+==============================================================================*/
 
 function mapEvent(eventData, data) {
   const eventSource = data.eventSource || 'web';
@@ -144,9 +147,18 @@ function mapEvent(eventData, data) {
     mappedData.limited_data_use = data.limitedDataUse || false;
   }
 
+  if (eventSource === 'crm') {
+    addLeadData(mappedData);
+  }
+
   mappedData = addUserData(eventData, mappedData, eventSource);
   mappedData = addPropertiesData(eventData, mappedData);
   mappedData = hashDataIfNeeded(mappedData);
+
+  if (data.enableEventEnhancement) {
+    mappedData.user = enhanceEventData(mappedData.user);
+    setGtmEecCookie(mappedData.user);
+  }
 
   const requestData = {
     event_source: eventSource,
@@ -170,7 +182,7 @@ function hashData(value) {
     return undefined;
   }
 
-  if (type === 'object') {
+  if (type === 'array') {
     return value.map((val) => {
       return hashData(val);
     });
@@ -243,6 +255,14 @@ function addPropertiesData(eventData, mappedData) {
 
   if (data.customDataList) {
     data.customDataList.forEach((d) => {
+      if (isValidValue(d.value)) {
+        mappedData.properties[d.name] = d.value;
+      }
+    });
+  }
+
+  if (data.additionalEventPropertiesList) {
+    data.additionalEventPropertiesList.forEach((d) => {
       if (isValidValue(d.value)) {
         mappedData.properties[d.name] = d.value;
       }
@@ -482,6 +502,16 @@ function addAppData(mappedData, eventData) {
   return mappedData;
 }
 
+function addLeadData(mappedData) {
+  mappedData.lead = {
+    lead_id: makeString(data.leadId)
+  };
+
+  if (data.leadEventSource) mappedData.lead.lead_event_source = data.leadEventSource;
+
+  return mappedData;
+}
+
 function generateTtp() {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let result = '';
@@ -494,8 +524,64 @@ function generateTtp() {
   return result;
 }
 
-/**********************************************************************************************/
-// Helpers
+function setGtmEecCookie(userData) {
+  const gtmeecCookie = {};
+
+  if (userData.email) gtmeecCookie.email = userData.email;
+  if (userData.phone) gtmeecCookie.phone = userData.phone;
+  if (userData.last_name) gtmeecCookie.last_name = userData.last_name;
+  if (userData.first_name) gtmeecCookie.first_name = userData.first_name;
+  if (userData.city) gtmeecCookie.city = userData.city;
+  if (userData.state) gtmeecCookie.state = userData.state;
+  if (userData.zip_code) gtmeecCookie.zip_code = userData.zip_code;
+  if (userData.country) gtmeecCookie.country = userData.country;
+  if (userData.external_id) gtmeecCookie.external_id = userData.external_id;
+
+  setCookie('_gtmeec-tt', toBase64(JSON.stringify(gtmeecCookie)), {
+    domain: data.cookieDomain || getCookieAutoDomain(),
+    path: '/',
+    samesite: data.cookieSameSite || 'strict',
+    secure: true,
+    'max-age': 7776000, // 90 days
+    HttpOnly: true
+  });
+}
+
+function enhanceEventData(userData) {
+  const cookieValue = getCookieValues('_gtmeec-tt')[0] || commonCookie['_gtmeec-tt'];
+  if (!cookieValue) return userData;
+
+  const jsonStr = fromBase64(cookieValue);
+  if (!jsonStr) return userData;
+
+  const gtmeecData = JSON.parse(jsonStr);
+
+  if (getType(gtmeecData) === 'object') {
+    if (!userData.email && gtmeecData.email) userData.email = gtmeecData.email;
+    if (!userData.phone && gtmeecData.phone) userData.phone = gtmeecData.phone;
+    if (!userData.last_name && gtmeecData.last_name) userData.last_name = gtmeecData.last_name;
+    if (!userData.first_name && gtmeecData.first_name) userData.first_name = gtmeecData.first_name;
+    if (!userData.city && gtmeecData.city) userData.city = gtmeecData.city;
+    if (!userData.state && gtmeecData.state) userData.state = gtmeecData.state;
+    if (!userData.zip_code && gtmeecData.zip_code) userData.zip_code = gtmeecData.zip_code;
+    if (!userData.country && gtmeecData.country) userData.country = gtmeecData.country;
+    if (!userData.external_id && gtmeecData.external_id) userData.external_id = gtmeecData.external_id;
+  }
+
+  return userData;
+}
+
+/*==============================================================================
+  Helpers
+==============================================================================*/
+
+function getUrl(eventData) {
+  return eventData.page_location || eventData.page_referrer || getRequestHeader('referer');
+}
+
+function getCookieAutoDomain() {
+  return computeEffectiveTldPlusOne(getEventData('page_location') || getRequestHeader('referer')) || 'auto';
+}
 
 function isHashed(value) {
   if (!value) return false;
@@ -507,7 +593,7 @@ function isValidValue(value) {
   return valueType !== 'null' && valueType !== 'undefined' && value !== '';
 }
 
-function isConsentGivenOrNotRequired() {
+function isConsentGivenOrNotRequired(data, eventData) {
   if (data.adStorageConsent !== 'required') return true;
   if (eventData.consent_state) return !!eventData.consent_state.ad_storage;
   const xGaGcs = eventData['x-ga-gcs'] || ''; // x-ga-gcs is a string like "G110"
@@ -518,6 +604,8 @@ function log(rawDataToLog) {
   const logDestinationsHandlers = {};
   if (determinateIsLoggingEnabled()) logDestinationsHandlers.console = logConsole;
   if (determinateIsLoggingEnabledForBigQuery()) logDestinationsHandlers.bigQuery = logToBigQuery;
+
+  rawDataToLog.TraceId = getRequestHeader('trace-id');
 
   const keyMappings = {
     // No transformation for Console is needed.
@@ -570,8 +658,7 @@ function logToBigQuery(dataToLog) {
     dataToLog[p] = JSON.stringify(dataToLog[p]);
   });
 
-  const bigquery = getType(BigQuery) === 'function' ? BigQuery() /* Only during Unit Tests */ : BigQuery;
-  bigquery.insert(connectionInfo, [dataToLog], { ignoreUnknownValues: true });
+  BigQuery.insert(connectionInfo, [dataToLog], { ignoreUnknownValues: true });
 }
 
 function determinateIsLoggingEnabled() {
