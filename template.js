@@ -223,6 +223,7 @@ function addPropertiesData(eventData, mappedData) {
   else if (eventData['x-ga-mp1-tr']) mappedData.properties.value = eventData['x-ga-mp1-tr'];
 
   if (eventData.query) mappedData.properties.query = eventData.query;
+  if (eventData.search_term || eventData.search_string) mappedData.properties.search_string = eventData.search_term || eventData.search_string;
   if (eventData.description) mappedData.properties.description = eventData.description;
   if (eventData.order_id) mappedData.properties.order_id = eventData.order_id;
   if (eventData.shop_id) mappedData.properties.shop_id = eventData.shop_id;
