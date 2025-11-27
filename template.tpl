@@ -306,14 +306,9 @@ ___TEMPLATE_PARAMETERS___
                 "name": "cookieDomain",
                 "displayName": "Cookie Domain",
                 "simpleValueType": true,
-                "help": "Use this option to override the cookie domain. \u003cbr\u003e Enter your website\u0027s top-level domain as a fixed value (e.g., example.com). \u003cbr\u003e If left empty, the domain will be automatically determined using the following priority: \u003cul\u003e \u003cli\u003eDomain of the \u003ci\u003epage_location\u003c/i\u003e Event Data parameter (if present).\u003c/li\u003e \u003cli\u003eDomain of the \u003ci\u003eReferer\u003c/i\u003e header (if present).\u003c/li\u003e \u003cli\u003eDomain of the \u003ci\u003eForwarded\u003c/i\u003e header (if present).\u003c/li\u003e \u003cli\u003eDomain of the \u003ci\u003eX-Forwarded-Host\u003c/i\u003e header (if present).\u003c/li\u003e \u003cli\u003eDomain of the \u003ci\u003eHost\u003c/i\u003e header.\u003c/li\u003e \u003c/ul\u003e",
-                "defaultValue": "auto",
+                "help": "Use this option to override the cookie domain. \u003cbr\u003e Enter your website\u0027s top-level domain as a fixed value (e.g., example.com). \u003cbr\u003e If left empty or using the \"auto\" value, the domain will be automatically determined using the following priority: \u003cul\u003e \u003cli\u003eDomain of the \u003ci\u003epage_location\u003c/i\u003e Event Data parameter (if present).\u003c/li\u003e \u003cli\u003eDomain of the \u003ci\u003eReferer\u003c/i\u003e header (if present).\u003c/li\u003e \u003cli\u003eDomain of the \u003ci\u003eForwarded\u003c/i\u003e header (if present).\u003c/li\u003e \u003cli\u003eDomain of the \u003ci\u003eX-Forwarded-Host\u003c/i\u003e header (if present).\u003c/li\u003e \u003cli\u003eDomain of the \u003ci\u003eHost\u003c/i\u003e header.\u003c/li\u003e \u003c/ul\u003e",
                 "valueHint": "example.com",
-                "valueValidators": [
-                  {
-                    "type": "NON_EMPTY"
-                  }
-                ]
+                "defaultValue": "auto"
               },
               {
                 "type": "SELECT",
@@ -931,7 +926,7 @@ const toBase64 = require('toBase64');
 /*==============================================================================
 ==============================================================================*/
 
-const gtmVersion = 'stape_2_1_1' + (data.enableEventEnhancement ? '-ee' : '');
+const gtmVersion = 'stape_2_1_1' + (data.enableEventEnhancement ? '_ee' : '');
 
 const eventData = getAllEventData();
 
@@ -961,7 +956,7 @@ if (!ttp && data.generateTtp) {
 
 if (ttclid) {
   setCookie('ttclid', ttclid, {
-    domain: data.cookieDomain || getCookieAutoDomain(),
+    domain: getCookieDomain(data),
     path: '/',
     samesite: data.cookieSameSite || 'Lax',
     secure: true,
@@ -972,7 +967,7 @@ if (ttclid) {
 
 if (ttp) {
   setCookie('_ttp', ttp, {
-    domain: data.cookieDomain || getCookieAutoDomain(),
+    domain: getCookieDomain(data),
     path: '/',
     samesite: data.cookieSameSite || 'Lax',
     secure: true,
@@ -1446,7 +1441,7 @@ function setGtmEecCookie(userData) {
   if (userData.external_id) gtmeecCookie.external_id = userData.external_id;
 
   setCookie('_gtmeec-tt', toBase64(JSON.stringify(gtmeecCookie)), {
-    domain: data.cookieDomain || getCookieAutoDomain(),
+    domain: getCookieDomain(data),
     path: '/',
     samesite: data.cookieSameSite || 'strict',
     secure: true,
@@ -1487,8 +1482,8 @@ function getUrl(eventData) {
   return eventData.page_location || eventData.page_referrer || getRequestHeader('referer');
 }
 
-function getCookieAutoDomain() {
-  return computeEffectiveTldPlusOne(getEventData('page_location') || getRequestHeader('referer')) || 'auto';
+function getCookieDomain(data) {
+  return !data.cookieDomain || data.cookieDomain === 'auto' ? computeEffectiveTldPlusOne(getEventData('page_location') || getRequestHeader('referer')) || 'auto' : data.cookieDomain;
 }
 
 function isHashed(value) {

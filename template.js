@@ -24,7 +24,7 @@ const toBase64 = require('toBase64');
 /*==============================================================================
 ==============================================================================*/
 
-const gtmVersion = 'stape_2_1_1' + (data.enableEventEnhancement ? '-ee' : '');
+const gtmVersion = 'stape_2_1_1' + (data.enableEventEnhancement ? '_ee' : '');
 
 const eventData = getAllEventData();
 
@@ -54,7 +54,7 @@ if (!ttp && data.generateTtp) {
 
 if (ttclid) {
   setCookie('ttclid', ttclid, {
-    domain: data.cookieDomain || getCookieAutoDomain(),
+    domain: getCookieDomain(data),
     path: '/',
     samesite: data.cookieSameSite || 'Lax',
     secure: true,
@@ -65,7 +65,7 @@ if (ttclid) {
 
 if (ttp) {
   setCookie('_ttp', ttp, {
-    domain: data.cookieDomain || getCookieAutoDomain(),
+    domain: getCookieDomain(data),
     path: '/',
     samesite: data.cookieSameSite || 'Lax',
     secure: true,
@@ -539,7 +539,7 @@ function setGtmEecCookie(userData) {
   if (userData.external_id) gtmeecCookie.external_id = userData.external_id;
 
   setCookie('_gtmeec-tt', toBase64(JSON.stringify(gtmeecCookie)), {
-    domain: data.cookieDomain || getCookieAutoDomain(),
+    domain: getCookieDomain(data),
     path: '/',
     samesite: data.cookieSameSite || 'strict',
     secure: true,
@@ -580,8 +580,8 @@ function getUrl(eventData) {
   return eventData.page_location || eventData.page_referrer || getRequestHeader('referer');
 }
 
-function getCookieAutoDomain() {
-  return computeEffectiveTldPlusOne(getEventData('page_location') || getRequestHeader('referer')) || 'auto';
+function getCookieDomain(data) {
+  return !data.cookieDomain || data.cookieDomain === 'auto' ? computeEffectiveTldPlusOne(getEventData('page_location') || getRequestHeader('referer')) || 'auto' : data.cookieDomain;
 }
 
 function isHashed(value) {
