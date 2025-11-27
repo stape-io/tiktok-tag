@@ -37,227 +37,321 @@ ___TEMPLATE_PARAMETERS___
 
 [
   {
-    "type": "RADIO",
-    "name": "eventType",
-    "displayName": "Event Name Setup Method",
-    "radioItems": [
+    "type": "GROUP",
+    "name": "baseConfigGroup",
+    "subParams": [
       {
-        "value": "standard",
-        "displayValue": "Standard",
-        "subParams": [
+        "type": "RADIO",
+        "name": "eventType",
+        "displayName": "Event Name Setup Method",
+        "radioItems": [
           {
-            "type": "SELECT",
-            "name": "eventName",
-            "macrosInSelect": false,
-            "selectItems": [
+            "value": "standard",
+            "displayValue": "Standard",
+            "subParams": [
               {
-                "value": "AddPaymentInfo",
-                "displayValue": "Add Payment Info"
-              },
+                "type": "SELECT",
+                "name": "eventName",
+                "macrosInSelect": false,
+                "selectItems": [
+                  {
+                    "value": "AddPaymentInfo",
+                    "displayValue": "Add Payment Info"
+                  },
+                  {
+                    "value": "AddToCart",
+                    "displayValue": "Add to Cart"
+                  },
+                  {
+                    "value": "AddToWishlist",
+                    "displayValue": "Add to Wishlist"
+                  },
+                  {
+                    "value": "ApplicationApproval",
+                    "displayValue": "Application Approval"
+                  },
+                  {
+                    "value": "CompleteRegistration",
+                    "displayValue": "Complete Registration"
+                  },
+                  {
+                    "value": "Contact",
+                    "displayValue": "Contact"
+                  },
+                  {
+                    "value": "CustomizeProduct",
+                    "displayValue": "Customize Product"
+                  },
+                  {
+                    "value": "Download",
+                    "displayValue": "Download"
+                  },
+                  {
+                    "value": "FindLocation",
+                    "displayValue": "Find Location"
+                  },
+                  {
+                    "value": "InitiateCheckout",
+                    "displayValue": "Initiate Checkout"
+                  },
+                  {
+                    "value": "Lead",
+                    "displayValue": "Lead"
+                  },
+                  {
+                    "value": "Pageview",
+                    "displayValue": "Page View"
+                  },
+                  {
+                    "value": "Purchase",
+                    "displayValue": "Purchase"
+                  },
+                  {
+                    "value": "Schedule",
+                    "displayValue": "Schedule"
+                  },
+                  {
+                    "value": "Search",
+                    "displayValue": "Search"
+                  },
+                  {
+                    "value": "StartTrial",
+                    "displayValue": "Start Trial"
+                  },
+                  {
+                    "value": "SubmitApplication",
+                    "displayValue": "Submit Application"
+                  },
+                  {
+                    "value": "Subscribe",
+                    "displayValue": "Subscribe"
+                  },
+                  {
+                    "value": "ViewContent",
+                    "displayValue": "View Content"
+                  },
+                  {
+                    "value": "CompletePayment",
+                    "displayValue": "Complete Payment (legacy - Use Purchase instead)"
+                  },
+                  {
+                    "value": "SubmitForm",
+                    "displayValue": "Submit Form (legacy - Use Lead instead)"
+                  },
+                  {
+                    "value": "ClickButton",
+                    "displayValue": "Click Button (deprecated)"
+                  },
+                  {
+                    "value": "PlaceAnOrder",
+                    "displayValue": "Place an Order (deprecated)"
+                  }
+                ],
+                "simpleValueType": true,
+                "alwaysInSummary": true,
+                "valueValidators": [
+                  {
+                    "type": "NON_EMPTY"
+                  }
+                ],
+                "displayName": "Event Name",
+                "defaultValue": "Pageview"
+              }
+            ]
+          },
+          {
+            "value": "inherit",
+            "subParams": [],
+            "displayValue": "Inherit from client"
+          },
+          {
+            "value": "custom",
+            "subParams": [
               {
-                "value": "AddToCart",
-                "displayValue": "Add to Cart"
-              },
-              {
-                "value": "AddToWishlist",
-                "displayValue": "Add to Wishlist"
-              },
-              {
-                "value": "ApplicationApproval",
-                "displayValue": "Application Approval"
-              },
-              {
-                "value": "CompleteRegistration",
-                "displayValue": "Complete Registration"
-              },
-              {
-                "value": "Contact",
-                "displayValue": "Contact"
-              },
-              {
-                "value": "CustomizeProduct",
-                "displayValue": "Customize Product"
-              },
-              {
-                "value": "Download",
-                "displayValue": "Download"
-              },
-              {
-                "value": "FindLocation",
-                "displayValue": "Find Location"
-              },
-              {
-                "value": "InitiateCheckout",
-                "displayValue": "Initiate Checkout"
-              },
-              {
-                "value": "Lead",
-                "displayValue": "Lead"
-              },
-              {
-                "value": "Pageview",
-                "displayValue": "Page View"
-              },
-              {
-                "value": "Purchase",
-                "displayValue": "Purchase"
-              },
-              {
-                "value": "Schedule",
-                "displayValue": "Schedule"
-              },
-              {
-                "value": "Search",
-                "displayValue": "Search"
-              },
-              {
-                "value": "StartTrial",
-                "displayValue": "Start Trial"
-              },
-              {
-                "value": "SubmitApplication",
-                "displayValue": "Submit Application"
-              },
-              {
-                "value": "Subscribe",
-                "displayValue": "Subscribe"
-              },
-              {
-                "value": "ViewContent",
-                "displayValue": "View Content"
-              },
-              {
-                "value": "CompletePayment",
-                "displayValue": "Complete Payment (legacy - Use Purchase instead)"
-              },
-              {
-                "value": "SubmitForm",
-                "displayValue": "Submit Form (legacy - Use Lead instead)"
-              },
-              {
-                "value": "ClickButton",
-                "displayValue": "Click Button (deprecated)"
-              },
-              {
-                "value": "PlaceAnOrder",
-                "displayValue": "Place an Order (deprecated)"
+                "type": "TEXT",
+                "name": "eventNameCustom",
+                "displayName": "",
+                "simpleValueType": true
               }
             ],
-            "simpleValueType": true,
-            "alwaysInSummary": true,
-            "valueValidators": [
-              {
-                "type": "NON_EMPTY"
-              }
-            ],
-            "displayName": "Event Name",
-            "defaultValue": "Pageview"
+            "displayValue": "Custom"
+          }
+        ],
+        "simpleValueType": true,
+        "defaultValue": "standard"
+      },
+      {
+        "type": "SELECT",
+        "name": "eventSource",
+        "displayName": "Event Source",
+        "selectItems": [
+          {
+            "value": "web",
+            "displayValue": "Web"
+          },
+          {
+            "value": "app",
+            "displayValue": "App"
+          },
+          {
+            "value": "offline",
+            "displayValue": "Offline"
+          },
+          {
+            "value": "crm",
+            "displayValue": "CRM"
+          }
+        ],
+        "simpleValueType": true,
+        "defaultValue": "web"
+      },
+      {
+        "type": "TEXT",
+        "name": "accessToken",
+        "displayName": "Access Token",
+        "simpleValueType": true,
+        "help": "Set to your TikTok API Access Token. More info on how to get it can be found \u003ca href\u003d\"https://ads.tiktok.com/marketing_api/docs?rid\u003d959icq5stjr\u0026id\u003d1701890979375106\" target\u003d\"_blank\"\u003ehere\u003c/a\u003e.",
+        "valueValidators": [
+          {
+            "type": "NON_EMPTY"
           }
         ]
       },
       {
-        "value": "inherit",
-        "subParams": [],
-        "displayValue": "Inherit from client"
-      },
-      {
-        "value": "custom",
-        "subParams": [
+        "type": "TEXT",
+        "name": "pixelId",
+        "displayName": "TikTok Pixel ID / Offline Event Set ID / TikTok App ID / CRM Event Set ID",
+        "simpleValueType": true,
+        "valueValidators": [
           {
-            "type": "TEXT",
-            "name": "eventNameCustom",
-            "displayName": "",
-            "simpleValueType": true
+            "type": "NON_EMPTY"
           }
         ],
-        "displayValue": "Custom"
-      }
-    ],
-    "simpleValueType": true,
-    "defaultValue": "standard"
-  },
-  {
-    "type": "SELECT",
-    "name": "eventSource",
-    "displayName": "Event Source",
-    "selectItems": [
-      {
-        "value": "web",
-        "displayValue": "Web"
+        "help": "For \u003cb\u003eWeb events\u003c/b\u003e, enter a valid \u003cb\u003eTikTok Pixel ID\u003c/b\u003e. Only one TikTok Pixel ID can be used per tag.\n\u003cbr\u003e\nFor \u003cb\u003eOffline events\u003c/b\u003e, provide the \u003cb\u003eOffline Event Set ID\u003c/b\u003e. Only one Offline Event Set ID can be used per tag.\n\u003cbr\u003e\nFor \u003cb\u003eApp events\u003c/b\u003e, enter the \u003cb\u003eTikTok App ID\u003c/b\u003e. Only one TikTok App ID can be used per tag.\n\u003cbr\u003e\nFor \u003cb\u003eCRM events\u003c/b\u003e, enter the \u003cb\u003eCRM Event Set ID\u003c/b\u003e. Only one CRM Event Set ID can be used per tag."
       },
       {
-        "value": "app",
-        "displayValue": "App"
+        "type": "TEXT",
+        "name": "appId",
+        "displayName": "Mobile App ID",
+        "simpleValueType": true,
+        "enablingConditions": [
+          {
+            "paramName": "eventSource",
+            "paramValue": "app",
+            "type": "EQUALS"
+          }
+        ],
+        "valueValidators": [
+          {
+            "type": "NON_EMPTY"
+          }
+        ],
+        "help": "\u003ca href\u003d\"https://business-api.tiktok.com/portal/docs?id\u003d1771101151059969#item-link-app%20parameters\"\u003eLearn more\u003c/a\u003e."
       },
       {
-        "value": "offline",
-        "displayValue": "Offline"
-      }
-    ],
-    "simpleValueType": true,
-    "defaultValue": "web"
-  },
-  {
-    "type": "TEXT",
-    "name": "accessToken",
-    "displayName": "Access Token",
-    "simpleValueType": true,
-    "help": "Set to your TikTok API Access Token. More info on how to get it can be found \u003ca href\u003d\"https://ads.tiktok.com/marketing_api/docs?rid\u003d959icq5stjr\u0026id\u003d1701890979375106\" target\u003d\"_blank\"\u003ehere\u003c/a\u003e.",
-    "valueValidators": [
+        "type": "TEXT",
+        "name": "leadId",
+        "displayName": "Lead ID",
+        "simpleValueType": true,
+        "help": "\u003ca href\u003d\"https://business-api.tiktok.com/portal/docs?id\u003d1835052338764993#item-link-lead%20parameters\"\u003eLearn more\u003c/a\u003e.",
+        "enablingConditions": [
+          {
+            "paramName": "eventSource",
+            "paramValue": "crm",
+            "type": "EQUALS"
+          }
+        ],
+        "valueValidators": [
+          {
+            "type": "NON_EMPTY"
+          }
+        ]
+      },
       {
-        "type": "NON_EMPTY"
+        "type": "TEXT",
+        "name": "testEventCode",
+        "displayName": "Test Event Code",
+        "simpleValueType": true,
+        "help": "If you want to test event tracking, you can use this field to specify a test code. If the event is received on TikTok side, this test code will display in the Test Events tab of the Pixel in TikTok Ads Manager."
+      },
+      {
+        "type": "CHECKBOX",
+        "name": "generateTtp",
+        "checkboxText": "Generate _ttp cookie if not exist",
+        "simpleValueType": true
+      },
+      {
+        "type": "CHECKBOX",
+        "name": "enableEventEnhancement",
+        "checkboxText": "Enable Event Enhancement",
+        "simpleValueType": true,
+        "help": "Enable Use of HTTP Only Secure Cookie (\u003ci\u003egtmeec-tt\u003c/i\u003e) to Enhance Event Data.",
+        "defaultValue": true
+      },
+      {
+        "type": "CHECKBOX",
+        "name": "overrideCookiesSettings",
+        "checkboxText": "Override Cookies Settings",
+        "simpleValueType": true,
+        "help": "If enabled, it will override the listed settings for the \u003ci\u003e_gtmeec-tt\u003c/i\u003e, \u003ci\u003ettclid\u003c/i\u003e and \u003ci\u003e_ttp\u003c/i\u003e cookies.",
+        "subParams": [
+          {
+            "type": "GROUP",
+            "name": "cookieSettingsGroup",
+            "displayName": "Cookies Settings",
+            "groupStyle": "ZIPPY_OPEN_ON_PARAM",
+            "subParams": [
+              {
+                "type": "TEXT",
+                "name": "cookieDomain",
+                "displayName": "Cookie Domain",
+                "simpleValueType": true,
+                "help": "Use this option to override the cookie domain. \u003cbr\u003e Enter your website\u0027s top-level domain as a fixed value (e.g., example.com). \u003cbr\u003e If left empty or using the \"auto\" value, the domain will be automatically determined using the following priority: \u003cul\u003e \u003cli\u003eDomain of the \u003ci\u003epage_location\u003c/i\u003e Event Data parameter (if present).\u003c/li\u003e \u003cli\u003eDomain of the \u003ci\u003eReferer\u003c/i\u003e header (if present).\u003c/li\u003e \u003cli\u003eDomain of the \u003ci\u003eForwarded\u003c/i\u003e header (if present).\u003c/li\u003e \u003cli\u003eDomain of the \u003ci\u003eX-Forwarded-Host\u003c/i\u003e header (if present).\u003c/li\u003e \u003cli\u003eDomain of the \u003ci\u003eHost\u003c/i\u003e header.\u003c/li\u003e \u003c/ul\u003e",
+                "valueHint": "example.com",
+                "defaultValue": "auto"
+              },
+              {
+                "type": "SELECT",
+                "name": "cookieSameSite",
+                "displayName": "Cookie SameSite",
+                "macrosInSelect": true,
+                "selectItems": [
+                  {
+                    "value": "none",
+                    "displayValue": "None"
+                  },
+                  {
+                    "value": "lax",
+                    "displayValue": "Lax"
+                  },
+                  {
+                    "value": "strict",
+                    "displayValue": "Strict"
+                  }
+                ],
+                "simpleValueType": true,
+                "defaultValue": "none",
+                "help": "\u003ca href\u003d\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie#samesitesamesite-value\"\u003eLearn more\u003c/a\u003e."
+              }
+            ],
+            "enablingConditions": [
+              {
+                "paramName": "overrideCookiesSettings",
+                "paramValue": true,
+                "type": "EQUALS"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "CHECKBOX",
+        "name": "useOptimisticScenario",
+        "checkboxText": "Use Optimistic Scenario",
+        "simpleValueType": true,
+        "help": "The tag will call gtmOnSuccess() without waiting for a response from the API"
       }
     ]
-  },
-  {
-    "type": "TEXT",
-    "name": "pixelId",
-    "displayName": "TikTok Pixel ID / Offline Event Set ID / TikTok App ID",
-    "simpleValueType": true,
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ],
-    "help": "For \u003cb\u003eWeb events\u003c/b\u003e, enter a valid \u003cb\u003eTikTok Pixel ID\u003c/b\u003e. Only one TikTok Pixel ID can be used per tag.\n\u003cbr\u003e\nFor \u003cb\u003eOffline events\u003c/b\u003e, provide the \u003cb\u003eOffline Event Set ID\u003c/b\u003e. Only one Offline Event Set ID can be used per tag.\n\u003cbr\u003e\nFor \u003cb\u003eApp events\u003c/b\u003e, enter the \u003cb\u003eTikTok App ID\u003c/b\u003e. Only one Offline TikTok App ID can be used per tag."
-  },
-  {
-    "type": "TEXT",
-    "name": "appId",
-    "displayName": "Mobile App ID",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "eventSource",
-        "paramValue": "app",
-        "type": "EQUALS"
-      }
-    ],
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "testEventCode",
-    "displayName": "Test Event Code",
-    "simpleValueType": true,
-    "help": "If you want to test event tracking, you can use this field to specify a test code. If the event is received on TikTok side, this test code will display in the Test Events tab of the Pixel in TikTok Ads Manager."
-  },
-  {
-    "type": "CHECKBOX",
-    "name": "generateTtp",
-    "checkboxText": "Generate _ttp cookie if not exist",
-    "simpleValueType": true
-  },
-  {
-    "type": "CHECKBOX",
-    "name": "useOptimisticScenario",
-    "checkboxText": "Use Optimistic Scenario",
-    "simpleValueType": true,
-    "help": "The tag will call gtmOnSuccess() without waiting for a response from the API"
   },
   {
     "displayName": "Common Event Data Override",
@@ -269,13 +363,15 @@ ___TEMPLATE_PARAMETERS___
         "type": "TEXT",
         "name": "eventId",
         "displayName": "Event ID",
-        "simpleValueType": true
+        "simpleValueType": true,
+        "help": "\u003ca href\u003d\"https://business-api.tiktok.com/portal/docs?id\u003d1771101151059969#item-link-Top-level%20Parameters\"\u003eLearn more\u003c/a\u003e."
       },
       {
         "type": "TEXT",
         "name": "eventTime",
         "displayName": "Event Time",
-        "simpleValueType": true
+        "simpleValueType": true,
+        "help": "The time when the event occurred, indicated as a Unix timestamp measured in seconds, and in UTC+0 time zone."
       },
       {
         "type": "CHECKBOX",
@@ -289,7 +385,7 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "GROUP",
-    "name": "pageDataListGroup",
+    "name": "pageDataGroup",
     "displayName": "Page Data",
     "groupStyle": "ZIPPY_CLOSED",
     "subParams": [
@@ -316,7 +412,7 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "GROUP",
-    "name": "appDataListGroup",
+    "name": "appDataGroup",
     "displayName": "App Data",
     "groupStyle": "ZIPPY_CLOSED",
     "subParams": [
@@ -324,13 +420,15 @@ ___TEMPLATE_PARAMETERS___
         "type": "TEXT",
         "name": "appName",
         "displayName": "Application name",
-        "simpleValueType": true
+        "simpleValueType": true,
+        "help": "\u003ca href\u003d\"https://business-api.tiktok.com/portal/docs?id\u003d1771101151059969#item-link-app%20parameters\"\u003eLearn more\u003c/a\u003e."
       },
       {
         "type": "TEXT",
         "name": "appVersion",
         "displayName": "App version number",
-        "simpleValueType": true
+        "simpleValueType": true,
+        "help": "\u003ca href\u003d\"https://business-api.tiktok.com/portal/docs?id\u003d1771101151059969#item-link-app%20parameters\"\u003eLearn more\u003c/a\u003e."
       }
     ],
     "enablingConditions": [
@@ -343,10 +441,15 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "displayName": "Ad Data",
-    "name": "adDataListGroup",
+    "name": "adDataGroup",
     "groupStyle": "ZIPPY_CLOSED",
     "type": "GROUP",
     "subParams": [
+      {
+        "type": "LABEL",
+        "name": "adDataGroupLabel",
+        "displayName": "See \u003ca href\u003d\"https://business-api.tiktok.com/portal/docs?id\u003d1771101151059969\"\u003ethis documentation\u003c/a\u003e for more details on Ad Data properties.\u003cbr/\u003e\u003cbr/\u003e"
+      },
       {
         "name": "adDataList",
         "simpleTableColumns": [
@@ -416,11 +519,38 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
+    "type": "GROUP",
+    "name": "leadDataGroup",
+    "displayName": "Lead Data",
+    "groupStyle": "ZIPPY_CLOSED",
+    "subParams": [
+      {
+        "type": "TEXT",
+        "name": "leadEventSource",
+        "displayName": "Lead Event Source",
+        "simpleValueType": true,
+        "help": "\u003ca href\u003d\"https://business-api.tiktok.com/portal/docs?id\u003d1835052338764993#item-link-lead%20parameters\"\u003eLearn more\u003c/a\u003e."
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "eventSource",
+        "paramValue": "crm",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
     "displayName": "User Data",
-    "name": "userDataListGroup",
+    "name": "userDataGroup",
     "groupStyle": "ZIPPY_CLOSED",
     "type": "GROUP",
     "subParams": [
+      {
+        "type": "LABEL",
+        "name": "userDataGroupLabel",
+        "displayName": "See \u003ca href\u003d\"https://business-api.tiktok.com/portal/docs?id\u003d1771101151059969\"\u003ethis documentation\u003c/a\u003e for more details on User Data properties. If the documentation requires the parameter to be hashed, you \u003cb\u003emust\u003c/b\u003e hash it with SHA256, or the tag will do this automatically before sending the event to TikTok.\u003cbr/\u003e\u003cbr/\u003e"
+      },
       {
         "name": "userDataList",
         "simpleTableColumns": [
@@ -520,15 +650,19 @@ ___TEMPLATE_PARAMETERS___
         "type": "SIMPLE_TABLE",
         "newRowButtonText": "Add property"
       }
-    ],
-    "help": "See \u003ca href\u003d\"https://ads.tiktok.com/marketing_api/docs?rid\u003d959icq5stjr\u0026id\u003d1701890979375106\" target\u003d\"_blank\"\u003ethis documentation\u003c/a\u003e for more details on what user data parameters you can add to the call. If the documentation requires the parameter to be hashed, you \u003cstrong\u003emust\u003c/strong\u003e hash it with SHA256, or the tag will do this automatically before sending the event to TikTok."
+    ]
   },
   {
-    "displayName": "Properties",
-    "name": "customDataListGroup",
+    "displayName": "Event Properties",
+    "name": "eventPropertiesGroup",
     "groupStyle": "ZIPPY_CLOSED",
     "type": "GROUP",
     "subParams": [
+      {
+        "type": "LABEL",
+        "name": "eventPropertiesGroupLabel",
+        "displayName": "See \u003ca href\u003d\"https://business-api.tiktok.com/portal/docs?id\u003d1771101151059969\"\u003ethis documentation\u003c/a\u003e for more details on Event Properties.\u003cbr/\u003e\u003cbr/\u003e"
+      },
       {
         "name": "customDataList",
         "simpleTableColumns": [
@@ -549,6 +683,18 @@ ___TEMPLATE_PARAMETERS___
                 "displayValue": "Contents"
               },
               {
+                "value": "content_ids",
+                "displayValue": "Content IDs"
+              },
+              {
+                "value": "content_type",
+                "displayValue": "Content Type"
+              },
+              {
+                "value": "num_items",
+                "displayValue": "Number of Items"
+              },
+              {
                 "value": "currency",
                 "displayValue": "Currency"
               },
@@ -561,12 +707,12 @@ ___TEMPLATE_PARAMETERS___
                 "displayValue": "Description"
               },
               {
-                "value": "query",
-                "displayValue": "Query"
+                "value": "search_string",
+                "displayValue": "Search String"
               },
               {
-                "value": "content_type",
-                "displayValue": "Content Type"
+                "value": "query",
+                "displayValue": "Query (legacy - use Search String instead)"
               },
               {
                 "value": "order_id",
@@ -588,13 +734,50 @@ ___TEMPLATE_PARAMETERS___
         "type": "SIMPLE_TABLE",
         "newRowButtonText": "Add property"
       }
-    ],
-    "help": "See \u003ca href\u003d\"https://ads.tiktok.com/marketing_api/docs?rid\u003d959icq5stjr\u0026id\u003d1701890979375106\" target\u003d\"_blank\"\u003ethis documentation\u003c/a\u003e for more details on what properties you can add to the event."
+    ]
+  },
+  {
+    "displayName": "Additional Event Properties",
+    "name": "additionalEventPropertiesGroup",
+    "groupStyle": "ZIPPY_CLOSED",
+    "type": "GROUP",
+    "subParams": [
+      {
+        "type": "LABEL",
+        "name": "additionalEventPropertiesGroupLabel",
+        "displayName": "Use Additional Event Properties to send any custom property or properties specific to a vertical (Travel, Automotive etc.). \u003cbr/\u003e Check these documentations for more details on Additional Event Properties for \u003ca href\u003d\"https://ads.tiktok.com/help/article/available-events-and-parameters-for-travel-ads?lang\u003den \"\u003eTravel Ads\u003c/a, \u003ca href\u003d\"https://ads.tiktok.com/help/article/available-parameters-for-automotive-ads?lang\u003den\"\u003eAutomotive Ads\u003c/a\u003e and \u003ca href\u003d\"https://business-api.tiktok.com/portal/docs?id\u003d1771101151059969\"\u003eothers\u003c/a\u003e. \u003cbr/\u003e\u003cbr/\u003e"
+      },
+      {
+        "name": "additionalEventPropertiesList",
+        "simpleTableColumns": [
+          {
+            "valueValidators": [
+              {
+                "type": "NON_EMPTY"
+              }
+            ],
+            "defaultValue": "",
+            "displayName": "Property Name",
+            "name": "name",
+            "isUnique": true,
+            "type": "TEXT"
+          },
+          {
+            "defaultValue": "",
+            "displayName": "Property Value",
+            "name": "value",
+            "type": "TEXT"
+          }
+        ],
+        "type": "SIMPLE_TABLE",
+        "newRowButtonText": "Add property"
+      }
+    ]
   },
   {
     "type": "GROUP",
-    "name": "consentSettingsGroup",
-    "displayName": "Consent Settings",
+    "name": "tagExecutionConsentSettingsGroup",
+    "displayName": "Tag Execution Consent Settings",
     "groupStyle": "ZIPPY_CLOSED",
     "subParams": [
       {
@@ -608,7 +791,8 @@ ___TEMPLATE_PARAMETERS___
           },
           {
             "value": "required",
-            "displayValue": "Send data in case marketing consent given"
+            "displayValue": "Send data in case marketing consent given",
+            "help": "Aborts the tag execution if marketing consent (\u003ci\u003ead_storage\u003c/i\u003e Google Consent Mode or Stape\u0027s Data Tag parameter) is not given."
           }
         ],
         "simpleValueType": true,
@@ -716,37 +900,41 @@ ___TEMPLATE_PARAMETERS___
 
 ___SANDBOXED_JS_FOR_SERVER___
 
+const BigQuery = require('BigQuery');
+const computeEffectiveTldPlusOne = require('computeEffectiveTldPlusOne');
+const decodeUriComponent = require('decodeUriComponent');
+const fromBase64 = require('fromBase64');
+const generateRandom = require('generateRandom');
 const getAllEventData = require('getAllEventData');
+const getContainerVersion = require('getContainerVersion');
+const getCookieValues = require('getCookieValues');
+const getEventData = require('getEventData');
+const getRequestHeader = require('getRequestHeader');
+const getTimestampMillis = require('getTimestampMillis');
+const getType = require('getType');
 const JSON = require('JSON');
+const logToConsole = require('logToConsole');
+const makeInteger = require('makeInteger');
+const makeString = require('makeString');
+const Math = require('Math');
+const parseUrl = require('parseUrl');
 const sendHttpRequest = require('sendHttpRequest');
 const setCookie = require('setCookie');
-const getCookieValues = require('getCookieValues');
-const getContainerVersion = require('getContainerVersion');
-const logToConsole = require('logToConsole');
 const sha256Sync = require('sha256Sync');
-const makeString = require('makeString');
-const getRequestHeader = require('getRequestHeader');
-const parseUrl = require('parseUrl');
-const decodeUriComponent = require('decodeUriComponent');
-const getType = require('getType');
-const getTimestampMillis = require('getTimestampMillis');
-const Math = require('Math');
-const makeInteger = require('makeInteger');
-const generateRandom = require('generateRandom');
-const BigQuery = require('BigQuery');
+const toBase64 = require('toBase64');
 
-/**********************************************************************************************/
+/*==============================================================================
+==============================================================================*/
 
-const traceId = getRequestHeader('trace-id');
-const gtmVersion = 'stape_2_0_1';
+const gtmVersion = 'stape_2_1_1' + (data.enableEventEnhancement ? '_ee' : '');
 
 const eventData = getAllEventData();
 
-if (!isConsentGivenOrNotRequired()) {
+if (!isConsentGivenOrNotRequired(data, eventData)) {
   return data.gtmOnSuccess();
 }
 
-const url = eventData.page_location || getRequestHeader('referer');
+const url = getUrl(eventData);
 if (url && url.lastIndexOf('https://gtm-msr.appspot.com/', 0) === 0) {
   return data.gtmOnSuccess();
 }
@@ -768,9 +956,9 @@ if (!ttp && data.generateTtp) {
 
 if (ttclid) {
   setCookie('ttclid', ttclid, {
-    domain: 'auto',
+    domain: getCookieDomain(data),
     path: '/',
-    samesite: 'Lax',
+    samesite: data.cookieSameSite || 'Lax',
     secure: true,
     'max-age': 2592000, // 30 days
     httpOnly: false
@@ -779,9 +967,9 @@ if (ttclid) {
 
 if (ttp) {
   setCookie('_ttp', ttp, {
-    domain: 'auto',
+    domain: getCookieDomain(data),
     path: '/',
-    samesite: 'Lax',
+    samesite: data.cookieSameSite || 'Lax',
     secure: true,
     'max-age': 34190000, // 13 months
     httpOnly: false
@@ -796,7 +984,6 @@ const postBody = mapEvent(eventData, data);
 log({
   Name: 'TikTok',
   Type: 'Request',
-  TraceId: traceId,
   EventName: eventName,
   RequestMethod: 'POST',
   RequestUrl: postUrl,
@@ -809,7 +996,6 @@ sendHttpRequest(
     log({
       Name: 'TikTok',
       Type: 'Response',
-      TraceId: traceId,
       EventName: eventName,
       ResponseStatusCode: statusCode,
       ResponseHeaders: headers,
@@ -835,11 +1021,12 @@ sendHttpRequest(
 );
 
 if (data.useOptimisticScenario) {
-  data.gtmOnSuccess();
+  return data.gtmOnSuccess();
 }
 
-/**********************************************************************************************/
-// Vendor related functions
+/*==============================================================================
+  Vendor related functions
+==============================================================================*/
 
 function mapEvent(eventData, data) {
   const eventSource = data.eventSource || 'web';
@@ -862,9 +1049,18 @@ function mapEvent(eventData, data) {
     mappedData.limited_data_use = data.limitedDataUse || false;
   }
 
+  if (eventSource === 'crm') {
+    addLeadData(mappedData);
+  }
+
   mappedData = addUserData(eventData, mappedData, eventSource);
   mappedData = addPropertiesData(eventData, mappedData);
   mappedData = hashDataIfNeeded(mappedData);
+
+  if (data.enableEventEnhancement) {
+    mappedData.user = enhanceEventData(mappedData.user);
+    setGtmEecCookie(mappedData.user);
+  }
 
   const requestData = {
     event_source: eventSource,
@@ -888,7 +1084,7 @@ function hashData(value) {
     return undefined;
   }
 
-  if (type === 'object') {
+  if (type === 'array') {
     return value.map((val) => {
       return hashData(val);
     });
@@ -929,6 +1125,7 @@ function addPropertiesData(eventData, mappedData) {
   else if (eventData['x-ga-mp1-tr']) mappedData.properties.value = eventData['x-ga-mp1-tr'];
 
   if (eventData.query) mappedData.properties.query = eventData.query;
+  if (eventData.search_term || eventData.search_string) mappedData.properties.search_string = eventData.search_term || eventData.search_string;
   if (eventData.description) mappedData.properties.description = eventData.description;
   if (eventData.order_id) mappedData.properties.order_id = eventData.order_id;
   if (eventData.shop_id) mappedData.properties.shop_id = eventData.shop_id;
@@ -961,6 +1158,14 @@ function addPropertiesData(eventData, mappedData) {
 
   if (data.customDataList) {
     data.customDataList.forEach((d) => {
+      if (isValidValue(d.value)) {
+        mappedData.properties[d.name] = d.value;
+      }
+    });
+  }
+
+  if (data.additionalEventPropertiesList) {
+    data.additionalEventPropertiesList.forEach((d) => {
       if (isValidValue(d.value)) {
         mappedData.properties[d.name] = d.value;
       }
@@ -1200,6 +1405,16 @@ function addAppData(mappedData, eventData) {
   return mappedData;
 }
 
+function addLeadData(mappedData) {
+  mappedData.lead = {
+    lead_id: makeString(data.leadId)
+  };
+
+  if (data.leadEventSource) mappedData.lead.lead_event_source = data.leadEventSource;
+
+  return mappedData;
+}
+
 function generateTtp() {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let result = '';
@@ -1212,8 +1427,64 @@ function generateTtp() {
   return result;
 }
 
-/**********************************************************************************************/
-// Helpers
+function setGtmEecCookie(userData) {
+  const gtmeecCookie = {};
+
+  if (userData.email) gtmeecCookie.email = userData.email;
+  if (userData.phone) gtmeecCookie.phone = userData.phone;
+  if (userData.last_name) gtmeecCookie.last_name = userData.last_name;
+  if (userData.first_name) gtmeecCookie.first_name = userData.first_name;
+  if (userData.city) gtmeecCookie.city = userData.city;
+  if (userData.state) gtmeecCookie.state = userData.state;
+  if (userData.zip_code) gtmeecCookie.zip_code = userData.zip_code;
+  if (userData.country) gtmeecCookie.country = userData.country;
+  if (userData.external_id) gtmeecCookie.external_id = userData.external_id;
+
+  setCookie('_gtmeec-tt', toBase64(JSON.stringify(gtmeecCookie)), {
+    domain: getCookieDomain(data),
+    path: '/',
+    samesite: data.cookieSameSite || 'strict',
+    secure: true,
+    'max-age': 7776000, // 90 days
+    HttpOnly: true
+  });
+}
+
+function enhanceEventData(userData) {
+  const cookieValue = getCookieValues('_gtmeec-tt')[0] || commonCookie['_gtmeec-tt'];
+  if (!cookieValue) return userData;
+
+  const jsonStr = fromBase64(cookieValue);
+  if (!jsonStr) return userData;
+
+  const gtmeecData = JSON.parse(jsonStr);
+
+  if (getType(gtmeecData) === 'object') {
+    if (!userData.email && gtmeecData.email) userData.email = gtmeecData.email;
+    if (!userData.phone && gtmeecData.phone) userData.phone = gtmeecData.phone;
+    if (!userData.last_name && gtmeecData.last_name) userData.last_name = gtmeecData.last_name;
+    if (!userData.first_name && gtmeecData.first_name) userData.first_name = gtmeecData.first_name;
+    if (!userData.city && gtmeecData.city) userData.city = gtmeecData.city;
+    if (!userData.state && gtmeecData.state) userData.state = gtmeecData.state;
+    if (!userData.zip_code && gtmeecData.zip_code) userData.zip_code = gtmeecData.zip_code;
+    if (!userData.country && gtmeecData.country) userData.country = gtmeecData.country;
+    if (!userData.external_id && gtmeecData.external_id) userData.external_id = gtmeecData.external_id;
+  }
+
+  return userData;
+}
+
+/*==============================================================================
+  Helpers
+==============================================================================*/
+
+function getUrl(eventData) {
+  return eventData.page_location || eventData.page_referrer || getRequestHeader('referer');
+}
+
+function getCookieDomain(data) {
+  return !data.cookieDomain || data.cookieDomain === 'auto' ? computeEffectiveTldPlusOne(getEventData('page_location') || getRequestHeader('referer')) || 'auto' : data.cookieDomain;
+}
 
 function isHashed(value) {
   if (!value) return false;
@@ -1225,7 +1496,7 @@ function isValidValue(value) {
   return valueType !== 'null' && valueType !== 'undefined' && value !== '';
 }
 
-function isConsentGivenOrNotRequired() {
+function isConsentGivenOrNotRequired(data, eventData) {
   if (data.adStorageConsent !== 'required') return true;
   if (eventData.consent_state) return !!eventData.consent_state.ad_storage;
   const xGaGcs = eventData['x-ga-gcs'] || ''; // x-ga-gcs is a string like "G110"
@@ -1236,6 +1507,8 @@ function log(rawDataToLog) {
   const logDestinationsHandlers = {};
   if (determinateIsLoggingEnabled()) logDestinationsHandlers.console = logConsole;
   if (determinateIsLoggingEnabledForBigQuery()) logDestinationsHandlers.bigQuery = logToBigQuery;
+
+  rawDataToLog.TraceId = getRequestHeader('trace-id');
 
   const keyMappings = {
     // No transformation for Console is needed.
@@ -1288,8 +1561,7 @@ function logToBigQuery(dataToLog) {
     dataToLog[p] = JSON.stringify(dataToLog[p]);
   });
 
-  const bigquery = getType(BigQuery) === 'function' ? BigQuery() /* Only during Unit Tests */ : BigQuery;
-  bigquery.insert(connectionInfo, [dataToLog], { ignoreUnknownValues: true });
+  BigQuery.insert(connectionInfo, [dataToLog], { ignoreUnknownValues: true });
 }
 
 function determinateIsLoggingEnabled() {
@@ -1446,6 +1718,53 @@ ___SERVER_PERMISSIONS___
                     "string": "any"
                   }
                 ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "name"
+                  },
+                  {
+                    "type": 1,
+                    "string": "domain"
+                  },
+                  {
+                    "type": 1,
+                    "string": "path"
+                  },
+                  {
+                    "type": 1,
+                    "string": "secure"
+                  },
+                  {
+                    "type": 1,
+                    "string": "session"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "_gtmeec-tt"
+                  },
+                  {
+                    "type": 1,
+                    "string": "*"
+                  },
+                  {
+                    "type": 1,
+                    "string": "*"
+                  },
+                  {
+                    "type": 1,
+                    "string": "any"
+                  },
+                  {
+                    "type": 1,
+                    "string": "any"
+                  }
+                ]
               }
             ]
           }
@@ -1516,6 +1835,10 @@ ___SERVER_PERMISSIONS___
               {
                 "type": 1,
                 "string": "_ttp"
+              },
+              {
+                "type": 1,
+                "string": "_gtmeec-tt"
               }
             ]
           }
@@ -1709,9 +2032,8 @@ scenarios:
   code: "mockData.logType = 'always';\n\nconst expectedDebugMode = true;\nmock('getContainerVersion',\
     \ () => {\n  return {\n    debugMode: expectedDebugMode\n  };\n}); \n\nmock('logToConsole',\
     \ (logData) => {\n  const parsedLogData = JSON.parse(logData);\n  requiredConsoleKeys.forEach(p\
-    \ => assertThat(parsedLogData[p]).isDefined());\n});\n\nmock('sendHttpRequest',\
-    \ (requestUrl, callback, requestOptions) => {\n  callback(200);\n});\n\nrunCode(mockData);\n\
-    \nassertApi('logToConsole').wasCalled();\nassertApi('gtmOnSuccess').wasCalled();\n\
+    \ => assertThat(parsedLogData[p]).isDefined());\n});\n\nrunCode(mockData);\n\n\
+    assertApi('logToConsole').wasCalled();\nassertApi('gtmOnSuccess').wasCalled();\n\
     assertApi('gtmOnFailure').wasNotCalled();\n"
 - name: Should log to console, if the 'Log during debug and preview' option is selected
     AND is on preview mode
@@ -1728,10 +2050,6 @@ scenarios:
     mock('logToConsole', (logData) => {
       const parsedLogData = JSON.parse(logData);
       requiredConsoleKeys.forEach(p => assertThat(parsedLogData[p]).isDefined());
-    });
-
-    mock('sendHttpRequest', (requestUrl, callback, requestOptions) => {
-      callback(200);
     });
 
     runCode(mockData);
@@ -1751,10 +2069,6 @@ scenarios:
       };
     });
 
-    mock('sendHttpRequest', (requestUrl, callback, requestOptions) => {
-      callback(200);
-    });
-
     runCode(mockData);
 
     assertApi('logToConsole').wasNotCalled();
@@ -1764,10 +2078,6 @@ scenarios:
   code: |-
     mockData.logType = 'no';
 
-    mock('sendHttpRequest', (requestUrl, callback, requestOptions) => {
-      callback(200);
-    });
-
     runCode(mockData);
 
     assertApi('logToConsole').wasNotCalled();
@@ -1775,53 +2085,35 @@ scenarios:
     assertApi('gtmOnFailure').wasNotCalled();
 - name: Should log to BQ, if the 'Log to BigQuery' option is selected
   code: "mockData.bigQueryLogType = 'always';\n\n// assertApi doesn't work for 'BigQuery.insert()'.\n\
-    // Ref: https://gtm-gear.com/posts/gtm-templates-testing/\nmock('BigQuery', ()\
-    \ => {\n  return { \n    insert: (connectionInfo, rows, options) => { \n     \
-    \ assertThat(connectionInfo).isDefined();\n      assertThat(rows).isArray();\n\
-    \      assertThat(rows).hasLength(1);\n      requiredBqKeys.forEach(p => assertThat(rows[0][p]).isDefined());\n\
-    \      assertThat(options).isEqualTo(expectedBqOptions);\n      return Promise.create((resolve,\
-    \ reject) => {\n        resolve();\n      });\n    }\n  };\n});\n\nmock('sendHttpRequest',\
-    \ (requestUrl, callback, requestOptions) => {\n  callback(200);\n});\n\nrunCode(mockData);\n\
-    \nassertApi('gtmOnSuccess').wasCalled();\nassertApi('gtmOnFailure').wasNotCalled();"
+    // Ref: https://gtm-gear.com/posts/gtm-templates-testing/\nmockObject('BigQuery',\
+    \ {\n  insert: (connectionInfo, rows, options) => { \n    assertThat(connectionInfo).isDefined();\n\
+    \    assertThat(rows).isArray();\n    assertThat(rows).hasLength(1);\n    requiredBqKeys.forEach(p\
+    \ => assertThat(rows[0][p]).isDefined());\n    assertThat(options).isEqualTo(expectedBqOptions);\n\
+    \    return Promise.create((resolve, reject) => {\n      resolve();\n    });\n\
+    \  }\n});\n\nrunCode(mockData);\n\nassertApi('gtmOnSuccess').wasCalled();\nassertApi('gtmOnFailure').wasNotCalled();"
 - name: Should NOT log to BQ, if the 'Do not log to BigQuery' option is selected
   code: "mockData.bigQueryLogType = 'no';\n\n// assertApi doesn't work for 'BigQuery.insert()'.\n\
-    // Ref: https://gtm-gear.com/posts/gtm-templates-testing/\nmock('BigQuery', ()\
-    \ => {\n  return { \n    insert: (connectionInfo, rows, options) => { \n     \
-    \ fail('BigQuery.insert should not have been called.');\n      return Promise.create((resolve,\
-    \ reject) => {\n        resolve();\n      });\n    }\n  };\n});\n\nmock('sendHttpRequest',\
-    \ (requestUrl, callback, requestOptions) => {\n  callback(200);\n});\n\nrunCode(mockData);\n\
-    \n// Workaround because assertApi('gtmOn*').wasCalled() doesn't work for some\
-    \ reason.\nmock('gtmOnSuccess', () => assertThat(true).isTrue());\nmock('gtmOnFailure',\
-    \ () => fail('gtmOnFailure should not have been called'));"
-setup: |-
-  const JSON = require('JSON');
-  const Promise = require('Promise');
-
-  const expectedBigQuerySettings = {
-    logBigQueryProjectId: 'logBigQueryProjectId',
-    logBigQueryDatasetId: 'logBigQueryDatasetId',
-    logBigQueryTableId: 'logBigQueryTableId'
-  };
-  const requiredConsoleKeys = ['Type', 'TraceId', 'Name'];
-  const requiredBqKeys = ['timestamp', 'type', 'trace_id', 'tag_name'];
-  const expectedBqOptions = { ignoreUnknownValues: true };
-
-  const expectedValue = 'test';
-  const expectedPixelId = '1111111111111';
-
-  const mockData = {
-    logBigQueryProjectId: expectedBigQuerySettings.logBigQueryProjectId,
-    logBigQueryDatasetId: expectedBigQuerySettings.logBigQueryDatasetId,
-    logBigQueryTableId: expectedBigQuerySettings.logBigQueryTableId,
-    eventType: 'custom',
-    accessToken: expectedValue,
-    pixelId: expectedPixelId,
-    eventName: expectedValue
-  };
-
-  mock('getRequestHeader', (header) => {
-    if (header === 'trace-id') return 'expectedTraceId';
-  });
+    // Ref: https://gtm-gear.com/posts/gtm-templates-testing/\nmockObject('BigQuery',\
+    \ {\n  insert: (connectionInfo, rows, options) => { \n    fail('BigQuery.insert\
+    \ should not have been called.');\n    return Promise.create((resolve, reject)\
+    \ => {\n      resolve();\n    });\n  }\n});\n\nrunCode(mockData);\n\nassertApi('gtmOnSuccess').wasCalled();\n\
+    assertApi('gtmOnFailure').wasNotCalled();"
+setup: "const JSON = require('JSON');\nconst Promise = require('Promise');\n\nconst\
+  \ expectedBigQuerySettings = {\n  logBigQueryProjectId: 'logBigQueryProjectId',\n\
+  \  logBigQueryDatasetId: 'logBigQueryDatasetId',\n  logBigQueryTableId: 'logBigQueryTableId'\n\
+  };\nconst requiredConsoleKeys = ['Type', 'TraceId', 'Name'];\nconst requiredBqKeys\
+  \ = ['timestamp', 'type', 'trace_id', 'tag_name'];\nconst expectedBqOptions = {\
+  \ ignoreUnknownValues: true };\n\nconst expectedValue = 'test';\nconst expectedPixelId\
+  \ = '1111111111111';\n\nconst mockData = {\n  logBigQueryProjectId: expectedBigQuerySettings.logBigQueryProjectId,\n\
+  \  logBigQueryDatasetId: expectedBigQuerySettings.logBigQueryDatasetId,\n  logBigQueryTableId:\
+  \ expectedBigQuerySettings.logBigQueryTableId,\n  eventType: 'custom',\n  accessToken:\
+  \ expectedValue,\n  pixelId: expectedPixelId,\n  eventName: expectedValue\n};\n\n\
+  mock('sendHttpRequest', (requestUrl, callback, requestOptions, requestBody) => {\n\
+  \  if (typeof callback === 'function') {\n    callback(200);\n  } else {\n    requestBody\
+  \ = requestOptions;\n    requestOptions = callback;\n    return Promise.create((resolve,\
+  \ reject) => {\n      resolve({ statusCode: 200 });\n    });  \n  }\n});\n\nmock('getRequestHeader',\
+  \ (header) => {\n  if (header === 'trace-id') return 'expectedTraceId';\n});\n\n\
+  mock('getTimestampMillis', 1747945830456);"
 
 
 ___NOTES___
