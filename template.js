@@ -13,6 +13,7 @@ const getType = require('getType');
 const JSON = require('JSON');
 const logToConsole = require('logToConsole');
 const makeInteger = require('makeInteger');
+const makeNumber = require('makeNumber');
 const makeString = require('makeString');
 const Math = require('Math');
 const parseUrl = require('parseUrl');
@@ -24,7 +25,7 @@ const toBase64 = require('toBase64');
 /*==============================================================================
 ==============================================================================*/
 
-const gtmVersion = 'stape_2_1_1' + (data.enableEventEnhancement ? '_ee' : '');
+const gtmVersion = 'stape_2_1_2' + (data.enableEventEnhancement ? '_ee' : '');
 
 const eventData = getAllEventData();
 
@@ -199,7 +200,14 @@ function hashData(value) {
 
 function hashDataIfNeeded(mappedData) {
   if (mappedData.user) {
-    const userDataKeysToHash = ['external_id', 'phone', 'email', 'first_name', 'last_name', 'zip_code'];
+    const userDataKeysToHash = [
+      'external_id',
+      'phone',
+      'email',
+      'first_name',
+      'last_name',
+      'zip_code'
+    ];
     for (let key in mappedData.user) {
       if (userDataKeysToHash.indexOf(key) !== -1) {
         mappedData.user[key] = hashData(mappedData.user[key]);
@@ -216,27 +224,29 @@ function addPropertiesData(eventData, mappedData) {
   if (eventData.content_type) mappedData.properties.content_type = eventData.content_type;
   else if (eventData.items && eventData.items[0]) mappedData.properties.content_type = 'product';
 
-  if (eventData.currency) mappedData.properties.currency = eventData.currency;
-
-  if (eventData.value) mappedData.properties.value = eventData.value;
-  else if (eventData['x-ga-mp1-ev']) mappedData.properties.value = eventData['x-ga-mp1-ev'];
-  else if (eventData['x-ga-mp1-tr']) mappedData.properties.value = eventData['x-ga-mp1-tr'];
-
   if (eventData.query) mappedData.properties.query = eventData.query;
-  if (eventData.search_term || eventData.search_string) mappedData.properties.search_string = eventData.search_term || eventData.search_string;
+  if (eventData.search_term || eventData.search_string)
+    mappedData.properties.search_string = eventData.search_term || eventData.search_string;
   if (eventData.description) mappedData.properties.description = eventData.description;
   if (eventData.order_id) mappedData.properties.order_id = eventData.order_id;
   if (eventData.shop_id) mappedData.properties.shop_id = eventData.shop_id;
 
+  let currencyFromItems;
+  let valueFromItems = 0;
+
   if (eventData.contents) mappedData.properties.contents = eventData.contents;
   else if (eventData.items && eventData.items[0]) {
+    currencyFromItems = eventData.items[0].currency;
     mappedData.properties.contents = [];
 
     eventData.items.forEach((d) => {
       const item = {};
 
-      if (d.price) item.price = d.price;
-      if (d.quantity) item.quantity = d.quantity;
+      if (d.quantity) item.quantity = makeInteger(d.quantity);
+      if (isValidValue(d.price)) {
+        item.price = makeNumber(d.price);
+        valueFromItems += (item.quantity || 1) * item.price;
+      }
 
       if (d.item_id) item.content_id = makeString(d.item_id);
       else if (d.id) item.content_id = makeString(d.id);
@@ -253,6 +263,16 @@ function addPropertiesData(eventData, mappedData) {
       mappedData.properties.contents.push(item);
     });
   }
+
+  const currency = eventData.currency || currencyFromItems;
+  if (currency) mappedData.properties.currency = currency;
+
+  const value =
+    makeNumber(eventData.value) ||
+    makeNumber(eventData['x-ga-mp1-ev']) ||
+    makeNumber(eventData['x-ga-mp1-tr']) ||
+    roundValue(valueFromItems);
+  if (value) mappedData.properties.value = value;
 
   if (data.customDataList) {
     data.customDataList.forEach((d) => {
@@ -489,8 +509,10 @@ function addAppData(mappedData, eventData) {
   if (adEventData.attribution_type) mappedData.ad.attribution_type = adEventData.attribution_type;
   else if (eventData.attribution_type) mappedData.ad.attribution_type = eventData.attribution_type;
 
-  if (adEventData.attribution_provider) mappedData.ad.attribution_provider = adEventData.attribution_provider;
-  else if (eventData.attribution_provider) mappedData.ad.attribution_provider = eventData.attribution_provider;
+  if (adEventData.attribution_provider)
+    mappedData.ad.attribution_provider = adEventData.attribution_provider;
+  else if (eventData.attribution_provider)
+    mappedData.ad.attribution_provider = eventData.attribution_provider;
 
   if (data.adDataList) {
     data.adDataList.forEach((d) => {
@@ -566,7 +588,8 @@ function enhanceEventData(userData) {
     if (!userData.state && gtmeecData.state) userData.state = gtmeecData.state;
     if (!userData.zip_code && gtmeecData.zip_code) userData.zip_code = gtmeecData.zip_code;
     if (!userData.country && gtmeecData.country) userData.country = gtmeecData.country;
-    if (!userData.external_id && gtmeecData.external_id) userData.external_id = gtmeecData.external_id;
+    if (!userData.external_id && gtmeecData.external_id)
+      userData.external_id = gtmeecData.external_id;
   }
 
   return userData;
@@ -581,7 +604,15 @@ function getUrl(eventData) {
 }
 
 function getCookieDomain(data) {
-  return !data.cookieDomain || data.cookieDomain === 'auto' ? computeEffectiveTldPlusOne(getEventData('page_location') || getRequestHeader('referer')) || 'auto' : data.cookieDomain;
+  return !data.cookieDomain || data.cookieDomain === 'auto'
+    ? computeEffectiveTldPlusOne(getEventData('page_location') || getRequestHeader('referer')) ||
+        'auto'
+    : data.cookieDomain;
+}
+
+function roundValue(value) {
+  if (!value) return value;
+  return Math.round(makeNumber(value) * 100) / 100;
 }
 
 function isHashed(value) {
@@ -591,7 +622,7 @@ function isHashed(value) {
 
 function isValidValue(value) {
   const valueType = getType(value);
-  return valueType !== 'null' && valueType !== 'undefined' && value !== '';
+  return valueType !== 'null' && valueType !== 'undefined' && value !== '' && value === value;
 }
 
 function isConsentGivenOrNotRequired(data, eventData) {
@@ -664,7 +695,10 @@ function logToBigQuery(dataToLog) {
 
 function determinateIsLoggingEnabled() {
   const containerVersion = getContainerVersion();
-  const isDebug = !!(containerVersion && (containerVersion.debugMode || containerVersion.previewMode));
+  const isDebug = !!(
+    containerVersion &&
+    (containerVersion.debugMode || containerVersion.previewMode)
+  );
 
   if (!data.logType) {
     return isDebug;

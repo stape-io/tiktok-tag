@@ -1,6 +1,8 @@
 homepage: 'https://stape.io/'
 documentation: 'https://github.com/stape-io/tiktok-tag'
 versions:
+  - sha: 789f99ed8653b62177fe84d6e8652588fa3be97d
+    changeNotes: Equalize auto-parsing of 'value' and 'currency' from eventData.items.
   - sha: b4275e1630355a213083fedd046c5117a62e3c99
     changeNotes: Add CRM as Event Source option. Add support to User Data Event Enhancement cookie. Improve help texts on tag UI. Add support for overriding cookie domain and samesite attributes.
   - sha: d80eb41f2f2ff40b042a0e4543221fe9c470047c
