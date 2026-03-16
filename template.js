@@ -25,19 +25,13 @@ const toBase64 = require('toBase64');
 /*==============================================================================
 ==============================================================================*/
 
-const gtmVersion = 'stape_2_1_2' + (data.enableEventEnhancement ? '_ee' : '');
+const gtmVersion = 'stape_2_1_3' + (data.enableEventEnhancement ? '_ee' : '');
 
 const eventData = getAllEventData();
 
-if (!isConsentGivenOrNotRequired(data, eventData)) {
-  return data.gtmOnSuccess();
-}
+if (shouldExitEarly(data, eventData)) return;
 
 const url = getUrl(eventData);
-if (url && url.lastIndexOf('https://gtm-msr.appspot.com/', 0) === 0) {
-  return data.gtmOnSuccess();
-}
-
 const commonCookie = eventData.common_cookie || {};
 
 let ttclid = getCookieValues('ttclid')[0] || commonCookie.ttclid || eventData.ttclid;
@@ -48,7 +42,7 @@ if (url) {
   }
 }
 
-let ttp = getCookieValues('_ttp')[0] || commonCookie._ttp || eventData._ttp;
+let ttp = getCookieValues('_ttp')[0] || commonCookie._ttp || eventData._ttp || eventData.ttp;
 if (!ttp && data.generateTtp) {
   ttp = generateTtp();
 }
@@ -102,11 +96,8 @@ sendHttpRequest(
     });
 
     if (!data.useOptimisticScenario) {
-      if (statusCode >= 200 && statusCode < 400) {
-        data.gtmOnSuccess();
-      } else {
-        data.gtmOnFailure();
-      }
+      if (statusCode >= 200 && statusCode < 400) return data.gtmOnSuccess();
+      return data.gtmOnFailure();
     }
   },
   {
@@ -221,8 +212,18 @@ function hashDataIfNeeded(mappedData) {
 function addPropertiesData(eventData, mappedData) {
   mappedData.properties = {};
 
+  let items;
+  if (getType(eventData.items) === 'array' && eventData.items.length) items = eventData.items;
+  else if (
+    getType(eventData.ecommerce) === 'object' &&
+    getType(eventData.ecommerce.items) === 'array' &&
+    eventData.ecommerce.items.length
+  ) {
+    items = eventData.ecommerce.items;
+  }
+
   if (eventData.content_type) mappedData.properties.content_type = eventData.content_type;
-  else if (eventData.items && eventData.items[0]) mappedData.properties.content_type = 'product';
+  else if (items) mappedData.properties.content_type = 'product';
 
   if (eventData.query) mappedData.properties.query = eventData.query;
   if (eventData.search_term || eventData.search_string)
@@ -235,11 +236,11 @@ function addPropertiesData(eventData, mappedData) {
   let valueFromItems = 0;
 
   if (eventData.contents) mappedData.properties.contents = eventData.contents;
-  else if (eventData.items && eventData.items[0]) {
-    currencyFromItems = eventData.items[0].currency;
+  else if (items) {
+    currencyFromItems = items[0].currency;
     mappedData.properties.contents = [];
 
-    eventData.items.forEach((d) => {
+    items.forEach((d) => {
       const item = {};
 
       if (d.quantity) item.quantity = makeInteger(d.quantity);
@@ -307,47 +308,55 @@ function addUserData(eventData, mappedData, eventSource) {
     }
   }
 
-  if (eventData.email) mappedData.user.email = eventData.email;
-  else if (eventData.email_address) mappedData.user.email = eventData.email_address;
-  else if (userEventData.email) mappedData.user.email = userEventData.email;
-  else if (userEventData.email_address) mappedData.user.email = userEventData.email_address;
+  const email =
+    eventData.email ||
+    eventData.email_address ||
+    userEventData.email ||
+    userEventData.email_address ||
+    userEventData.sha256_email_address;
+  if (email) mappedData.user.email = email;
 
-  if (eventData.phone) mappedData.user.phone = eventData.phone;
-  else if (eventData.phone_number) mappedData.user.phone = eventData.phone_number;
-  else if (userEventData.phone) mappedData.user.phone = userEventData.phone;
-  else if (userEventData.phone_number) mappedData.user.phone = userEventData.phone_number;
+  const phone =
+    eventData.phone ||
+    eventData.phone_number ||
+    userEventData.phone ||
+    userEventData.phone_number ||
+    userEventData.sha256_phone_number;
+  if (phone) mappedData.user.phone = phone;
 
-  if (eventData.lastName) mappedData.user.last_name = eventData.lastName;
-  else if (eventData.LastName) mappedData.user.last_name = eventData.LastName;
-  else if (eventData.nameLast) mappedData.user.last_name = eventData.nameLast;
-  else if (eventData.last_name) mappedData.user.last_name = eventData.last_name;
-  else if (userEventData.last_name) mappedData.user.last_name = userEventData.last_name;
-  else if (address.last_name) mappedData.user.last_name = address.last_name;
+  const lastName =
+    eventData.lastName ||
+    eventData.LastName ||
+    eventData.nameLast ||
+    eventData.last_name ||
+    userEventData.last_name ||
+    address.last_name ||
+    address.sha256_last_name;
+  if (lastName) mappedData.user.last_name = lastName;
 
-  if (eventData.firstName) mappedData.user.first_name = eventData.firstName;
-  else if (eventData.FirstName) mappedData.user.first_name = eventData.FirstName;
-  else if (eventData.nameFirst) mappedData.user.first_name = eventData.nameFirst;
-  else if (eventData.first_name) mappedData.user.first_name = eventData.first_name;
-  else if (userEventData.first_name) mappedData.user.first_name = userEventData.first_name;
-  else if (address.first_name) mappedData.user.first_name = address.first_name;
+  const firstName =
+    eventData.firstName ||
+    eventData.FirstName ||
+    eventData.nameFirst ||
+    eventData.first_name ||
+    userEventData.first_name ||
+    address.first_name ||
+    address.sha256_first_name;
+  if (firstName) mappedData.user.first_name = firstName;
 
-  if (eventData.city) mappedData.user.city = eventData.city;
-  else if (address.city) mappedData.user.city = address.city;
+  const city = eventData.city || address.city;
+  if (city) mappedData.user.city = city;
 
-  if (eventData.state) mappedData.user.state = eventData.state;
-  else if (eventData.region) mappedData.user.state = eventData.region;
-  else if (userEventData.region) mappedData.user.state = userEventData.region;
-  else if (address.region) mappedData.user.state = address.region;
+  const state = eventData.state || eventData.region || userEventData.region || address.region;
+  if (state) mappedData.user.state = state;
 
-  if (eventData.zip) mappedData.user.zip_code = eventData.zip;
-  else if (eventData.postal_code) mappedData.user.zip_code = eventData.postal_code;
-  else if (userEventData.postal_code) mappedData.user.zip_code = userEventData.postal_code;
-  else if (address.postal_code) mappedData.user.zip_code = address.postal_code;
+  const zipCode =
+    eventData.zip || eventData.postal_code || userEventData.postal_code || address.postal_code;
+  if (zipCode) mappedData.user.zip_code = zipCode;
 
-  if (eventData.countryCode) mappedData.user.country = eventData.countryCode;
-  else if (eventData.country) mappedData.user.country = eventData.country;
-  else if (userEventData.country) mappedData.user.country = userEventData.country;
-  else if (address.country) mappedData.user.country = address.country;
+  const country =
+    eventData.countryCode || eventData.country || userEventData.country || address.country;
+  if (country) mappedData.user.country = country;
 
   if (eventSource === 'web') {
     if (ttclid) mappedData.user.ttclid = ttclid;
@@ -358,35 +367,33 @@ function addUserData(eventData, mappedData, eventSource) {
     else if (eventData.ttp) mappedData.user.ttp = eventData.ttp;
     else if (userEventData.ttp) mappedData.user.ttp = userEventData.ttp;
 
-    if (eventData.external_id) mappedData.user.external_id = eventData.external_id;
-    else if (eventData.user_id) mappedData.user.external_id = eventData.user_id;
-    else if (eventData.userId) mappedData.user.external_id = eventData.userId;
-    else if (userEventData.external_id) mappedData.user.external_id = userEventData.external_id;
+    const externalId =
+      eventData.external_id || eventData.user_id || eventData.userId || userEventData.external_id;
+    if (externalId) mappedData.user.external_id = externalId;
 
-    if (eventData.ip_override) mappedData.user.ip = eventData.ip_override;
-    else if (eventData.ip_address) mappedData.user.ip = eventData.ip_address;
-    else if (eventData.ip) mappedData.user.ip = eventData.ip;
+    const ip = eventData.ip_override || eventData.ip_address || eventData.ip;
+    if (ip) mappedData.user.ip = ip;
 
     if (eventData.user_agent) mappedData.user.user_agent = eventData.user_agent;
   }
 
   if (eventSource === 'app') {
-    if (eventData.idfa) mappedData.user.idfa = eventData.idfa;
-    else if (userEventData.idfv) mappedData.user.idfv = userEventData.idfv;
+    const idfa = eventData.idfa || userEventData.idfa;
+    if (idfa) mappedData.user.idfa = idfa;
 
-    if (eventData.idfv) mappedData.user.idfv = eventData.idfv;
-    else if (userEventData.idfv) mappedData.user.idfv = userEventData.idfv;
+    const idfv = eventData.idfv || userEventData.idfv;
+    if (idfv) mappedData.user.idfv = idfv;
 
-    if (eventData.gaid) mappedData.user.gaid = eventData.gaid;
-    else if (userEventData.gaid) mappedData.user.gaid = userEventData.gaid;
+    const gaid = eventData.gaid || userEventData.gaid;
+    if (gaid) mappedData.user.gaid = gaid;
 
-    if (eventData.att_status) mappedData.user.att_status = eventData.att_status;
-    else if (userEventData.att_status) mappedData.user.att_status = userEventData.att_status;
+    const attStatus = eventData.att_status || userEventData.att_status;
+    if (attStatus) mappedData.user.att_status = attStatus;
   }
 
   if (eventSource === 'web' || eventSource === 'app') {
-    if (eventData.locale) mappedData.user.locale = eventData.locale;
-    else if (userEventData.locale) mappedData.user.locale = userEventData.locale;
+    const locale = eventData.locale || userEventData.locale;
+    if (locale) mappedData.user.locale = locale;
   }
 
   if (data.userDataList) {
@@ -599,8 +606,21 @@ function enhanceEventData(userData) {
   Helpers
 ==============================================================================*/
 
+function shouldExitEarly(data, eventData) {
+  if (!isConsentGivenOrNotRequired(data, eventData)) {
+    data.gtmOnSuccess();
+    return true;
+  }
+
+  const url = getUrl(eventData);
+  if (url && url.lastIndexOf('https://gtm-msr.appspot.com/', 0) === 0) {
+    data.gtmOnSuccess();
+    return true;
+  }
+}
+
 function getUrl(eventData) {
-  return eventData.page_location || eventData.page_referrer || getRequestHeader('referer');
+  return eventData.page_location || getRequestHeader('referer') || eventData.page_referrer;
 }
 
 function getCookieDomain(data) {
