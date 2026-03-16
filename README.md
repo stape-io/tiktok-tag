@@ -46,6 +46,10 @@ More detailed description of setting up the [TikTok events API tag in the sGTM](
 - `ClickButton` (deprecated)
 - `PlaceAnOrder` (deprecated)
 
+## Useful Resources
+
+- [How to set up TikTok Events API](https://stape.io/helpdesk/documentation/how-to-set-up-tiktok-events-api)
+
 ## Open Source
 
 The **TikTok Events API Tag for GTM Server Side** is developed and maintained by the [Stape Team](https://stape.io/) under the Apache 2.0 license.
