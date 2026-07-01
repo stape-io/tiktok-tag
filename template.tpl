@@ -26,7 +26,7 @@ ___INFO___
     "displayName": "stape-io",
     "thumbnail": "data:image/png;base64,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HABASjIOACAlGQcAkJKMAwBIScYBAKQk4wAAUpJxAAApyTgAgJRkHABASjIOACAlGQcAkJKMAwBIScYBAKQk4wAAUpJxAAApyTgAgJRkHABASjIOACAlGQcAkJKMAwBIScYBAKQk4wAAUpJxAAApyTgAgJRkHABASjIOACAlGQcAkJKMAwBIScYBAKQk4wAAUpJxAAApyTgAgJRkHABASjIOACAlGQcAkJKMAwBIScYBAKQk4wAAUpJxAAApyTgAgJRkHABASjIOACAlGQcAkJKMAwBIScYBAKQk4wAAUpJxAAApyTgAgJRkHABASjIOACAlGQcAkJKMAwBIScYBAKQk4wAAUpJxAAApyTgAgJRkHABASjIOACAlGQcAkJKMAwBIScYBAKQk4wAAUpJxAAApyTgAgJRkHABASjIOACAlGQcAkJKMAwBIScYBAKQk4wAAUpJxAAApyTgAgJRkHABASjIOACAlGQcAkJKMAwBIScYBAKQk4wAAUpJxAAApyTgAgJRkHABASjIOACAlGQcAkJKMAwBIScYBAKQk4wAAUpJxAAApyTgAgJRkHABASjIOACAlGQcAkJKMAwBIScYBAKQk4wAAUpJxAAApyTgAgJRkHABASjIOACClV86fP181AwDA7lIUxf8A/d26PBdp9woAAAAASUVORK5CYII\u003d"
   },
-  "description": "Tag that send the event data from the Universal Analytics/GA4/Data client to TikTok Events API.",
+  "description": "Tag that send the event data from the GA4 Client or Data Client to TikTok Events API.",
   "containerContexts": [
     "SERVER"
   ]
@@ -277,7 +277,7 @@ ___TEMPLATE_PARAMETERS___
       {
         "type": "CHECKBOX",
         "name": "generateTtp",
-        "checkboxText": "Generate _ttp cookie if not exist",
+        "checkboxText": "Generate Browser ID (_ttp) cookie if not exist",
         "simpleValueType": true
       },
       {
@@ -360,6 +360,14 @@ ___TEMPLATE_PARAMETERS___
     "type": "GROUP",
     "subParams": [
       {
+        "type": "CHECKBOX",
+        "name": "autoMapCommonEventData",
+        "checkboxText": "Automap Common Event Data",
+        "simpleValueType": true,
+        "help": "If enabled, the tag will attempt to automatically map parameters from your event data.\n\u003cbr/\u003e\u003cbr/\u003e\nAny value you manually enter in a field below will always override the auto-mapped value.\n\u003cbr/\u003e\u003cbr/\u003e\nDefault mappings:\n\u003cul\u003e\n\u003cli\u003e\u003cb\u003eEvent Time:\u003c/b\u003e \u003ci\u003eeventData.event_time\u003c/i\u003e, current timestamp\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eEvent ID:\u003c/b\u003e \u003ci\u003eeventData.event_id\u003c/i\u003e, \u003ci\u003eeventData.transaction_id\u003c/i\u003e\u003c/li\u003e\n\u003c/ul\u003e",
+        "defaultValue": true
+      },
+      {
         "type": "TEXT",
         "name": "eventId",
         "displayName": "Event ID",
@@ -390,6 +398,14 @@ ___TEMPLATE_PARAMETERS___
     "groupStyle": "ZIPPY_CLOSED",
     "subParams": [
       {
+        "type": "CHECKBOX",
+        "name": "autoMapPageData",
+        "checkboxText": "Automap Page Data",
+        "simpleValueType": true,
+        "help": "If enabled, the tag will attempt to automatically map parameters from your event data.\n\u003cbr/\u003e\u003cbr/\u003e\nAny value you manually enter in a field below will always override the auto-mapped value.\n\u003cbr/\u003e\u003cbr/\u003e\nDefault mappings:\n\u003cul\u003e\n\u003cli\u003e\u003cb\u003ePage Location:\u003c/b\u003e \u003ci\u003eeventData.page_location\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003ePage Referrer:\u003c/b\u003e \u003ci\u003eeventData.page_referrer\u003c/i\u003e, \u003ci\u003eeventData.referrer\u003c/i\u003e\u003c/li\u003e\n\u003c/ul\u003e",
+        "defaultValue": true
+      },
+      {
         "type": "TEXT",
         "name": "pageLocation",
         "displayName": "Page Location",
@@ -416,6 +432,14 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "App Data",
     "groupStyle": "ZIPPY_CLOSED",
     "subParams": [
+      {
+        "type": "CHECKBOX",
+        "name": "autoMapAppData",
+        "checkboxText": "Automap App Data",
+        "simpleValueType": true,
+        "help": "If enabled, the tag will attempt to automatically map parameters from your event data.\n\u003cbr/\u003e\u003cbr/\u003e\nAny value you manually enter in a field below will always override the auto-mapped value.\n\u003cbr/\u003e\u003cbr/\u003e\nDefault mappings:\n\u003cul\u003e\n\u003cli\u003e\u003cb\u003eApplication Name:\u003c/b\u003e \u003ci\u003eeventData.app_name\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eApp Version Number:\u003c/b\u003e \u003ci\u003eeventData.app_version\u003c/i\u003e\u003c/li\u003e\n\u003c/ul\u003e",
+        "defaultValue": true
+      },
       {
         "type": "TEXT",
         "name": "appName",
@@ -449,6 +473,14 @@ ___TEMPLATE_PARAMETERS___
         "type": "LABEL",
         "name": "adDataGroupLabel",
         "displayName": "See \u003ca href\u003d\"https://business-api.tiktok.com/portal/docs?id\u003d1771101151059969\"\u003ethis documentation\u003c/a\u003e for more details on Ad Data properties.\u003cbr/\u003e\u003cbr/\u003e"
+      },
+      {
+        "type": "CHECKBOX",
+        "name": "autoMapAdData",
+        "checkboxText": "Automap Ad Data",
+        "simpleValueType": true,
+        "help": "If enabled, the tag will attempt to automatically map parameters from your event data.\n\u003cbr/\u003e\u003cbr/\u003e\nAny value you manually enter in the table below will always override the auto-mapped value.\n\u003cbr/\u003e\u003cbr/\u003e\nDefault mappings:\n\u003cul\u003e\n\u003cli\u003e\u003cb\u003eCallback:\u003c/b\u003e \u003ci\u003eeventData.ad.callback\u003c/i\u003e, \u003ci\u003eeventData.callback\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eCampaign ID:\u003c/b\u003e \u003ci\u003eeventData.ad.campaign_id\u003c/i\u003e, \u003ci\u003eeventData.campaign_id\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eAd ID:\u003c/b\u003e \u003ci\u003eeventData.ad.ad_id\u003c/i\u003e, \u003ci\u003eeventData.ad_id\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eCreative ID:\u003c/b\u003e \u003ci\u003eeventData.ad.creative_id\u003c/i\u003e, \u003ci\u003eeventData.creative_id\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eIs Retargeting:\u003c/b\u003e \u003ci\u003eeventData.ad.is_retargeting\u003c/i\u003e, \u003ci\u003eeventData.is_retargeting\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eAttributed:\u003c/b\u003e \u003ci\u003eeventData.ad.attributed\u003c/i\u003e, \u003ci\u003eeventData.attributed\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eAttribution Type:\u003c/b\u003e \u003ci\u003eeventData.ad.attribution_type\u003c/i\u003e, \u003ci\u003eeventData.attribution_type\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eAttribution Provider:\u003c/b\u003e \u003ci\u003eeventData.ad.attribution_provider\u003c/i\u003e, \u003ci\u003eeventData.attribution_provider\u003c/i\u003e\u003c/li\u003e\n\u003c/ul\u003e",
+        "defaultValue": true
       },
       {
         "name": "adDataList",
@@ -552,6 +584,14 @@ ___TEMPLATE_PARAMETERS___
         "displayName": "See \u003ca href\u003d\"https://business-api.tiktok.com/portal/docs?id\u003d1771101151059969\"\u003ethis documentation\u003c/a\u003e for more details on User Data properties. If the documentation requires the parameter to be hashed, you \u003cb\u003emust\u003c/b\u003e hash it with SHA256, or the tag will do this automatically before sending the event to TikTok.\u003cbr/\u003e\u003cbr/\u003e"
       },
       {
+        "type": "CHECKBOX",
+        "name": "autoMapUserData",
+        "checkboxText": "Automap User Data",
+        "simpleValueType": true,
+        "help": "If enabled, the tag will attempt to automatically map parameters from your event data.\n\u003cbr/\u003e\u003cbr/\u003e\nAny value you manually enter in the table below will always override the auto-mapped value.\n\u003cbr/\u003e\u003cbr/\u003e\nDefault mappings:\n\u003cul\u003e\n\u003cli\u003e\u003cb\u003eEmail:\u003c/b\u003e \u003ci\u003eeventData.email\u003c/i\u003e, \u003ci\u003eeventData.email_address\u003c/i\u003e, \u003ci\u003eeventData.user_data.email\u003c/i\u003e, \u003ci\u003eeventData.user_data.email_address\u003c/i\u003e, \u003ci\u003eeventData.user_data.sha256_email_address\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003ePhone:\u003c/b\u003e \u003ci\u003eeventData.phone\u003c/i\u003e, \u003ci\u003eeventData.phone_number\u003c/i\u003e, \u003ci\u003eeventData.user_data.phone\u003c/i\u003e, \u003ci\u003eeventData.user_data.phone_number\u003c/i\u003e, \u003ci\u003eeventData.user_data.sha256_phone_number\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eFirst Name:\u003c/b\u003e \u003ci\u003eeventData.first_name\u003c/i\u003e, \u003ci\u003eeventData.firstName\u003c/i\u003e, \u003ci\u003eeventData.nameFirst\u003c/i\u003e, \u003ci\u003eeventData.user_data.first_name\u003c/i\u003e, \u003ci\u003eeventData.user_data.address[].first_name\u003c/i\u003e, \u003ci\u003eeventData.user_data.address[].sha256_first_name\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eLast Name:\u003c/b\u003e \u003ci\u003eeventData.last_name\u003c/i\u003e, \u003ci\u003eeventData.lastName\u003c/i\u003e, \u003ci\u003eeventData.nameLast\u003c/i\u003e, \u003ci\u003eeventData.user_data.last_name\u003c/i\u003e, \u003ci\u003eeventData.user_data.address[].last_name\u003c/i\u003e, \u003ci\u003eeventData.user_data.address[].sha256_last_name\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eCity:\u003c/b\u003e \u003ci\u003eeventData.city\u003c/i\u003e, \u003ci\u003eeventData.user_data.address[].city\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eState:\u003c/b\u003e \u003ci\u003eeventData.state\u003c/i\u003e, \u003ci\u003eeventData.region\u003c/i\u003e, \u003ci\u003eeventData.user_data.region\u003c/i\u003e, \u003ci\u003eeventData.user_data.address[].region\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eZip Code:\u003c/b\u003e \u003ci\u003eeventData.zip\u003c/i\u003e, \u003ci\u003eeventData.postal_code\u003c/i\u003e, \u003ci\u003eeventData.user_data.postal_code\u003c/i\u003e, \u003ci\u003eeventData.user_data.address[].postal_code\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eCountry:\u003c/b\u003e \u003ci\u003eeventData.countryCode\u003c/i\u003e, \u003ci\u003eeventData.country\u003c/i\u003e, \u003ci\u003eeventData.user_data.country\u003c/i\u003e, \u003ci\u003eeventData.user_data.address[].country\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eClick ID (ttclid):\u003c/b\u003e \u003ci\u003ettclid URL parameter\u003c/i\u003e, \u003ci\u003ettclid cookie\u003c/i\u003e, \u003ci\u003eeventData.common_cookie.ttclid\u003c/i\u003e, \u003ci\u003eeventData.ttclid\u003c/i\u003e, \u003ci\u003eeventData.user_data.ttclid\u003c/i\u003e (web only)\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eBrowser ID (ttp):\u003c/b\u003e \u003ci\u003e_ttp cookie\u003c/i\u003e, \u003ci\u003eeventData.common_cookie._ttp\u003c/i\u003e, \u003ci\u003eeventData._ttp\u003c/i\u003e, \u003ci\u003eeventData.ttp\u003c/i\u003e, \u003ci\u003eeventData.user_data.ttp\u003c/i\u003e, or generated if \"Generate _ttp\" is enabled (web only)\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eExternal ID:\u003c/b\u003e \u003ci\u003eeventData.external_id\u003c/i\u003e, \u003ci\u003eeventData.user_id\u003c/i\u003e, \u003ci\u003eeventData.userId\u003c/i\u003e, \u003ci\u003eeventData.user_data.external_id\u003c/i\u003e (web and crm)\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eIP Address:\u003c/b\u003e \u003ci\u003eeventData.ip_override\u003c/i\u003e, \u003ci\u003eeventData.ip_address\u003c/i\u003e, \u003ci\u003eeventData.ip\u003c/i\u003e (web and app)\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eUser Agent:\u003c/b\u003e \u003ci\u003eeventData.user_agent\u003c/i\u003e (web and app)\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eLocale:\u003c/b\u003e \u003ci\u003eeventData.locale\u003c/i\u003e, \u003ci\u003eeventData.user_data.locale\u003c/i\u003e (web and app)\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eIDFA:\u003c/b\u003e \u003ci\u003eeventData.idfa\u003c/i\u003e, \u003ci\u003eeventData[\u0027x-ga-resettable_device_id\u0027]\u003c/i\u003e (iOS), \u003ci\u003eeventData.user_data.idfa\u003c/i\u003e — null UUIDs are ignored (app only)\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eIDFV:\u003c/b\u003e \u003ci\u003eeventData.idfv\u003c/i\u003e, \u003ci\u003eeventData[\u0027x-ga-vendor_device_id\u0027]\u003c/i\u003e (iOS), \u003ci\u003eeventData.user_data.idfv\u003c/i\u003e — null UUIDs are ignored (app only)\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eGAID:\u003c/b\u003e \u003ci\u003eeventData.gaid\u003c/i\u003e, \u003ci\u003eeventData[\u0027x-ga-resettable_device_id\u0027]\u003c/i\u003e (Android), \u003ci\u003eeventData.user_data.gaid\u003c/i\u003e — null UUIDs are ignored (app only)\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eATT Status:\u003c/b\u003e \u003ci\u003eeventData.att_status\u003c/i\u003e, \u003ci\u003eeventData.user_data.att_status\u003c/i\u003e (app only)\u003c/li\u003e\n\u003c/ul\u003e",
+        "defaultValue": true
+      },
+      {
         "name": "userDataList",
         "simpleTableColumns": [
           {
@@ -580,19 +620,19 @@ ___TEMPLATE_PARAMETERS___
               },
               {
                 "value": "ip",
-                "displayValue": "Client IP address"
+                "displayValue": "Client IP Address"
               },
               {
                 "value": "user_agent",
-                "displayValue": "Client user agent"
+                "displayValue": "Client User Agent"
               },
               {
                 "value": "ttclid",
-                "displayValue": "ttclid"
+                "displayValue": "Click ID (ttclid)"
               },
               {
                 "value": "ttp",
-                "displayValue": "ttp"
+                "displayValue": "Browser ID (ttp)"
               },
               {
                 "value": "locale",
@@ -662,6 +702,14 @@ ___TEMPLATE_PARAMETERS___
         "type": "LABEL",
         "name": "eventPropertiesGroupLabel",
         "displayName": "See \u003ca href\u003d\"https://business-api.tiktok.com/portal/docs?id\u003d1771101151059969\"\u003ethis documentation\u003c/a\u003e for more details on Event Properties.\u003cbr/\u003e\u003cbr/\u003e"
+      },
+      {
+        "type": "CHECKBOX",
+        "name": "autoMapCustomData",
+        "checkboxText": "Automap Custom Data",
+        "simpleValueType": true,
+        "help": "If enabled, the tag will attempt to automatically map parameters from your event data.\n\u003cbr/\u003e\u003cbr/\u003e\nAny value you manually enter in the table below will always override the auto-mapped value.\n\u003cbr/\u003e\u003cbr/\u003e\nDefault mappings:\n\u003cul\u003e\n\u003cli\u003e\u003cb\u003eValue:\u003c/b\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ci\u003eeventData.value\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003ci\u003eeventData[\u0027x-ga-mp1-ev\u0027]\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003ci\u003eeventData[\u0027x-ga-mp1-tr\u0027]\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003ci\u003eSum of Price * Quantity from eventData.items[] or eventData.ecommerce.items[]\u003c/i\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eCurrency:\u003c/b\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ci\u003eeventData.currency\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003ci\u003eCurrency from eventData.items[] or eventData.ecommerce.items[]\u003c/i\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eContents:\u003c/b\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ci\u003eeventData.contents\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003ci\u003eMapped from eventData.items[] or eventData.ecommerce.items[]\u003c/i\u003e (each item maps: \u003ci\u003eitem_id / id → content_id\u003c/i\u003e, \u003ci\u003econtent_name / item_name → content_name\u003c/i\u003e, \u003ci\u003econtent_category / item_category → content_category\u003c/i\u003e, \u003ci\u003ebrand / item_brand → brand\u003c/i\u003e, \u003ci\u003equantity\u003c/i\u003e, \u003ci\u003eprice\u003c/i\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eContent Type:\u003c/b\u003e \u003ci\u003eeventData.content_type\u003c/i\u003e, or \u003ci\u003eproduct\u003c/i\u003e when items are present\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eQuery:\u003c/b\u003e \u003ci\u003eeventData.query\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eSearch String:\u003c/b\u003e \u003ci\u003eeventData.search_term\u003c/i\u003e, \u003ci\u003eeventData.search_string\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eDescription:\u003c/b\u003e \u003ci\u003eeventData.description\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eOrder ID:\u003c/b\u003e \u003ci\u003eeventData.order_id\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eShop ID:\u003c/b\u003e \u003ci\u003eeventData.shop_id\u003c/i\u003e\u003c/li\u003e\n\u003c/ul\u003e",
+        "defaultValue": true
       },
       {
         "name": "customDataList",
@@ -799,121 +847,23 @@ ___TEMPLATE_PARAMETERS___
         "defaultValue": "optional"
       }
     ]
-  },
-  {
-    "type": "GROUP",
-    "name": "logsGroup",
-    "displayName": "Logs Settings",
-    "groupStyle": "ZIPPY_CLOSED",
-    "subParams": [
-      {
-        "type": "RADIO",
-        "name": "logType",
-        "radioItems": [
-          {
-            "value": "no",
-            "displayValue": "Do not log"
-          },
-          {
-            "value": "debug",
-            "displayValue": "Log to console during debug and preview"
-          },
-          {
-            "value": "always",
-            "displayValue": "Always log to console"
-          }
-        ],
-        "simpleValueType": true,
-        "defaultValue": "debug"
-      }
-    ]
-  },
-  {
-    "displayName": "BigQuery Logs Settings",
-    "name": "bigQueryLogsGroup",
-    "groupStyle": "ZIPPY_CLOSED",
-    "type": "GROUP",
-    "subParams": [
-      {
-        "type": "RADIO",
-        "name": "bigQueryLogType",
-        "radioItems": [
-          {
-            "value": "no",
-            "displayValue": "Do not log to BigQuery"
-          },
-          {
-            "value": "always",
-            "displayValue": "Log to BigQuery"
-          }
-        ],
-        "simpleValueType": true,
-        "defaultValue": "no"
-      },
-      {
-        "type": "GROUP",
-        "name": "logsBigQueryConfigGroup",
-        "groupStyle": "NO_ZIPPY",
-        "subParams": [
-          {
-            "type": "TEXT",
-            "name": "logBigQueryProjectId",
-            "displayName": "BigQuery Project ID",
-            "simpleValueType": true,
-            "help": "Optional.  \u003cbr\u003e\u003cbr\u003e  If omitted, it will be retrieved from the environment variable \u003cI\u003eGOOGLE_CLOUD_PROJECT\u003c/i\u003e where the server container is running. If the server container is running on Google Cloud, \u003cI\u003eGOOGLE_CLOUD_PROJECT\u003c/i\u003e will already be set to the Google Cloud project\u0027s ID."
-          },
-          {
-            "type": "TEXT",
-            "name": "logBigQueryDatasetId",
-            "displayName": "BigQuery Dataset ID",
-            "simpleValueType": true,
-            "valueValidators": [
-              {
-                "type": "NON_EMPTY"
-              }
-            ]
-          },
-          {
-            "type": "TEXT",
-            "name": "logBigQueryTableId",
-            "displayName": "BigQuery Table ID",
-            "simpleValueType": true,
-            "valueValidators": [
-              {
-                "type": "NON_EMPTY"
-              }
-            ]
-          }
-        ],
-        "enablingConditions": [
-          {
-            "paramName": "bigQueryLogType",
-            "paramValue": "always",
-            "type": "EQUALS"
-          }
-        ]
-      }
-    ]
   }
 ]
 
 
 ___SANDBOXED_JS_FOR_SERVER___
 
-const BigQuery = require('BigQuery');
 const computeEffectiveTldPlusOne = require('computeEffectiveTldPlusOne');
 const decodeUriComponent = require('decodeUriComponent');
 const fromBase64 = require('fromBase64');
 const generateRandom = require('generateRandom');
 const getAllEventData = require('getAllEventData');
-const getContainerVersion = require('getContainerVersion');
 const getCookieValues = require('getCookieValues');
 const getEventData = require('getEventData');
 const getRequestHeader = require('getRequestHeader');
 const getTimestampMillis = require('getTimestampMillis');
 const getType = require('getType');
 const JSON = require('JSON');
-const logToConsole = require('logToConsole');
 const makeInteger = require('makeInteger');
 const makeNumber = require('makeNumber');
 const makeString = require('makeString');
@@ -927,90 +877,20 @@ const toBase64 = require('toBase64');
 /*==============================================================================
 ==============================================================================*/
 
-const gtmVersion = 'stape_2_1_3' + (data.enableEventEnhancement ? '_ee' : '');
+const API_VERSION = '1.3';
+const PARTNER_AGENT_STRING = 'stape_2_1_3' + (data.enableEventEnhancement ? '_ee' : '');
 
 const eventData = getAllEventData();
 
 if (shouldExitEarly(data, eventData)) return;
 
-const url = getUrl(eventData);
-const commonCookie = eventData.common_cookie || {};
+const ids = getClickAndBrowserId(data, eventData);
+const ttclid = ids.ttclid;
+const ttp = ids.ttp;
+setIDsCookies(data, ttclid, ttp);
 
-let ttclid = getCookieValues('ttclid')[0] || commonCookie.ttclid || eventData.ttclid;
-if (url) {
-  const urlParsed = parseUrl(url);
-  if (urlParsed && urlParsed.searchParams.ttclid) {
-    ttclid = decodeUriComponent(urlParsed.searchParams.ttclid);
-  }
-}
-
-let ttp = getCookieValues('_ttp')[0] || commonCookie._ttp || eventData._ttp || eventData.ttp;
-if (!ttp && data.generateTtp) {
-  ttp = generateTtp();
-}
-
-if (ttclid) {
-  setCookie('ttclid', ttclid, {
-    domain: getCookieDomain(data),
-    path: '/',
-    samesite: data.cookieSameSite || 'Lax',
-    secure: true,
-    'max-age': 2592000, // 30 days
-    httpOnly: false
-  });
-}
-
-if (ttp) {
-  setCookie('_ttp', ttp, {
-    domain: getCookieDomain(data),
-    path: '/',
-    samesite: data.cookieSameSite || 'Lax',
-    secure: true,
-    'max-age': 34190000, // 13 months
-    httpOnly: false
-  });
-}
-
-const apiVersion = '1.3';
-const postUrl = 'https://business-api.tiktok.com/open_api/v' + apiVersion + '/event/track/';
-const eventName = getEventName(eventData, data);
-const postBody = mapEvent(eventData, data);
-
-log({
-  Name: 'TikTok',
-  Type: 'Request',
-  EventName: eventName,
-  RequestMethod: 'POST',
-  RequestUrl: postUrl,
-  RequestBody: postBody
-});
-
-sendHttpRequest(
-  postUrl,
-  (statusCode, headers, body) => {
-    log({
-      Name: 'TikTok',
-      Type: 'Response',
-      EventName: eventName,
-      ResponseStatusCode: statusCode,
-      ResponseHeaders: headers,
-      ResponseBody: body
-    });
-
-    if (!data.useOptimisticScenario) {
-      if (statusCode >= 200 && statusCode < 400) return data.gtmOnSuccess();
-      return data.gtmOnFailure();
-    }
-  },
-  {
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Token': data.accessToken
-    },
-    method: 'POST'
-  },
-  JSON.stringify(postBody)
-);
+const mappedData = mapEvent(data, eventData, ttclid, ttp);
+sendRequest(data, mappedData);
 
 if (data.useOptimisticScenario) {
   return data.gtmOnSuccess();
@@ -1020,14 +900,70 @@ if (data.useOptimisticScenario) {
   Vendor related functions
 ==============================================================================*/
 
-function mapEvent(eventData, data) {
-  const eventSource = data.eventSource || 'web';
-  let mappedData = {
-    event: eventName,
-    event_time: getEventTime(eventData)
+function getClickAndBrowserId(data, eventData) {
+  const ids = {
+    ttclid:
+      getCookieValues('ttclid')[0] || (eventData.common_cookie || {}).ttclid || eventData.ttclid,
+    ttp:
+      getCookieValues('_ttp')[0] ||
+      (eventData.common_cookie || {})._ttp ||
+      eventData._ttp ||
+      eventData.ttp
   };
 
-  mappedData = addEventId(mappedData, eventData);
+  const url = getUrl(eventData);
+  if (url) {
+    const urlParsed = parseUrl(url);
+    if (urlParsed && urlParsed.searchParams.ttclid) {
+      ids.ttclid = decodeUriComponent(urlParsed.searchParams.ttclid);
+    }
+  }
+
+  if (!ids.ttp && data.generateTtp) {
+    ids.ttp = generateTtp();
+  }
+
+  return ids;
+}
+
+function setIDsCookies(data, ttclid, ttp) {
+  const cookieOptions = {
+    domain: getCookieDomain(data),
+    path: '/',
+    samesite: data.cookieSameSite || 'Lax',
+    secure: true,
+    httpOnly: false
+  };
+
+  if (ttclid) {
+    cookieOptions['max-age'] = 2592000; // 30 days
+    setCookie('ttclid', ttclid, cookieOptions);
+  }
+
+  if (ttp) {
+    cookieOptions['max-age'] = 34190000; // 13 months
+    setCookie('_ttp', ttp, cookieOptions);
+  }
+}
+
+function mapEvent(data, eventData, ttclid, ttp) {
+  const eventSource = data.eventSource || 'web';
+  let mappedData = {
+    event: getEventName(data, eventData)
+  };
+
+  const autoMapEnabled = data.hasOwnProperty('autoMapCommonEventData')
+    ? data.autoMapCommonEventData
+    : true; // To avoid a breaking change.
+
+  const eventTime =
+    data.eventTime ||
+    (autoMapEnabled ? eventData.event_time || Math.round(getTimestampMillis() / 1000) : undefined);
+  if (eventTime) mappedData.event_time = makeInteger(eventTime);
+
+  const eventId =
+    data.eventId || (autoMapEnabled ? eventData.event_id || eventData.transaction_id : undefined);
+  if (eventId) mappedData.event_id = eventId;
 
   if (eventSource === 'web') {
     addPageData(mappedData, eventData);
@@ -1045,12 +981,12 @@ function mapEvent(eventData, data) {
     addLeadData(mappedData);
   }
 
-  mappedData = addUserData(eventData, mappedData, eventSource);
+  mappedData = addUserData(eventData, mappedData, eventSource, ttclid, ttp);
   mappedData = addPropertiesData(eventData, mappedData);
   mappedData = hashDataIfNeeded(mappedData);
 
   if (data.enableEventEnhancement) {
-    mappedData.user = enhanceEventData(mappedData.user);
+    mappedData.user = enhanceEventData(mappedData.user, eventData);
     setGtmEecCookie(mappedData.user);
   }
 
@@ -1114,68 +1050,71 @@ function hashDataIfNeeded(mappedData) {
 function addPropertiesData(eventData, mappedData) {
   mappedData.properties = {};
 
-  let items;
-  if (getType(eventData.items) === 'array' && eventData.items.length) items = eventData.items;
-  else if (
-    getType(eventData.ecommerce) === 'object' &&
-    getType(eventData.ecommerce.items) === 'array' &&
-    eventData.ecommerce.items.length
-  ) {
-    items = eventData.ecommerce.items;
+  const autoMapEnabled = data.hasOwnProperty('autoMapCustomData') ? data.autoMapCustomData : true; // To avoid a breaking change.
+  if (autoMapEnabled) {
+    let items;
+    if (getType(eventData.items) === 'array' && eventData.items.length) items = eventData.items;
+    else if (
+      getType(eventData.ecommerce) === 'object' &&
+      getType(eventData.ecommerce.items) === 'array' &&
+      eventData.ecommerce.items.length
+    ) {
+      items = eventData.ecommerce.items;
+    }
+
+    if (eventData.content_type) mappedData.properties.content_type = eventData.content_type;
+    else if (items) mappedData.properties.content_type = 'product';
+
+    if (eventData.query) mappedData.properties.query = eventData.query;
+    if (eventData.search_term || eventData.search_string)
+      mappedData.properties.search_string = eventData.search_term || eventData.search_string;
+    if (eventData.description) mappedData.properties.description = eventData.description;
+    if (eventData.order_id) mappedData.properties.order_id = eventData.order_id;
+    if (eventData.shop_id) mappedData.properties.shop_id = eventData.shop_id;
+
+    let currencyFromItems;
+    let valueFromItems = 0;
+
+    if (eventData.contents) mappedData.properties.contents = eventData.contents;
+    else if (items) {
+      currencyFromItems = items[0].currency;
+      mappedData.properties.contents = [];
+
+      items.forEach((d) => {
+        const item = {};
+
+        if (d.quantity) item.quantity = makeInteger(d.quantity);
+        if (isValidValue(d.price)) {
+          item.price = makeNumber(d.price);
+          valueFromItems += (item.quantity || 1) * item.price;
+        }
+
+        const contentId = d.item_id || d.id;
+        if (contentId) item.content_id = makeString(contentId);
+
+        const contentCategory = d.content_category || d.item_category;
+        if (contentCategory) item.content_category = contentCategory;
+
+        const contentName = d.content_name || d.item_name;
+        if (contentName) item.content_name = contentName;
+
+        const brand = d.brand || d.item_brand;
+        if (brand) item.brand = brand;
+
+        mappedData.properties.contents.push(item);
+      });
+    }
+
+    const currency = eventData.currency || currencyFromItems;
+    if (currency) mappedData.properties.currency = currency;
+
+    const value =
+      makeNumber(eventData.value) ||
+      makeNumber(eventData['x-ga-mp1-ev']) ||
+      makeNumber(eventData['x-ga-mp1-tr']) ||
+      roundValue(valueFromItems);
+    if (value) mappedData.properties.value = value;
   }
-
-  if (eventData.content_type) mappedData.properties.content_type = eventData.content_type;
-  else if (items) mappedData.properties.content_type = 'product';
-
-  if (eventData.query) mappedData.properties.query = eventData.query;
-  if (eventData.search_term || eventData.search_string)
-    mappedData.properties.search_string = eventData.search_term || eventData.search_string;
-  if (eventData.description) mappedData.properties.description = eventData.description;
-  if (eventData.order_id) mappedData.properties.order_id = eventData.order_id;
-  if (eventData.shop_id) mappedData.properties.shop_id = eventData.shop_id;
-
-  let currencyFromItems;
-  let valueFromItems = 0;
-
-  if (eventData.contents) mappedData.properties.contents = eventData.contents;
-  else if (items) {
-    currencyFromItems = items[0].currency;
-    mappedData.properties.contents = [];
-
-    items.forEach((d) => {
-      const item = {};
-
-      if (d.quantity) item.quantity = makeInteger(d.quantity);
-      if (isValidValue(d.price)) {
-        item.price = makeNumber(d.price);
-        valueFromItems += (item.quantity || 1) * item.price;
-      }
-
-      if (d.item_id) item.content_id = makeString(d.item_id);
-      else if (d.id) item.content_id = makeString(d.id);
-
-      if (d.content_category) item.content_category = d.content_category;
-      else if (d.item_category) item.content_category = d.item_category;
-
-      if (d.content_name) item.content_name = d.content_name;
-      else if (d.item_name) item.content_name = d.item_name;
-
-      if (d.brand) item.brand = d.brand;
-      else if (d.item_brand) item.brand = d.item_brand;
-
-      mappedData.properties.contents.push(item);
-    });
-  }
-
-  const currency = eventData.currency || currencyFromItems;
-  if (currency) mappedData.properties.currency = currency;
-
-  const value =
-    makeNumber(eventData.value) ||
-    makeNumber(eventData['x-ga-mp1-ev']) ||
-    makeNumber(eventData['x-ga-mp1-tr']) ||
-    roundValue(valueFromItems);
-  if (value) mappedData.properties.value = value;
 
   if (data.customDataList) {
     data.customDataList.forEach((d) => {
@@ -1193,109 +1132,124 @@ function addPropertiesData(eventData, mappedData) {
     });
   }
 
-  mappedData.properties.gtm_version = gtmVersion;
+  mappedData.properties.gtm_version = PARTNER_AGENT_STRING;
 
   return mappedData;
 }
 
-function addUserData(eventData, mappedData, eventSource) {
+function addUserData(eventData, mappedData, eventSource, ttclid, ttp) {
   mappedData.user = {};
-  let userEventData = {};
-  let address = {};
-  if (getType(eventData.user_data) === 'object') {
-    userEventData = eventData.user_data;
-    const addressType = getType(userEventData.address);
-    if (addressType === 'object' || addressType === 'array') {
-      address = userEventData.address[0] || userEventData.address;
+
+  const autoMapEnabled = data.hasOwnProperty('autoMapUserData') ? data.autoMapUserData : true; // To avoid a breaking change.
+  if (autoMapEnabled) {
+    let userEventData = {};
+    let address = {};
+    if (getType(eventData.user_data) === 'object') {
+      userEventData = eventData.user_data;
+      const addressType = getType(userEventData.address);
+      if (addressType === 'object' || addressType === 'array') {
+        address = userEventData.address[0] || userEventData.address;
+      }
     }
-  }
 
-  const email =
-    eventData.email ||
-    eventData.email_address ||
-    userEventData.email ||
-    userEventData.email_address ||
-    userEventData.sha256_email_address;
-  if (email) mappedData.user.email = email;
+    const email =
+      eventData.email ||
+      eventData.email_address ||
+      userEventData.email ||
+      userEventData.email_address ||
+      userEventData.sha256_email_address;
+    if (email) mappedData.user.email = email;
 
-  const phone =
-    eventData.phone ||
-    eventData.phone_number ||
-    userEventData.phone ||
-    userEventData.phone_number ||
-    userEventData.sha256_phone_number;
-  if (phone) mappedData.user.phone = phone;
+    const phone =
+      eventData.phone ||
+      eventData.phone_number ||
+      userEventData.phone ||
+      userEventData.phone_number ||
+      userEventData.sha256_phone_number;
+    if (phone) mappedData.user.phone = phone;
 
-  const lastName =
-    eventData.lastName ||
-    eventData.LastName ||
-    eventData.nameLast ||
-    eventData.last_name ||
-    userEventData.last_name ||
-    address.last_name ||
-    address.sha256_last_name;
-  if (lastName) mappedData.user.last_name = lastName;
+    const lastName =
+      eventData.lastName ||
+      eventData.LastName ||
+      eventData.nameLast ||
+      eventData.last_name ||
+      userEventData.last_name ||
+      address.last_name ||
+      address.sha256_last_name;
+    if (lastName) mappedData.user.last_name = lastName;
 
-  const firstName =
-    eventData.firstName ||
-    eventData.FirstName ||
-    eventData.nameFirst ||
-    eventData.first_name ||
-    userEventData.first_name ||
-    address.first_name ||
-    address.sha256_first_name;
-  if (firstName) mappedData.user.first_name = firstName;
+    const firstName =
+      eventData.firstName ||
+      eventData.FirstName ||
+      eventData.nameFirst ||
+      eventData.first_name ||
+      userEventData.first_name ||
+      address.first_name ||
+      address.sha256_first_name;
+    if (firstName) mappedData.user.first_name = firstName;
 
-  const city = eventData.city || address.city;
-  if (city) mappedData.user.city = city;
+    const city = eventData.city || address.city;
+    if (city) mappedData.user.city = city;
 
-  const state = eventData.state || eventData.region || userEventData.region || address.region;
-  if (state) mappedData.user.state = state;
+    const state = eventData.state || eventData.region || userEventData.region || address.region;
+    if (state) mappedData.user.state = state;
 
-  const zipCode =
-    eventData.zip || eventData.postal_code || userEventData.postal_code || address.postal_code;
-  if (zipCode) mappedData.user.zip_code = zipCode;
+    const zipCode =
+      eventData.zip || eventData.postal_code || userEventData.postal_code || address.postal_code;
+    if (zipCode) mappedData.user.zip_code = zipCode;
 
-  const country =
-    eventData.countryCode || eventData.country || userEventData.country || address.country;
-  if (country) mappedData.user.country = country;
+    const country =
+      eventData.countryCode || eventData.country || userEventData.country || address.country;
+    if (country) mappedData.user.country = country;
 
-  if (eventSource === 'web') {
-    if (ttclid) mappedData.user.ttclid = ttclid;
-    else if (eventData.ttclid) mappedData.user.ttclid = eventData.ttclid;
-    else if (userEventData.ttclid) mappedData.user.ttclid = userEventData.ttclid;
+    if (eventSource === 'web') {
+      const autoMappedttclid = ttclid || eventData.ttclid || userEventData.ttclid;
+      if (autoMappedttclid) mappedData.user.ttclid = autoMappedttclid;
 
-    if (ttp) mappedData.user.ttp = ttp;
-    else if (eventData.ttp) mappedData.user.ttp = eventData.ttp;
-    else if (userEventData.ttp) mappedData.user.ttp = userEventData.ttp;
+      const autoMappedttp = ttp || eventData.ttp || userEventData.ttp;
+      if (autoMappedttp) mappedData.user.ttp = autoMappedttp;
+    }
 
-    const externalId =
-      eventData.external_id || eventData.user_id || eventData.userId || userEventData.external_id;
-    if (externalId) mappedData.user.external_id = externalId;
+    if (eventSource === 'app') {
+      const platform = eventData['x-ga-platform'];
 
-    const ip = eventData.ip_override || eventData.ip_address || eventData.ip;
-    if (ip) mappedData.user.ip = ip;
+      const idfa =
+        eventData.idfa ||
+        (platform === 'ios' ? eventData['x-ga-resettable_device_id'] : undefined) ||
+        userEventData.idfa;
+      if (idfa && idfa !== '00000000-0000-0000-0000-000000000000') mappedData.user.idfa = idfa;
 
-    if (eventData.user_agent) mappedData.user.user_agent = eventData.user_agent;
-  }
+      const idfv =
+        eventData.idfv ||
+        (platform === 'ios' ? eventData['x-ga-vendor_device_id'] : undefined) ||
+        userEventData.idfv;
+      if (idfv && idfv !== '00000000-0000-0000-0000-000000000000') mappedData.user.idfv = idfv;
 
-  if (eventSource === 'app') {
-    const idfa = eventData.idfa || userEventData.idfa;
-    if (idfa) mappedData.user.idfa = idfa;
+      const gaid =
+        eventData.gaid ||
+        (platform === 'android' ? eventData['x-ga-resettable_device_id'] : undefined) ||
+        userEventData.gaid;
+      if (gaid && gaid !== '00000000-0000-0000-0000-000000000000') mappedData.user.gaid = gaid;
 
-    const idfv = eventData.idfv || userEventData.idfv;
-    if (idfv) mappedData.user.idfv = idfv;
+      const attStatus = eventData.att_status || userEventData.att_status;
+      if (attStatus) mappedData.user.att_status = attStatus;
+    }
 
-    const gaid = eventData.gaid || userEventData.gaid;
-    if (gaid) mappedData.user.gaid = gaid;
+    if (eventSource === 'web' || eventSource === 'crm') {
+      const externalId =
+        eventData.external_id || eventData.user_id || eventData.userId || userEventData.external_id;
+      if (externalId) mappedData.user.external_id = externalId;
+    }
 
-    const attStatus = eventData.att_status || userEventData.att_status;
-    if (attStatus) mappedData.user.att_status = attStatus;
-  }
+    if (eventSource === 'web' || eventSource === 'app') {
+      const locale = eventData.locale || userEventData.locale;
+      if (locale) mappedData.user.locale = locale;
 
-  if (eventSource === 'web' || eventSource === 'app') {
-    const locale = eventData.locale || userEventData.locale;
-    if (locale) mappedData.user.locale = locale;
+      const ip = eventData.ip_override || eventData.ip_address || eventData.ip;
+      if (ip) mappedData.user.ip = ip;
+
+      if (eventData.user_agent) mappedData.user.user_agent = eventData.user_agent;
+    }
   }
 
   if (data.userDataList) {
@@ -1309,7 +1263,7 @@ function addUserData(eventData, mappedData, eventSource) {
   return mappedData;
 }
 
-function getEventName(eventData, data) {
+function getEventName(data, eventData) {
   if (data.eventType === 'inherit') {
     const eventName = eventData.event_name;
 
@@ -1352,76 +1306,66 @@ function getEventName(eventData, data) {
   return data.eventType === 'custom' ? data.eventNameCustom : data.eventName;
 }
 
-function addEventId(mappedData, eventData) {
-  if (data.eventId) mappedData.event_id = data.eventId;
-  else if (eventData.event_id) mappedData.event_id = eventData.event_id;
-  else if (eventData.transaction_id) mappedData.event_id = eventData.transaction_id;
-
-  return mappedData;
-}
-
-function getEventTime(eventData) {
-  if (data.eventTime) return makeInteger(data.eventTime);
-  else if (eventData.event_time) return makeInteger(eventData.event_time);
-
-  return Math.round(getTimestampMillis() / 1000);
-}
-
 function addPageData(mappedData, eventData) {
+  const autoMapEnabled = data.hasOwnProperty('autoMapPageData') ? data.autoMapPageData : true; // To avoid a breaking change.
+
   mappedData.page = {
-    url: data.pageLocation || eventData.page_location
+    url: data.pageLocation || (autoMapEnabled ? eventData.page_location : undefined)
   };
 
-  if (data.pageReferrer) mappedData.page.referrer = data.pageReferrer;
-  else if (eventData.page_referrer) mappedData.page.referrer = eventData.page_referrer;
-  else if (eventData.referrer) mappedData.page.referrer = eventData.referrer;
+  const pageReferrer =
+    data.pageReferrer ||
+    (autoMapEnabled ? eventData.page_referrer || eventData.referrer : undefined);
+  if (pageReferrer) mappedData.page.referrer = pageReferrer;
 
   return mappedData;
 }
 
 function addAppData(mappedData, eventData) {
+  const autoMapAppDataEnabled = data.hasOwnProperty('autoMapAppData') ? data.autoMapAppData : true; // To avoid a breaking change.
   mappedData.app = {
     app_id: data.appId
   };
 
-  if (data.appName) mappedData.app.app_name = data.appName;
-  else if (eventData.app_name) mappedData.app.app_name = eventData.app_name;
+  const appName = data.appName || (autoMapAppDataEnabled ? eventData.app_name : undefined);
+  if (appName) mappedData.app.app_name = appName;
 
-  if (data.appVersion) mappedData.app.app_version = data.appVersion;
-  else if (eventData.app_version) mappedData.app.app_version = eventData.app_version;
+  const appVersion = data.appVersion || (autoMapAppDataEnabled ? eventData.app_version : undefined);
+  if (appVersion) mappedData.app.app_version = appVersion;
 
+  const autoMapAdDataEnabled = data.hasOwnProperty('autoMapAdData') ? data.autoMapAdData : true; // To avoid a breaking change.
   let adEventData = {};
   mappedData.ad = {};
 
-  if (getType(eventData.ad) === 'object') {
-    adEventData = eventData.ad;
+  if (autoMapAdDataEnabled) {
+    if (getType(eventData.ad) === 'object') {
+      adEventData = eventData.ad;
+    }
+
+    const callback = adEventData.callback || eventData.callback;
+    if (callback) mappedData.ad.callback = callback;
+
+    const campaignId = adEventData.campaign_id || eventData.campaign_id;
+    if (campaignId) mappedData.ad.campaign_id = campaignId;
+
+    const adId = adEventData.ad_id || eventData.ad_id;
+    if (adId) mappedData.ad.ad_id = adId;
+
+    const creativeId = adEventData.creative_id || eventData.creative_id;
+    if (creativeId) mappedData.ad.creative_id = creativeId;
+
+    const isRetargeting = adEventData.is_retargeting || eventData.is_retargeting;
+    if (isRetargeting) mappedData.ad.is_retargeting = isRetargeting;
+
+    const attributed = adEventData.attributed || eventData.attributed;
+    if (attributed) mappedData.ad.attributed = attributed;
+
+    const attributionType = adEventData.attribution_type || eventData.attribution_type;
+    if (attributionType) mappedData.ad.attribution_type = attributionType;
+
+    const attributionProvider = adEventData.attribution_provider || eventData.attribution_provider;
+    if (attributionProvider) mappedData.ad.attribution_provider = attributionProvider;
   }
-
-  if (adEventData.callback) mappedData.ad.callback = adEventData.callback;
-  else if (eventData.callback) mappedData.ad.callback = eventData.callback;
-
-  if (adEventData.campaign_id) mappedData.ad.campaign_id = adEventData.campaign_id;
-  else if (eventData.campaign_id) mappedData.ad.campaign_id = eventData.campaign_id;
-
-  if (adEventData.ad_id) mappedData.ad.ad_id = adEventData.ad_id;
-  else if (eventData.ad_id) mappedData.ad.ad_id = eventData.ad_id;
-
-  if (adEventData.creative_id) mappedData.ad.creative_id = adEventData.creative_id;
-  else if (eventData.creative_id) mappedData.ad.creative_id = eventData.creative_id;
-
-  if (adEventData.is_retargeting) mappedData.ad.is_retargeting = adEventData.is_retargeting;
-  else if (eventData.is_retargeting) mappedData.ad.is_retargeting = eventData.is_retargeting;
-
-  if (adEventData.attributed) mappedData.ad.attributed = adEventData.attributed;
-  else if (eventData.attributed) mappedData.ad.attributed = eventData.attributed;
-
-  if (adEventData.attribution_type) mappedData.ad.attribution_type = adEventData.attribution_type;
-  else if (eventData.attribution_type) mappedData.ad.attribution_type = eventData.attribution_type;
-
-  if (adEventData.attribution_provider)
-    mappedData.ad.attribution_provider = adEventData.attribution_provider;
-  else if (eventData.attribution_provider)
-    mappedData.ad.attribution_provider = eventData.attribution_provider;
 
   if (data.adDataList) {
     data.adDataList.forEach((d) => {
@@ -1479,7 +1423,8 @@ function setGtmEecCookie(userData) {
   });
 }
 
-function enhanceEventData(userData) {
+function enhanceEventData(userData, eventData) {
+  const commonCookie = eventData.common_cookie || {};
   const cookieValue = getCookieValues('_gtmeec-tt')[0] || commonCookie['_gtmeec-tt'];
   if (!cookieValue) return userData;
 
@@ -1502,6 +1447,36 @@ function enhanceEventData(userData) {
   }
 
   return userData;
+}
+
+function generateRequestUrl() {
+  return 'https://business-api.tiktok.com/open_api/v' + API_VERSION + '/event/track/';
+}
+
+function generateRequestOptions(data) {
+  return {
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Token': data.accessToken
+    },
+    method: 'POST'
+  };
+}
+
+function sendRequest(data, mappedData) {
+  const requestUrl = generateRequestUrl();
+  const requestOptions = generateRequestOptions(data);
+
+  sendHttpRequest(
+    requestUrl,
+    (statusCode, headers, body) => {
+      if (!data.useOptimisticScenario) {
+        return statusCode >= 200 && statusCode < 400 ? data.gtmOnSuccess() : data.gtmOnFailure();
+      }
+    },
+    requestOptions,
+    JSON.stringify(mappedData)
+  );
 }
 
 /*==============================================================================
@@ -1552,94 +1527,6 @@ function isConsentGivenOrNotRequired(data, eventData) {
   if (eventData.consent_state) return !!eventData.consent_state.ad_storage;
   const xGaGcs = eventData['x-ga-gcs'] || ''; // x-ga-gcs is a string like "G110"
   return xGaGcs[2] === '1';
-}
-
-function log(rawDataToLog) {
-  const logDestinationsHandlers = {};
-  if (determinateIsLoggingEnabled()) logDestinationsHandlers.console = logConsole;
-  if (determinateIsLoggingEnabledForBigQuery()) logDestinationsHandlers.bigQuery = logToBigQuery;
-
-  rawDataToLog.TraceId = getRequestHeader('trace-id');
-
-  const keyMappings = {
-    // No transformation for Console is needed.
-    bigQuery: {
-      Name: 'tag_name',
-      Type: 'type',
-      TraceId: 'trace_id',
-      EventName: 'event_name',
-      RequestMethod: 'request_method',
-      RequestUrl: 'request_url',
-      RequestBody: 'request_body',
-      ResponseStatusCode: 'response_status_code',
-      ResponseHeaders: 'response_headers',
-      ResponseBody: 'response_body'
-    }
-  };
-
-  for (const logDestination in logDestinationsHandlers) {
-    const handler = logDestinationsHandlers[logDestination];
-    if (!handler) continue;
-
-    const mapping = keyMappings[logDestination];
-    const dataToLog = mapping ? {} : rawDataToLog;
-
-    if (mapping) {
-      for (const key in rawDataToLog) {
-        const mappedKey = mapping[key] || key;
-        dataToLog[mappedKey] = rawDataToLog[key];
-      }
-    }
-
-    handler(dataToLog);
-  }
-}
-
-function logConsole(dataToLog) {
-  logToConsole(JSON.stringify(dataToLog));
-}
-
-function logToBigQuery(dataToLog) {
-  const connectionInfo = {
-    projectId: data.logBigQueryProjectId,
-    datasetId: data.logBigQueryDatasetId,
-    tableId: data.logBigQueryTableId
-  };
-
-  dataToLog.timestamp = getTimestampMillis();
-
-  ['request_body', 'response_headers', 'response_body'].forEach((p) => {
-    dataToLog[p] = JSON.stringify(dataToLog[p]);
-  });
-
-  BigQuery.insert(connectionInfo, [dataToLog], { ignoreUnknownValues: true });
-}
-
-function determinateIsLoggingEnabled() {
-  const containerVersion = getContainerVersion();
-  const isDebug = !!(
-    containerVersion &&
-    (containerVersion.debugMode || containerVersion.previewMode)
-  );
-
-  if (!data.logType) {
-    return isDebug;
-  }
-
-  if (data.logType === 'no') {
-    return false;
-  }
-
-  if (data.logType === 'debug') {
-    return isDebug;
-  }
-
-  return data.logType === 'always';
-}
-
-function determinateIsLoggingEnabledForBigQuery() {
-  if (data.bigQueryLogType === 'no') return false;
-  return data.bigQueryLogType === 'always';
 }
 
 
@@ -1907,37 +1794,6 @@ ___SERVER_PERMISSIONS___
   {
     "instance": {
       "key": {
-        "publicId": "logging",
-        "versionId": "1"
-      },
-      "param": [
-        {
-          "key": "environments",
-          "value": {
-            "type": 1,
-            "string": "all"
-          }
-        }
-      ]
-    },
-    "clientAnnotations": {
-      "isEditedByUser": true
-    },
-    "isRequired": true
-  },
-  {
-    "instance": {
-      "key": {
-        "publicId": "read_container_data",
-        "versionId": "1"
-      },
-      "param": []
-    },
-    "isRequired": true
-  },
-  {
-    "instance": {
-      "key": {
         "publicId": "read_request",
         "versionId": "1"
       },
@@ -1947,21 +1803,6 @@ ___SERVER_PERMISSIONS___
           "value": {
             "type": 2,
             "listItem": [
-              {
-                "type": 3,
-                "mapKey": [
-                  {
-                    "type": 1,
-                    "string": "headerName"
-                  }
-                ],
-                "mapValue": [
-                  {
-                    "type": 1,
-                    "string": "trace-id"
-                  }
-                ]
-              },
               {
                 "type": 3,
                 "mapKey": [
@@ -2014,144 +1855,13 @@ ___SERVER_PERMISSIONS___
       "isEditedByUser": true
     },
     "isRequired": true
-  },
-  {
-    "instance": {
-      "key": {
-        "publicId": "access_bigquery",
-        "versionId": "1"
-      },
-      "param": [
-        {
-          "key": "allowedTables",
-          "value": {
-            "type": 2,
-            "listItem": [
-              {
-                "type": 3,
-                "mapKey": [
-                  {
-                    "type": 1,
-                    "string": "projectId"
-                  },
-                  {
-                    "type": 1,
-                    "string": "datasetId"
-                  },
-                  {
-                    "type": 1,
-                    "string": "tableId"
-                  },
-                  {
-                    "type": 1,
-                    "string": "operation"
-                  }
-                ],
-                "mapValue": [
-                  {
-                    "type": 1,
-                    "string": "*"
-                  },
-                  {
-                    "type": 1,
-                    "string": "*"
-                  },
-                  {
-                    "type": 1,
-                    "string": "*"
-                  },
-                  {
-                    "type": 1,
-                    "string": "write"
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      ]
-    },
-    "clientAnnotations": {
-      "isEditedByUser": true
-    },
-    "isRequired": true
   }
 ]
 
 
 ___TESTS___
 
-scenarios:
-- name: Should log to console, if the 'Always log to console' option is selected
-  code: "mockData.logType = 'always';\n\nconst expectedDebugMode = true;\nmock('getContainerVersion',\
-    \ () => {\n  return {\n    debugMode: expectedDebugMode\n  };\n}); \n\nmock('logToConsole',\
-    \ (logData) => {\n  const parsedLogData = JSON.parse(logData);\n  requiredConsoleKeys.forEach(p\
-    \ => assertThat(parsedLogData[p]).isDefined());\n});\n\nrunCode(mockData);\n\n\
-    assertApi('logToConsole').wasCalled();\nassertApi('gtmOnSuccess').wasCalled();\n\
-    assertApi('gtmOnFailure').wasNotCalled();\n"
-- name: Should log to console, if the 'Log during debug and preview' option is selected
-    AND is on preview mode
-  code: |-
-    mockData.logType = 'debug';
-
-    const expectedDebugMode = true;
-    mock('getContainerVersion', () => {
-      return {
-        debugMode: expectedDebugMode
-      };
-    });
-
-    mock('logToConsole', (logData) => {
-      const parsedLogData = JSON.parse(logData);
-      requiredConsoleKeys.forEach(p => assertThat(parsedLogData[p]).isDefined());
-    });
-
-    runCode(mockData);
-
-    assertApi('logToConsole').wasCalled();
-    assertApi('gtmOnSuccess').wasCalled();
-    assertApi('gtmOnFailure').wasNotCalled();
-- name: Should NOT log to console, if the 'Log during debug and preview' option is
-    selected AND is NOT on preview mode
-  code: |-
-    mockData.logType = 'debug';
-
-    const expectedDebugMode = false;
-    mock('getContainerVersion', () => {
-      return {
-        debugMode: expectedDebugMode
-      };
-    });
-
-    runCode(mockData);
-
-    assertApi('logToConsole').wasNotCalled();
-    assertApi('gtmOnSuccess').wasCalled();
-    assertApi('gtmOnFailure').wasNotCalled();
-- name: Should NOT log to console, if the 'Do not log' option is selected
-  code: |-
-    mockData.logType = 'no';
-
-    runCode(mockData);
-
-    assertApi('logToConsole').wasNotCalled();
-    assertApi('gtmOnSuccess').wasCalled();
-    assertApi('gtmOnFailure').wasNotCalled();
-- name: Should log to BQ, if the 'Log to BigQuery' option is selected
-  code: "mockData.bigQueryLogType = 'always';\n\n// assertApi doesn't work for 'BigQuery.insert()'.\n\
-    // Ref: https://gtm-gear.com/posts/gtm-templates-testing/\nmockObject('BigQuery',\
-    \ {\n  insert: (connectionInfo, rows, options) => { \n    assertThat(connectionInfo).isDefined();\n\
-    \    assertThat(rows).isArray();\n    assertThat(rows).hasLength(1);\n    requiredBqKeys.forEach(p\
-    \ => assertThat(rows[0][p]).isDefined());\n    assertThat(options).isEqualTo(expectedBqOptions);\n\
-    \    return Promise.create((resolve, reject) => {\n      resolve();\n    });\n\
-    \  }\n});\n\nrunCode(mockData);\n\nassertApi('gtmOnSuccess').wasCalled();\nassertApi('gtmOnFailure').wasNotCalled();"
-- name: Should NOT log to BQ, if the 'Do not log to BigQuery' option is selected
-  code: "mockData.bigQueryLogType = 'no';\n\n// assertApi doesn't work for 'BigQuery.insert()'.\n\
-    // Ref: https://gtm-gear.com/posts/gtm-templates-testing/\nmockObject('BigQuery',\
-    \ {\n  insert: (connectionInfo, rows, options) => { \n    fail('BigQuery.insert\
-    \ should not have been called.');\n    return Promise.create((resolve, reject)\
-    \ => {\n      resolve();\n    });\n  }\n});\n\nrunCode(mockData);\n\nassertApi('gtmOnSuccess').wasCalled();\n\
-    assertApi('gtmOnFailure').wasNotCalled();"
+scenarios: []
 setup: "const JSON = require('JSON');\nconst Promise = require('Promise');\n\nconst\
   \ expectedBigQuerySettings = {\n  logBigQueryProjectId: 'logBigQueryProjectId',\n\
   \  logBigQueryDatasetId: 'logBigQueryDatasetId',\n  logBigQueryTableId: 'logBigQueryTableId'\n\
@@ -2171,6 +1881,9 @@ setup: "const JSON = require('JSON');\nconst Promise = require('Promise');\n\nco
 
 
 ___NOTES___
+
+2026-06-29 Change Notes:
+ - Logging removal.
 
 Created on 10/11/2020, 18:14:02
 
