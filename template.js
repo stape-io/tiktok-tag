@@ -216,6 +216,7 @@ function addPropertiesData(eventData, mappedData) {
     if (eventData.description) mappedData.properties.description = eventData.description;
     if (eventData.order_id) mappedData.properties.order_id = eventData.order_id;
     if (eventData.shop_id) mappedData.properties.shop_id = eventData.shop_id;
+    if (eventData.customer_type) mappedData.properties.customer_type = eventData.customer_type;
 
     let currencyFromItems;
     let valueFromItems = 0;
