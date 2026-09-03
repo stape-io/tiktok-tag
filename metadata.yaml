@@ -1,6 +1,8 @@
 homepage: 'https://stape.io/'
 documentation: 'https://github.com/stape-io/tiktok-tag'
 versions:
+  - sha: 6b4930488b19c03c508f05ac8124e776f5892d02
+    changeNotes: Add Customer Type to Automap Custom Data mappings.
   - sha: c6d9b201023f4fbae3044915d75d2ef4dbbb76c9
     changeNotes: Logging removal. Added automapping toggles.
   - sha: 1e962b8a71ed26f73b2dae43bdf0c67c8bf30231

@@ -708,7 +708,7 @@ ___TEMPLATE_PARAMETERS___
         "name": "autoMapCustomData",
         "checkboxText": "Automap Custom Data",
         "simpleValueType": true,
-        "help": "If enabled, the tag will attempt to automatically map parameters from your event data.\n\u003cbr/\u003e\u003cbr/\u003e\nAny value you manually enter in the table below will always override the auto-mapped value.\n\u003cbr/\u003e\u003cbr/\u003e\nDefault mappings:\n\u003cul\u003e\n\u003cli\u003e\u003cb\u003eValue:\u003c/b\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ci\u003eeventData.value\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003ci\u003eeventData[\u0027x-ga-mp1-ev\u0027]\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003ci\u003eeventData[\u0027x-ga-mp1-tr\u0027]\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003ci\u003eSum of Price * Quantity from eventData.items[] or eventData.ecommerce.items[]\u003c/i\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eCurrency:\u003c/b\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ci\u003eeventData.currency\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003ci\u003eCurrency from eventData.items[] or eventData.ecommerce.items[]\u003c/i\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eContents:\u003c/b\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ci\u003eeventData.contents\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003ci\u003eMapped from eventData.items[] or eventData.ecommerce.items[]\u003c/i\u003e (each item maps: \u003ci\u003eitem_id / id → content_id\u003c/i\u003e, \u003ci\u003econtent_name / item_name → content_name\u003c/i\u003e, \u003ci\u003econtent_category / item_category → content_category\u003c/i\u003e, \u003ci\u003ebrand / item_brand → brand\u003c/i\u003e, \u003ci\u003equantity\u003c/i\u003e, \u003ci\u003eprice\u003c/i\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eContent Type:\u003c/b\u003e \u003ci\u003eeventData.content_type\u003c/i\u003e, or \u003ci\u003eproduct\u003c/i\u003e when items are present\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eQuery:\u003c/b\u003e \u003ci\u003eeventData.query\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eSearch String:\u003c/b\u003e \u003ci\u003eeventData.search_term\u003c/i\u003e, \u003ci\u003eeventData.search_string\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eDescription:\u003c/b\u003e \u003ci\u003eeventData.description\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eOrder ID:\u003c/b\u003e \u003ci\u003eeventData.order_id\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eShop ID:\u003c/b\u003e \u003ci\u003eeventData.shop_id\u003c/i\u003e\u003c/li\u003e\n\u003c/ul\u003e",
+        "help": "If enabled, the tag will attempt to automatically map parameters from your event data.\n\u003cbr/\u003e\u003cbr/\u003e\nAny value you manually enter in the table below will always override the auto-mapped value.\n\u003cbr/\u003e\u003cbr/\u003e\nDefault mappings:\n\u003cul\u003e\n\u003cli\u003e\u003cb\u003eValue:\u003c/b\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ci\u003eeventData.value\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003ci\u003eeventData[\u0027x-ga-mp1-ev\u0027]\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003ci\u003eeventData[\u0027x-ga-mp1-tr\u0027]\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003ci\u003eSum of Price * Quantity from eventData.items[] or eventData.ecommerce.items[]\u003c/i\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eCurrency:\u003c/b\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ci\u003eeventData.currency\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003ci\u003eCurrency from eventData.items[] or eventData.ecommerce.items[]\u003c/i\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eContents:\u003c/b\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ci\u003eeventData.contents\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003ci\u003eMapped from eventData.items[] or eventData.ecommerce.items[]\u003c/i\u003e (each item maps: \u003ci\u003eitem_id / id → content_id\u003c/i\u003e, \u003ci\u003econtent_name / item_name → content_name\u003c/i\u003e, \u003ci\u003econtent_category / item_category → content_category\u003c/i\u003e, \u003ci\u003ebrand / item_brand → brand\u003c/i\u003e, \u003ci\u003equantity\u003c/i\u003e, \u003ci\u003eprice\u003c/i\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eContent Type:\u003c/b\u003e \u003ci\u003eeventData.content_type\u003c/i\u003e, or \u003ci\u003eproduct\u003c/i\u003e when items are present\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eQuery:\u003c/b\u003e \u003ci\u003eeventData.query\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eSearch String:\u003c/b\u003e \u003ci\u003eeventData.search_term\u003c/i\u003e, \u003ci\u003eeventData.search_string\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eDescription:\u003c/b\u003e \u003ci\u003eeventData.description\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eOrder ID:\u003c/b\u003e \u003ci\u003eeventData.order_id\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eShop ID:\u003c/b\u003e \u003ci\u003eeventData.shop_id\u003c/i\u003e\u003c/li\u003e\n\u003cli\u003e\u003cb\u003eCustomer Type:\u003c/b\u003e \u003ci\u003eeventData.customer_type\u003c/i\u003e (supported values: \u003ci\u003enew\u003c/i\u003e, \u003ci\u003ereturning\u003c/i\u003e)\u003c/li\u003e\n\u003c/ul\u003e",
         "defaultValue": true
       },
       {
@@ -769,6 +769,10 @@ ___TEMPLATE_PARAMETERS___
               {
                 "value": "shop_id",
                 "displayValue": "Shop ID"
+              },
+              {
+                "value": "customer_type",
+                "displayValue": "Customer Type"
               }
             ]
           },
@@ -1071,6 +1075,7 @@ function addPropertiesData(eventData, mappedData) {
     if (eventData.description) mappedData.properties.description = eventData.description;
     if (eventData.order_id) mappedData.properties.order_id = eventData.order_id;
     if (eventData.shop_id) mappedData.properties.shop_id = eventData.shop_id;
+    if (eventData.customer_type) mappedData.properties.customer_type = eventData.customer_type;
 
     let currencyFromItems;
     let valueFromItems = 0;
@@ -1882,8 +1887,10 @@ setup: "const JSON = require('JSON');\nconst Promise = require('Promise');\n\nco
 
 ___NOTES___
 
+2026-09-03 - Change Notes:
+  - Add Customer Type to Automap Custom Data mappings, supporting "new"/"returning" values from eventData.customer_type
+
 2026-06-29 Change Notes:
  - Logging removal.
 
 Created on 10/11/2020, 18:14:02
-
