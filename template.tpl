@@ -1887,6 +1887,9 @@ setup: "const JSON = require('JSON');\nconst Promise = require('Promise');\n\nco
 
 ___NOTES___
 
+2026-09-03 - Change Notes:
+  - Add Customer Type to Automap Custom Data mappings, supporting "new"/"returning" values from eventData.customer_type
+
 2026-06-29 Change Notes:
  - Logging removal.
 
