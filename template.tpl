@@ -382,11 +382,22 @@ ___TEMPLATE_PARAMETERS___
         "help": "The time when the event occurred, indicated as a Unix timestamp measured in seconds, and in UTC+0 time zone."
       },
       {
-        "type": "CHECKBOX",
+        "type": "SELECT",
         "name": "limitedDataUse",
-        "checkboxText": "Limited Data Use",
+        "displayName": "Limited Data Use",
+        "macrosInSelect": true,
+        "selectItems": [
+          {
+            "value": false,
+            "displayValue": "false"
+          },
+          {
+            "value": true,
+            "displayValue": "true"
+          }
+        ],
         "simpleValueType": true,
-        "help": "To learn more about the Limited Data Use feature, refer to \u003ca href\u003d\"https://ads.tiktok.com/marketing_api/docs?id\u003d1771101204435970\" target\u003d\"_blank\"\u003eEvents API 2.0 - Limited Data Use\u003c/a\u003e.",
+        "help": "Set to \u003ci\u003etrue\u003c/i\u003e to send the event with Limited Data Use. You can also select a variable that returns \u003ci\u003etrue\u003c/i\u003e or \u003ci\u003efalse\u003c/i\u003e, for example the \u003ci\u003eTikTok - limited_data_use\u003c/i\u003e return type of the \u003ca href\u003d\"https://github.com/stape-io/us-privacy-signals-variable\" target\u003d\"_blank\"\u003eUS Privacy Signals variable\u003c/a\u003e.\u003cbr/\u003e\u003cbr/\u003eTo learn more about the Limited Data Use feature, refer to \u003ca href\u003d\"https://ads.tiktok.com/marketing_api/docs?id\u003d1771101204435970\" target\u003d\"_blank\"\u003eEvents API 2.0 - Limited Data Use\u003c/a\u003e.",
         "defaultValue": false
       }
     ]
@@ -978,7 +989,7 @@ function mapEvent(data, eventData, ttclid, ttp) {
   }
 
   if (eventSource === 'web' || eventSource === 'app') {
-    mappedData.limited_data_use = data.limitedDataUse || false;
+    mappedData.limited_data_use = isUIFieldTrue(data.limitedDataUse);
   }
 
   if (eventSource === 'crm') {
@@ -1527,6 +1538,10 @@ function isValidValue(value) {
   return valueType !== 'null' && valueType !== 'undefined' && value !== '' && value === value;
 }
 
+function isUIFieldTrue(field) {
+  return [true, 'true'].indexOf(field) !== -1;
+}
+
 function isConsentGivenOrNotRequired(data, eventData) {
   if (data.adStorageConsent !== 'required') return true;
   if (eventData.consent_state) return !!eventData.consent_state.ad_storage;
@@ -1886,6 +1901,10 @@ setup: "const JSON = require('JSON');\nconst Promise = require('Promise');\n\nco
 
 
 ___NOTES___
+
+2026-11-25 - Change Notes:
+  - Change Limited Data Use from a checkbox to a dropdown that accepts a variable, so it can be set per event, for example from the US Privacy Signals variable; existing true/false values keep working
+  - Treat only true or 'true' as enabled, so a variable returning the string 'false' does not turn Limited Data Use on
 
 2026-09-03 - Change Notes:
   - Add Customer Type to Automap Custom Data mappings, supporting "new"/"returning" values from eventData.customer_type
