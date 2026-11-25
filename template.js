@@ -119,7 +119,7 @@ function mapEvent(data, eventData, ttclid, ttp) {
   }
 
   if (eventSource === 'web' || eventSource === 'app') {
-    mappedData.limited_data_use = data.limitedDataUse || false;
+    mappedData.limited_data_use = isUIFieldTrue(data.limitedDataUse);
   }
 
   if (eventSource === 'crm') {
@@ -666,6 +666,10 @@ function isHashed(value) {
 function isValidValue(value) {
   const valueType = getType(value);
   return valueType !== 'null' && valueType !== 'undefined' && value !== '' && value === value;
+}
+
+function isUIFieldTrue(field) {
+  return [true, 'true'].indexOf(field) !== -1;
 }
 
 function isConsentGivenOrNotRequired(data, eventData) {
